@@ -1,0 +1,337 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableView class="oracle.dbtools.crest.model.design.relational.TableView" directorySegmentName="seg_0" id="88228751-703B-CFEB-8252-FA337F163B9B" name="CVN_VIEW_PROD_PUBLICACIONES">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>UJI_CVN</sourceObjSchema>
+<sourceObjName>CVN_VIEW_PROD_PUBLICACIONES</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<userDefined>true</userDefined>
+<userDefinedSQL>CREATE OR REPLACE VIEW CVN_VIEW_PROD_PUBLICACIONES&lt;br/&gt;AS &lt;br/&gt;SELECT   p.id,&lt;br/&gt;            p.titulo AS titulo,&lt;br/&gt;            p.iin_id AS tipo,&lt;br/&gt;            --artÃ­culo, libro o capÃ­tulo de libro.&lt;br/&gt;            p.pri_pca_id AS caracter,           -- 20: docente !20: cientÃ­fico&lt;br/&gt;            p.iin_id AS soporte,                           --artÃ­culo-&gt;revista&lt;br/&gt;            NVL (r.nombre_ext, p.nombre) AS nombre_pub,&lt;br/&gt;            p.numero AS volumen_pub,&lt;br/&gt;            p.paginas AS paginas_pub,&lt;br/&gt;            p.ano AS fecha_pub,&lt;br/&gt;            p.texto AS web_pub,&lt;br/&gt;            p.pre_issn AS isbn_pub,&lt;br/&gt;            -- si exitieran mÃ¡s, serializarlos en este campo&lt;br/&gt;            &apos;&apos; AS editorial_pub,&lt;br/&gt;            &apos;&apos; AS pais_pub,&lt;br/&gt;            &apos;&apos; AS region_pub,&lt;br/&gt;            &apos;&apos; AS ciudad_pub,&lt;br/&gt;            &apos;&apos; AS dep_legal_pub,&lt;br/&gt;            &apos;&apos; AS coleccion,&lt;br/&gt;            NULL AS num_rese,&lt;br/&gt;            &apos;&apos; AS traducciones,&lt;br/&gt;            --serializar los cÃ³digos de idioma si se aÃ±aden algÃºn dÃ­a&lt;br/&gt;            &apos;&apos; AS denominacion,&lt;br/&gt;            &apos;&apos; AS destinatarios,&lt;br/&gt;            NULL AS fecha_creacion,&lt;br/&gt;            &apos;&apos; AS justificacion&lt;br/&gt;     FROM      grs_oct.oct_produc_cientificas p&lt;br/&gt;            LEFT JOIN&lt;br/&gt;               grs_oct.oct_pci_revistas r&lt;br/&gt;            --debe ser left porque hay publicaciones sin revista.&lt;br/&gt;            ON p.pre_issn = r.issn&lt;br/&gt;    --  join oct_pci_participaciones ppr&lt;br/&gt;    --  on p.ppi_ppr_id=ppr.id&lt;br/&gt;    --  join oct_pci_caracteres pca&lt;br/&gt;    --  on p.pri_pca_id=pca.id&lt;br/&gt;    WHERE   p.justificado = &apos;S&apos; AND p.borrado = &apos;N&apos; AND p.iin_id = 32 --artÃ­culos (32 - &apos;01&apos; - &apos;020&apos;).&lt;br/&gt;   UNION ALL&lt;br/&gt;   SELECT   p.id,&lt;br/&gt;            p.titulo AS titulo,&lt;br/&gt;            p.iin_id AS tipo,           --artÃ­culo, libro o capÃ­tulo de libro.&lt;br/&gt;            p.pri_pca_id AS caracter,&lt;br/&gt;            -- 20: docente !20: cientÃ­fico  *** usar tambiÃ©n para aÃ±adir la cadena &apos;(tesis doctoral)&apos; al final del tÃ­tulo si pca=7&lt;br/&gt;            p.iin_id AS soporte,                                --libro-&gt;libro&lt;br/&gt;            NULL AS nombre_pub,&lt;br/&gt;            NULL AS volumen_pub,&lt;br/&gt;            NULL AS paginas_pub,&lt;br/&gt;            p.ano AS fecha_pub,&lt;br/&gt;            p.texto AS web_pub,&lt;br/&gt;            NVL (p.isbn, p.pre_issn) AS isbn_pub,&lt;br/&gt;            -- si exitieran mÃ¡s, serializarlos en este campo  -- el nvl es porque si es editor de monografÃ­a de revista, en vez de isbn estarÃ¡ el issn, aunque se considera editor de libro en los indicadores.&lt;br/&gt;            p.editorial AS editorial_pub,&lt;br/&gt;            REGEXP_REPLACE (&lt;br/&gt;               REGEXP_SUBSTR (p.lugar, &apos;\(\s*([0-9]{3})\s*\)\s*$&apos;),&lt;br/&gt;               &apos;^.*\(\s*([0-9]{3})\s*\)\s*$&apos;,&lt;br/&gt;               &apos;\1&apos;&lt;br/&gt;            )&lt;br/&gt;               AS pais_pub,&lt;br/&gt;            &apos;&apos; AS region_pub,&lt;br/&gt;            p.lugar || &apos;:&apos; AS ciudad_pub,&lt;br/&gt;            NVL (p.otro, p.texto) AS dep_legal_pub,&lt;br/&gt;            --&apos;otro&apos; es el correcto. en texto estÃ¡ en algunos y debe corregirse.&lt;br/&gt;            &apos;&apos; AS coleccion,&lt;br/&gt;            NULL AS num_rese,&lt;br/&gt;            &apos;&apos; AS traducciones,&lt;br/&gt;            --serializar los cÃ³digos de idioma si se aÃ±aden algÃºn dÃ­a&lt;br/&gt;            &apos;&apos; AS denominacion,&lt;br/&gt;            &apos;&apos; AS destinatarios,&lt;br/&gt;            NULL AS fecha_creacion,&lt;br/&gt;            &apos;&apos; AS justificacion&lt;br/&gt;     FROM   grs_oct.oct_produc_cientificas p&lt;br/&gt;    WHERE       p.justificado = &apos;S&apos;&lt;br/&gt;            AND p.borrado = &apos;N&apos;&lt;br/&gt;            AND p.iin_id = 33                     --libros (33 - &apos;02&apos; - &apos;032&apos;)&lt;br/&gt;            AND p.ppi_ppr_id IN (1, 2) -- sÃ³lo aquellos libros en que es autor o editor&lt;br/&gt;   UNION ALL&lt;br/&gt;   SELECT   p.id,&lt;br/&gt;            p.nombre AS titulo,&lt;br/&gt;            p.iin_id AS tipo,           --artÃ­culo, libro o capÃ­tulo de libro.&lt;br/&gt;            p.pri_pca_id AS caracter,           -- 20: docente !20: cientÃ­fico&lt;br/&gt;            p.iin_id AS soporte,&lt;br/&gt;            --capitulo-&gt; Se resuelve en el cÃ³digo. bÃ¡sicamente porque en las prod docentes sÃ­ hay soporte capÃ­tulo&lt;br/&gt;            p.titulo AS nombre_pub,&lt;br/&gt;            NULL AS volumen_pub,&lt;br/&gt;            NULL AS paginas_pub,&lt;br/&gt;            p.ano AS fecha_pub,&lt;br/&gt;            p.texto AS web_pub,&lt;br/&gt;            p.isbn AS isbn_pub, -- si exitieran mÃ¡s, serializarlos en este campo&lt;br/&gt;            p.editorial AS editorial_pub,&lt;br/&gt;            REGEXP_REPLACE (&lt;br/&gt;               REGEXP_SUBSTR (p.lugar, &apos;\(\s*([0-9]{3})\s*\)\s*$&apos;),&lt;br/&gt;               &apos;^.*\(\s*([0-9]{3})\s*\)\s*$&apos;,&lt;br/&gt;               &apos;\1&apos;&lt;br/&gt;            )&lt;br/&gt;               AS pais_pub,&lt;br/&gt;            &apos;&apos; AS region_pub,&lt;br/&gt;            p.lugar || &apos;:&apos; AS ciudad_pub,&lt;br/&gt;            NVL (p.otro, p.texto) AS dep_legal_pub,&lt;br/&gt;            --&apos;otro&apos; es el correcto. en texto estÃ¡ en algunos y debe corregirse.&lt;br/&gt;            &apos;&apos; AS coleccion,&lt;br/&gt;            NULL AS num_rese,&lt;br/&gt;            &apos;&apos; AS traducciones,&lt;br/&gt;            --serializar los cÃ³digos de idioma si se aÃ±aden algÃºn dÃ­a&lt;br/&gt;            &apos;&apos; AS denominacion,&lt;br/&gt;            &apos;&apos; AS destinatarios,&lt;br/&gt;            NULL AS fecha_creacion,&lt;br/&gt;            &apos;&apos; AS justificacion&lt;br/&gt;     FROM   grs_oct.oct_produc_cientificas p&lt;br/&gt;    WHERE       p.justificado = &apos;S&apos;&lt;br/&gt;            AND p.borrado = &apos;N&apos;&lt;br/&gt;            AND p.iin_id = 34        --capÃ­tulos de libro (34 - &apos;03&apos; - &apos;004&apos;).&lt;br/&gt;            AND p.ppi_ppr_id IN (1)    -- sÃ³lo aquellos libros en que es autor&lt;br/&gt;   </userDefinedSQL>
+<schemaObject>7C933943-7AB0-84C2-BE06-D7313F6E5071</schemaObject>
+<viewElements>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="ID" id="99821A1B-8728-650A-1385-536FBEF0E81C">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_PUBLICACIONES</sourceObjSchema>
+<sourceObjName>ID</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>ID</alias>
+<dataType>NUMBER (8)</dataType>
+<headerAlias>ID</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="TITULO" id="4DD7F8D3-F7EE-B912-B326-4046A6270959">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_PUBLICACIONES</sourceObjSchema>
+<sourceObjName>TITULO</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>TITULO</alias>
+<dataType>VARCHAR2 (4000)</dataType>
+<headerAlias>TITULO</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="TIPO" id="9DE343FD-9F31-0FAC-405D-820DF4CAB402">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_PUBLICACIONES</sourceObjSchema>
+<sourceObjName>TIPO</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>TIPO</alias>
+<dataType>NUMBER (8)</dataType>
+<headerAlias>TIPO</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="CARACTER" id="1BA391D3-7C15-3002-6625-BB5F334BEA58">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_PUBLICACIONES</sourceObjSchema>
+<sourceObjName>CARACTER</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>CARACTER</alias>
+<dataType>NUMBER (8)</dataType>
+<headerAlias>CARACTER</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="SOPORTE" id="22D60157-8B8C-B213-840B-F88BBA265237">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_PUBLICACIONES</sourceObjSchema>
+<sourceObjName>SOPORTE</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>SOPORTE</alias>
+<dataType>NUMBER (8)</dataType>
+<headerAlias>SOPORTE</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="NOMBRE_PUB" id="DFFA419F-81C2-C50E-77A7-F18A7703E889">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_PUBLICACIONES</sourceObjSchema>
+<sourceObjName>NOMBRE_PUB</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>NOMBRE_PUB</alias>
+<dataType>VARCHAR2 (4000)</dataType>
+<headerAlias>NOMBRE_PUB</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="VOLUMEN_PUB" id="B279DE14-24D9-39EE-31BD-FB504F3A4E36">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_PUBLICACIONES</sourceObjSchema>
+<sourceObjName>VOLUMEN_PUB</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>VOLUMEN_PUB</alias>
+<dataType>VARCHAR2 (35)</dataType>
+<headerAlias>VOLUMEN_PUB</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="PAGINAS_PUB" id="53BD3A48-143F-4FCC-2145-B5350AE3A3A0">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_PUBLICACIONES</sourceObjSchema>
+<sourceObjName>PAGINAS_PUB</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>PAGINAS_PUB</alias>
+<dataType>VARCHAR2 (25)</dataType>
+<headerAlias>PAGINAS_PUB</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="FECHA_PUB" id="4B576CE5-F135-47D0-6BA3-09BDDEC346E7">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_PUBLICACIONES</sourceObjSchema>
+<sourceObjName>FECHA_PUB</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>FECHA_PUB</alias>
+<dataType>NUMBER (4)</dataType>
+<headerAlias>FECHA_PUB</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="WEB_PUB" id="53E76064-666E-9BE5-62F1-DA1C93972C34">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_PUBLICACIONES</sourceObjSchema>
+<sourceObjName>WEB_PUB</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>WEB_PUB</alias>
+<dataType>VARCHAR2 (4000)</dataType>
+<headerAlias>WEB_PUB</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="ISBN_PUB" id="CD50C5B1-2FC8-30D0-A52A-F921756B25C2">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_PUBLICACIONES</sourceObjSchema>
+<sourceObjName>ISBN_PUB</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>ISBN_PUB</alias>
+<dataType>VARCHAR2 (25)</dataType>
+<headerAlias>ISBN_PUB</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="EDITORIAL_PUB" id="5D1200A5-08A3-230C-D6F9-612ABEEDB828">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_PUBLICACIONES</sourceObjSchema>
+<sourceObjName>EDITORIAL_PUB</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>EDITORIAL_PUB</alias>
+<dataType>VARCHAR2 (160)</dataType>
+<headerAlias>EDITORIAL_PUB</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="PAIS_PUB" id="87EE16BF-3F66-177F-6FCC-151A9C3DCA8C">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_PUBLICACIONES</sourceObjSchema>
+<sourceObjName>PAIS_PUB</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>PAIS_PUB</alias>
+<dataType>VARCHAR2 (4000)</dataType>
+<headerAlias>PAIS_PUB</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="REGION_PUB" id="6B73480A-61A0-32EB-1ACE-256A8F6ED3DF">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_PUBLICACIONES</sourceObjSchema>
+<sourceObjName>REGION_PUB</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>REGION_PUB</alias>
+<dataType>CHAR</dataType>
+<headerAlias>REGION_PUB</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="CIUDAD_PUB" id="81F7C3B8-C590-68B4-9B1B-99403F6BA601">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_PUBLICACIONES</sourceObjSchema>
+<sourceObjName>CIUDAD_PUB</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>CIUDAD_PUB</alias>
+<dataType>VARCHAR2 (401)</dataType>
+<headerAlias>CIUDAD_PUB</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="DEP_LEGAL_PUB" id="04FCC563-4A39-047A-4726-E85548FAEF96">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_PUBLICACIONES</sourceObjSchema>
+<sourceObjName>DEP_LEGAL_PUB</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>DEP_LEGAL_PUB</alias>
+<dataType>VARCHAR2 (4000)</dataType>
+<headerAlias>DEP_LEGAL_PUB</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="COLECCION" id="A215282E-26E2-2B51-85AD-02B0E2EFB921">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_PUBLICACIONES</sourceObjSchema>
+<sourceObjName>COLECCION</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>COLECCION</alias>
+<dataType>CHAR</dataType>
+<headerAlias>COLECCION</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="NUM_RESE" id="34C3B0D2-56C1-1C68-7BFD-05CB6FD68C31">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_PUBLICACIONES</sourceObjSchema>
+<sourceObjName>NUM_RESE</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>NUM_RESE</alias>
+<dataType>VARCHAR2</dataType>
+<headerAlias>NUM_RESE</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="TRADUCCIONES" id="455FF344-8953-A6C9-DC6F-1259E7DAFEC6">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_PUBLICACIONES</sourceObjSchema>
+<sourceObjName>TRADUCCIONES</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>TRADUCCIONES</alias>
+<dataType>CHAR</dataType>
+<headerAlias>TRADUCCIONES</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="DENOMINACION" id="C01DABBB-2C2F-2B49-5750-7C107C776C1A">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_PUBLICACIONES</sourceObjSchema>
+<sourceObjName>DENOMINACION</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>DENOMINACION</alias>
+<dataType>CHAR</dataType>
+<headerAlias>DENOMINACION</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="DESTINATARIOS" id="39F6FF1B-9890-E182-98EB-2F8ED52446FD">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_PUBLICACIONES</sourceObjSchema>
+<sourceObjName>DESTINATARIOS</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>DESTINATARIOS</alias>
+<dataType>CHAR</dataType>
+<headerAlias>DESTINATARIOS</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="FECHA_CREACION" id="462D633E-AFA7-20F7-7EC2-F35F77C79A9C">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_PUBLICACIONES</sourceObjSchema>
+<sourceObjName>FECHA_CREACION</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>FECHA_CREACION</alias>
+<dataType>VARCHAR2</dataType>
+<headerAlias>FECHA_CREACION</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="JUSTIFICACION" id="0310E8CA-19C7-FE22-F470-336645439E5A">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_PUBLICACIONES</sourceObjSchema>
+<sourceObjName>JUSTIFICACION</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>JUSTIFICACION</alias>
+<dataType>CHAR</dataType>
+<headerAlias>JUSTIFICACION</headerAlias>
+<reference>false</reference>
+</viewElement>
+</viewElements>
+</TableView>

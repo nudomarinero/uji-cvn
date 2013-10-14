@@ -1,0 +1,86 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev11g class="oracle.dbtools.crest.model.design.storage.oracle.v11g.TableProxyOraclev11g" name="CVN_PLANTILLAS" directorySegmentName="seg_0" id="BDDA0BD2-1201-0FCC-F4AD-509FAE66ADDE">
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:31 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<segment>C12F420F-9DA9-38EA-E577-61E14B091015</segment>
+<tableSpace>FB901913-3E78-696A-C2D1-0529994CA9E7</tableSpace>
+<columnProxies>
+<ColumnProxy class="oracle.dbtools.crest.model.design.storage.oracle.v11g.ColumnProxyOraclev11g" name="NOMBRE" id="105598AF-24FC-F32B-2D8A-0730AE4B42ED">
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:31 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy class="oracle.dbtools.crest.model.design.storage.oracle.v11g.ColumnProxyOraclev11g" name="ID" id="188ABFE9-EB41-878A-0663-C53C8CA00AF9">
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:31 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy class="oracle.dbtools.crest.model.design.storage.oracle.v11g.ColumnProxyOraclev11g" name="FECHA_ULTIMA_ACTUALIZACION" id="450D41E9-CFC8-DFA1-8FA0-DF47BB9160DB">
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:31 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy class="oracle.dbtools.crest.model.design.storage.oracle.v11g.ColumnProxyOraclev11g" name="PER_ID" id="486CDD6C-6612-5F29-8F5D-063B55FB7534">
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:31 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy class="oracle.dbtools.crest.model.design.storage.oracle.v11g.ColumnProxyOraclev11g" name="PLANTILLA" id="AA263E7D-B256-D23E-DEFF-4ECDB9A950B9">
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:31 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy class="oracle.dbtools.crest.model.design.storage.oracle.v11g.ColumnProxyOraclev11g" name="IDIOMA" id="E9C0FC80-DF5A-0D1A-5351-24E980BFEE5E">
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:31 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<indexProxies>
+<IndexProxy class="oracle.dbtools.crest.model.design.storage.oracle.v10g.IndexProxyOraclev10g" name="CVN_PLANTILLAS_PK" id="F79FD08D-18E4-D4CF-8004-CBE3BFA3A71F">
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:32 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<segment>A7E17103-1A35-3E3A-90B9-230647223E63</segment>
+<tableSpace>FB901913-3E78-696A-C2D1-0529994CA9E7</tableSpace>
+</IndexProxy>
+</indexProxies>
+<lobStorages>
+<LobStorage class="oracle.dbtools.crest.model.design.storage.oracle.v11g.LobStorageOraclev11g" name="SYS_LOB0001056345C00005$$" id="04B01F73-56C1-0466-C77E-1329DCFA5D07">
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:33 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<cache>NOCACHE</cache>
+<chunk>8192</chunk>
+<column>PLANTILLA</column>
+<logging>YES</logging>
+<tableSpace>FB901913-3E78-696A-C2D1-0529994CA9E7</tableSpace>
+</LobStorage>
+</lobStorages>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="CVN_PLANTILLAS_PK" id="3E0D444F-3691-EEB1-3E36-80D9332D0E55">
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:33 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<segment>A7E17103-1A35-3E3A-90B9-230647223E63</segment>
+<tableSpace>FB901913-3E78-696A-C2D1-0529994CA9E7</tableSpace>
+<existingIndex>F79FD08D-18E4-D4CF-8004-CBE3BFA3A71F</existingIndex>
+<indexSegment>A7E17103-1A35-3E3A-90B9-230647223E63</indexSegment>
+<indexSort>SORTED</indexSort>
+<usingIndex>BY INDEX NAME</usingIndex>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev11g>

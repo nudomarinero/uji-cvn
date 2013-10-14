@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableViewProxyOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TableViewProxyOraclev10g" name="CVN_VIEW_GRUPOS_INVESTIGACION" directorySegmentName="seg_0" id="CD76C6C4-D0C9-35E9-1813-8861CB199583">
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<readOnly>YES</readOnly>
+</TableViewProxyOraclev10g>

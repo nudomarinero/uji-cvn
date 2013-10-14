@@ -1,0 +1,99 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableView class="oracle.dbtools.crest.model.design.relational.TableView" directorySegmentName="seg_0" id="2256EAF0-A5EE-ACDA-F5A7-1CAD885174BF" name="CVN_VIEW_PER_PART_PROD_CONG">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>UJI_CVN</sourceObjSchema>
+<sourceObjName>CVN_VIEW_PER_PART_PROD_CONG</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<userDefined>true</userDefined>
+<userDefinedSQL>CREATE OR REPLACE VIEW CVN_VIEW_PER_PART_PROD_CONG&lt;br/&gt;AS &lt;br/&gt;SELECT   i.per_id AS persona,&lt;br/&gt;            a.pci_id AS produccion,&lt;br/&gt;            &apos;730&apos; AS tipo_participacion,&lt;br/&gt;            &apos;&apos; AS tipo_participacion_str,&lt;br/&gt;            p.pri_pca_id AS caracter,&lt;br/&gt;            -- 20: docente !20: cientÃ­fico&lt;br/&gt;            a.orden AS orden&lt;br/&gt;     FROM         grs_oct.oct_produc_cientificas p&lt;br/&gt;               JOIN&lt;br/&gt;                  GRS_OCT.oct_personas_pci a&lt;br/&gt;               ON a.pci_id = p.id&lt;br/&gt;            JOIN&lt;br/&gt;               GRS_OCT.oct_investigadores i&lt;br/&gt;            ON a.inv_id = i.id&lt;br/&gt;    WHERE       p.justificado = &apos;S&apos;&lt;br/&gt;            AND p.borrado = &apos;N&apos;&lt;br/&gt;            AND p.iin_id IN (35)                                     --ponente&lt;br/&gt;            AND p.logico2 = &apos;S&apos;                                     --invitado&lt;br/&gt;            AND REGEXP_INSTR (p.titulo,&lt;br/&gt;                              &apos;\(\s*p[oÃ³Ã²]ster\s*\)\s*$&apos;,&lt;br/&gt;                              1,&lt;br/&gt;                              1,&lt;br/&gt;                              0,&lt;br/&gt;                              &apos;i&apos;) = 0&lt;br/&gt;   --Si no lleva al final la cadena &apos; (Poster)&apos; (si la lleva, es un poster)</userDefinedSQL>
+<schemaObject>7C933943-7AB0-84C2-BE06-D7313F6E5071</schemaObject>
+<viewElements>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="PERSONA" id="0293AADD-7633-7E08-9E02-B1BA40224058">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PART_PROD_CONG</sourceObjSchema>
+<sourceObjName>PERSONA</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>PERSONA</alias>
+<dataType>NUMBER (8)</dataType>
+<headerAlias>PERSONA</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="PRODUCCION" id="E4FF7A07-1018-A127-B08F-A1CEE7538172">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PART_PROD_CONG</sourceObjSchema>
+<sourceObjName>PRODUCCION</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>PRODUCCION</alias>
+<dataType>NUMBER (8)</dataType>
+<headerAlias>PRODUCCION</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="TIPO_PARTICIPACION" id="6AFBA0AB-2695-03BA-41E3-6E8EDFA36860">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PART_PROD_CONG</sourceObjSchema>
+<sourceObjName>TIPO_PARTICIPACION</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>TIPO_PARTICIPACION</alias>
+<dataType>CHAR (9)</dataType>
+<headerAlias>TIPO_PARTICIPACION</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="TIPO_PARTICIPACION_STR" id="6A7CB545-3472-D1C6-65BE-08EA2541089F">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PART_PROD_CONG</sourceObjSchema>
+<sourceObjName>TIPO_PARTICIPACION_STR</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>TIPO_PARTICIPACION_STR</alias>
+<dataType>CHAR</dataType>
+<headerAlias>TIPO_PARTICIPACION_STR</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="CARACTER" id="57A81FCC-F172-A0A8-C283-C98FAD4534A2">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PART_PROD_CONG</sourceObjSchema>
+<sourceObjName>CARACTER</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>CARACTER</alias>
+<dataType>NUMBER (8)</dataType>
+<headerAlias>CARACTER</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="ORDEN" id="69C1FA57-330D-5935-2C3D-077A05958048">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PART_PROD_CONG</sourceObjSchema>
+<sourceObjName>ORDEN</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>ORDEN</alias>
+<dataType>NUMBER (4)</dataType>
+<headerAlias>ORDEN</headerAlias>
+<reference>false</reference>
+</viewElement>
+</viewElements>
+</TableView>

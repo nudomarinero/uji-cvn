@@ -1,0 +1,225 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableView class="oracle.dbtools.crest.model.design.relational.TableView" directorySegmentName="seg_0" id="CD76C6C4-D0C9-35E9-1813-8861CB199583" name="CVN_VIEW_GRUPOS_INVESTIGACION">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>UJI_CVN</sourceObjSchema>
+<sourceObjName>CVN_VIEW_GRUPOS_INVESTIGACION</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<userDefined>true</userDefined>
+<userDefinedSQL>CREATE OR REPLACE VIEW CVN_VIEW_GRUPOS_INVESTIGACION&lt;br/&gt;AS &lt;br/&gt;SELECT   g.id,&lt;br/&gt;            g.nombre,&lt;br/&gt;            concatenate_list (&lt;br/&gt;               CURSOR (SELECT   (linea)&lt;br/&gt;                         FROM   grs_oct.oct_lineas_trabajos lt&lt;br/&gt;                        WHERE   lt.grupo_id = g.id AND lt.tabulacion = &apos;1&apos;)&lt;br/&gt;            )&lt;br/&gt;               AS objetivo,&lt;br/&gt;            g.id AS codigo_normalizado,&lt;br/&gt;            &apos;EspaÃ±a&apos; AS pais,&lt;br/&gt;            &apos;Comunidad Valenciana&apos; AS region,&lt;br/&gt;            &apos;CastellÃ³n de la Plana&apos; AS ciudad,&lt;br/&gt;            (SELECT   i.per_id&lt;br/&gt;               FROM      grs_oct.oct_investigadores i&lt;br/&gt;                      JOIN&lt;br/&gt;                         grs_oct.oct_investigadores_agrupados ig&lt;br/&gt;                      ON ig.inv_id = i.id&lt;br/&gt;              WHERE       ig.grupo_id = g.id&lt;br/&gt;                      AND ig.principal = &apos;S&apos;&lt;br/&gt;                      AND (ig.f_baja IS NULL OR ig.f_baja &gt; SYSDATE)&lt;br/&gt;                      AND ROWNUM &lt; 2)&lt;br/&gt;               AS responsable,&lt;br/&gt;            &apos;Universitat Jaume I&apos; AS nombre_entidad,&lt;br/&gt;            -- #cambiar por referencia a la vista de entidades&lt;br/&gt;            (SELECT   COUNT (&apos;*&apos;)&lt;br/&gt;               FROM   grs_oct.oct_investigadores_agrupados sig&lt;br/&gt;              WHERE   sig.grupo_id = g.id&lt;br/&gt;                      AND (sig.f_baja IS NULL OR sig.f_baja &gt; SYSDATE))&lt;br/&gt;               AS ncomponentes,&lt;br/&gt;            g.fecha_alta,&lt;br/&gt;            g.fecha_actualizacion,&lt;br/&gt;            g.activo,&lt;br/&gt;            NULL AS ntesis,&lt;br/&gt;            NULL AS npostdoc&lt;br/&gt;     FROM   grs_oct.oct_grupos g&lt;br/&gt;    WHERE   REGEXP_LIKE (g.id, &apos;^[0-9]+$&apos;)&lt;br/&gt;   --filtra los nombres de institutos, que tienen id en letras, de los nombres de grupos, que son nÃºmeros&lt;br/&gt;   </userDefinedSQL>
+<schemaObject>7C933943-7AB0-84C2-BE06-D7313F6E5071</schemaObject>
+<viewElements>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="ID" id="8F527618-2B75-9FBC-BEB2-852988073527">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_GRUPOS_INVESTIGACION</sourceObjSchema>
+<sourceObjName>ID</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>ID</alias>
+<dataType>VARCHAR2 (10)</dataType>
+<headerAlias>ID</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="NOMBRE" id="C9FCB228-F050-6868-89C1-45A246E9AD01">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_GRUPOS_INVESTIGACION</sourceObjSchema>
+<sourceObjName>NOMBRE</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>NOMBRE</alias>
+<dataType>VARCHAR2 (4000)</dataType>
+<headerAlias>NOMBRE</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="OBJETIVO" id="CE6836F8-5705-CD40-3A99-C440FC0BC3D4">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_GRUPOS_INVESTIGACION</sourceObjSchema>
+<sourceObjName>OBJETIVO</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>OBJETIVO</alias>
+<dataType>VARCHAR2 (4000)</dataType>
+<headerAlias>OBJETIVO</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="CODIGO_NORMALIZADO" id="A052F3CC-57C7-6A0B-5F05-833F07C01C0A">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_GRUPOS_INVESTIGACION</sourceObjSchema>
+<sourceObjName>CODIGO_NORMALIZADO</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>CODIGO_NORMALIZADO</alias>
+<dataType>VARCHAR2 (10)</dataType>
+<headerAlias>CODIGO_NORMALIZADO</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="PAIS" id="2BB0AD44-21E9-7B62-3517-AD8879B1C9AC">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_GRUPOS_INVESTIGACION</sourceObjSchema>
+<sourceObjName>PAIS</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>PAIS</alias>
+<dataType>CHAR (21)</dataType>
+<headerAlias>PAIS</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="REGION" id="F2D629D7-E250-E047-5E61-B0810EB1679E">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_GRUPOS_INVESTIGACION</sourceObjSchema>
+<sourceObjName>REGION</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>REGION</alias>
+<dataType>CHAR (60)</dataType>
+<headerAlias>REGION</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="CIUDAD" id="7A900EB1-E80A-59CB-EE45-DB74E3217956">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_GRUPOS_INVESTIGACION</sourceObjSchema>
+<sourceObjName>CIUDAD</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>CIUDAD</alias>
+<dataType>CHAR (66)</dataType>
+<headerAlias>CIUDAD</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="RESPONSABLE" id="144FF512-67D9-AF92-A5F9-853F2922ABA4">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_GRUPOS_INVESTIGACION</sourceObjSchema>
+<sourceObjName>RESPONSABLE</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>RESPONSABLE</alias>
+<dataType>NUMBER</dataType>
+<headerAlias>RESPONSABLE</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="NOMBRE_ENTIDAD" id="F065572F-9E35-825F-BF33-C89FF30552FA">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_GRUPOS_INVESTIGACION</sourceObjSchema>
+<sourceObjName>NOMBRE_ENTIDAD</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>NOMBRE_ENTIDAD</alias>
+<dataType>CHAR (57)</dataType>
+<headerAlias>NOMBRE_ENTIDAD</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="NCOMPONENTES" id="C724BAA0-922F-8CFF-A0E3-11323B39B28B">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_GRUPOS_INVESTIGACION</sourceObjSchema>
+<sourceObjName>NCOMPONENTES</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>NCOMPONENTES</alias>
+<dataType>NUMBER</dataType>
+<headerAlias>NCOMPONENTES</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="FECHA_ALTA" id="CD71CEA9-9FC1-BF26-CB89-C08B79E528C6">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_GRUPOS_INVESTIGACION</sourceObjSchema>
+<sourceObjName>FECHA_ALTA</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>FECHA_ALTA</alias>
+<dataType>DATE (7)</dataType>
+<headerAlias>FECHA_ALTA</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="FECHA_ACTUALIZACION" id="B7C926A4-915C-15A2-2280-3E7EDABD3D6A">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_GRUPOS_INVESTIGACION</sourceObjSchema>
+<sourceObjName>FECHA_ACTUALIZACION</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>FECHA_ACTUALIZACION</alias>
+<dataType>DATE (7)</dataType>
+<headerAlias>FECHA_ACTUALIZACION</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="ACTIVO" id="EF3692B1-F07D-300F-3E67-2E9358C17C82">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_GRUPOS_INVESTIGACION</sourceObjSchema>
+<sourceObjName>ACTIVO</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>ACTIVO</alias>
+<dataType>VARCHAR2 (480)</dataType>
+<headerAlias>ACTIVO</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="NTESIS" id="F6F14D5A-4E3B-2775-515E-5FE8F2A451AF">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_GRUPOS_INVESTIGACION</sourceObjSchema>
+<sourceObjName>NTESIS</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>NTESIS</alias>
+<dataType>VARCHAR2</dataType>
+<headerAlias>NTESIS</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="NPOSTDOC" id="2D27B8C6-5CD6-7529-9389-66331D280C79">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_GRUPOS_INVESTIGACION</sourceObjSchema>
+<sourceObjName>NPOSTDOC</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>NPOSTDOC</alias>
+<dataType>VARCHAR2</dataType>
+<headerAlias>NPOSTDOC</headerAlias>
+<reference>false</reference>
+</viewElement>
+</viewElements>
+</TableView>

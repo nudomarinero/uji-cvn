@@ -1,0 +1,141 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableView class="oracle.dbtools.crest.model.design.relational.TableView" directorySegmentName="seg_0" id="7DC39017-93D2-1C0A-7260-D657C53D53DB" name="CVN_VIEW_PER_PARTICIPA_GRUPO">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>UJI_CVN</sourceObjSchema>
+<sourceObjName>CVN_VIEW_PER_PARTICIPA_GRUPO</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<userDefined>true</userDefined>
+<userDefinedSQL>CREATE OR REPLACE VIEW CVN_VIEW_PER_PARTICIPA_GRUPO&lt;br/&gt;AS &lt;br/&gt;SELECT   i.per_id AS persona,&lt;br/&gt;              ig.grupo_id AS grupo,&lt;br/&gt;              MIN (ig.f_alta) AS fecha_inicio,&lt;br/&gt;              MAX (ig.f_baja) AS fecha_fin,&lt;br/&gt;              TRUNC(SUM( (CASE&lt;br/&gt;                             WHEN ig.f_baja IS NULL THEN SYSDATE&lt;br/&gt;                             ELSE ig.f_baja&lt;br/&gt;                          END)&lt;br/&gt;                        - ig.f_alta))&lt;br/&gt;                 AS duracion,&lt;br/&gt;              &apos;&apos; AS tipo_colaboracion,&lt;br/&gt;              &apos;&apos; AS resultados_relevantes,&lt;br/&gt;              &apos;&apos; AS resultados_desc,&lt;br/&gt;              &apos;&apos; AS resultados_keywords&lt;br/&gt;       FROM      grs_oct.oct_investigadores_agrupados ig&lt;br/&gt;              JOIN&lt;br/&gt;                 grs_oct.oct_investigadores i&lt;br/&gt;              ON ig.inv_id = i.id&lt;br/&gt;      WHERE   REGEXP_LIKE (ig.grupo_id, &apos;^[0-9]+$&apos;)&lt;br/&gt;   GROUP BY   i.per_id, ig.grupo_id&lt;br/&gt;   </userDefinedSQL>
+<schemaObject>7C933943-7AB0-84C2-BE06-D7313F6E5071</schemaObject>
+<viewElements>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="PERSONA" id="235C696D-F9AC-AB10-82FC-5D5AFCA0B852">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PARTICIPA_GRUPO</sourceObjSchema>
+<sourceObjName>PERSONA</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>PERSONA</alias>
+<dataType>NUMBER (8)</dataType>
+<headerAlias>PERSONA</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="GRUPO" id="559B073F-4C72-21CC-6259-BF9FC86E6F90">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PARTICIPA_GRUPO</sourceObjSchema>
+<sourceObjName>GRUPO</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>GRUPO</alias>
+<dataType>VARCHAR2 (10)</dataType>
+<headerAlias>GRUPO</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="FECHA_INICIO" id="47CA1DF3-ABF8-6998-F065-AF3DA6065FB1">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PARTICIPA_GRUPO</sourceObjSchema>
+<sourceObjName>FECHA_INICIO</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>FECHA_INICIO</alias>
+<dataType>DATE (7)</dataType>
+<headerAlias>FECHA_INICIO</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="FECHA_FIN" id="86A92E87-4E60-D655-EB2D-6807CEA16554">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PARTICIPA_GRUPO</sourceObjSchema>
+<sourceObjName>FECHA_FIN</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>FECHA_FIN</alias>
+<dataType>DATE (7)</dataType>
+<headerAlias>FECHA_FIN</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="DURACION" id="B70473DD-294B-3768-0602-B8F41772C40F">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PARTICIPA_GRUPO</sourceObjSchema>
+<sourceObjName>DURACION</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>DURACION</alias>
+<dataType>NUMBER</dataType>
+<headerAlias>DURACION</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="TIPO_COLABORACION" id="04DA7D15-E06F-AFF8-EDB0-FF56B0C12A1C">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PARTICIPA_GRUPO</sourceObjSchema>
+<sourceObjName>TIPO_COLABORACION</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>TIPO_COLABORACION</alias>
+<dataType>CHAR</dataType>
+<headerAlias>TIPO_COLABORACION</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="RESULTADOS_RELEVANTES" id="BE3340A3-3117-7581-29B2-B078A6CE0241">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PARTICIPA_GRUPO</sourceObjSchema>
+<sourceObjName>RESULTADOS_RELEVANTES</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>RESULTADOS_RELEVANTES</alias>
+<dataType>CHAR</dataType>
+<headerAlias>RESULTADOS_RELEVANTES</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="RESULTADOS_DESC" id="0E87812D-A389-E9F3-8350-D5BFCEBDE257">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PARTICIPA_GRUPO</sourceObjSchema>
+<sourceObjName>RESULTADOS_DESC</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>RESULTADOS_DESC</alias>
+<dataType>CHAR</dataType>
+<headerAlias>RESULTADOS_DESC</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="RESULTADOS_KEYWORDS" id="FDDA7170-66B2-564C-3C43-8701B914BC65">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PARTICIPA_GRUPO</sourceObjSchema>
+<sourceObjName>RESULTADOS_KEYWORDS</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>RESULTADOS_KEYWORDS</alias>
+<dataType>CHAR</dataType>
+<headerAlias>RESULTADOS_KEYWORDS</headerAlias>
+<reference>false</reference>
+</viewElement>
+</viewElements>
+</TableView>

@@ -10,7 +10,7 @@
   <name>uji-cvn</name>
 
   <modules>
-    <!--<module>uji-cvn-base</module>-->
+    <module>uji-cvn-base</module>
     <module>uji-cvn-generacion-pdf</module>
   </modules>
 

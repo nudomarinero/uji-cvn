@@ -1,0 +1,141 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableView class="oracle.dbtools.crest.model.design.relational.TableView" directorySegmentName="seg_0" id="D21CBB0E-7FD1-1DCB-8CAD-9BD4B721DD9D" name="CVN_VIEW_IMPACTO_PROD_PUBL">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>UJI_CVN</sourceObjSchema>
+<sourceObjName>CVN_VIEW_IMPACTO_PROD_PUBL</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<userDefined>true</userDefined>
+<userDefinedSQL>CREATE OR REPLACE VIEW CVN_VIEW_IMPACTO_PROD_PUBL&lt;br/&gt;AS &lt;br/&gt;SELECT   p.id AS produccion,&lt;br/&gt;            &apos;WOS (JCR)&apos; AS fuente_impacto,&lt;br/&gt;            (CASE&lt;br/&gt;                WHEN r.indice_impacto &gt; 0 AND r.indice_impacto &lt; 100&lt;br/&gt;                THEN&lt;br/&gt;                   r.indice_impacto&lt;br/&gt;                ELSE&lt;br/&gt;                   NULL&lt;br/&gt;             END)&lt;br/&gt;               AS indice_impacto,&lt;br/&gt;            --    r.cuartil,  -- lo corrijo para que salga como toca&lt;br/&gt;            DECODE (r.cuartil, 4, 1, 3, 2, 2, 3, 1, 4, NULL) AS cuartil,&lt;br/&gt;            (CASE r.cuartil WHEN 4                     -- el 4 es el cuartil 1&lt;br/&gt;                                  THEN 1 ELSE 0 END) AS is_25p_top,&lt;br/&gt;            -- en la vista de la uji, 4 es el Q1&lt;br/&gt;            r.prt_tipo AS categoria1,&lt;br/&gt;            r.prt_id AS categoria2,&lt;br/&gt;            NULL AS posicion,&lt;br/&gt;            NULL AS total&lt;br/&gt;     FROM      GRS_OCT.oct_produc_cientificas p&lt;br/&gt;            JOIN&lt;br/&gt;               grs_oct.oct_vw_revistas_cuartiles r&lt;br/&gt;            ON p.pre_issn = r.issn AND p.ano = r.ano&lt;br/&gt;   </userDefinedSQL>
+<schemaObject>7C933943-7AB0-84C2-BE06-D7313F6E5071</schemaObject>
+<viewElements>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="PRODUCCION" id="76E2404B-FCAC-BDE0-F623-468CDC2B721E">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_IMPACTO_PROD_PUBL</sourceObjSchema>
+<sourceObjName>PRODUCCION</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>PRODUCCION</alias>
+<dataType>NUMBER (8)</dataType>
+<headerAlias>PRODUCCION</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="FUENTE_IMPACTO" id="7C5142A9-2133-A795-91C0-71226C571DD8">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_IMPACTO_PROD_PUBL</sourceObjSchema>
+<sourceObjName>FUENTE_IMPACTO</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>FUENTE_IMPACTO</alias>
+<dataType>CHAR (27)</dataType>
+<headerAlias>FUENTE_IMPACTO</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="INDICE_IMPACTO" id="9C66342C-D903-C090-7661-B5B0240C68A7">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_IMPACTO_PROD_PUBL</sourceObjSchema>
+<sourceObjName>INDICE_IMPACTO</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>INDICE_IMPACTO</alias>
+<dataType>NUMBER</dataType>
+<headerAlias>INDICE_IMPACTO</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="CUARTIL" id="79EBA881-CA60-CA42-F0F0-3C80B578FA7E">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_IMPACTO_PROD_PUBL</sourceObjSchema>
+<sourceObjName>CUARTIL</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>CUARTIL</alias>
+<dataType>NUMBER</dataType>
+<headerAlias>CUARTIL</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="IS_25P_TOP" id="31F822C9-703B-3ECA-AEE4-950950AE4825">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_IMPACTO_PROD_PUBL</sourceObjSchema>
+<sourceObjName>IS_25P_TOP</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>IS_25P_TOP</alias>
+<dataType>NUMBER</dataType>
+<headerAlias>IS_25P_TOP</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="CATEGORIA1" id="7EC813A2-BC62-8837-0DAB-EE4FD9F9A1D3">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_IMPACTO_PROD_PUBL</sourceObjSchema>
+<sourceObjName>CATEGORIA1</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>CATEGORIA1</alias>
+<dataType>VARCHAR2 (2)</dataType>
+<headerAlias>CATEGORIA1</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="CATEGORIA2" id="04D11892-311F-7FA8-2192-0025942E775B">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_IMPACTO_PROD_PUBL</sourceObjSchema>
+<sourceObjName>CATEGORIA2</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>CATEGORIA2</alias>
+<dataType>VARCHAR2 (2)</dataType>
+<headerAlias>CATEGORIA2</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="POSICION" id="1544873D-CA4E-1F4B-AD76-E0C2B9C576FA">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_IMPACTO_PROD_PUBL</sourceObjSchema>
+<sourceObjName>POSICION</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>POSICION</alias>
+<dataType>VARCHAR2</dataType>
+<headerAlias>POSICION</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="TOTAL" id="FD728A84-0AC8-EBCB-C2E3-BFBC8F979181">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_IMPACTO_PROD_PUBL</sourceObjSchema>
+<sourceObjName>TOTAL</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>TOTAL</alias>
+<dataType>VARCHAR2</dataType>
+<headerAlias>TOTAL</headerAlias>
+<reference>false</reference>
+</viewElement>
+</viewElements>
+</TableView>

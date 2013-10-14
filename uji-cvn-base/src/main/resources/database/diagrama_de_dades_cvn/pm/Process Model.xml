@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<ProcessModel class="oracle.dbtools.crest.model.design.process.ProcessModel" name="Process Model" id="8A4752B9-A310-28AB-06AA-12BF694EB239">
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:19:00 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+</ProcessModel>

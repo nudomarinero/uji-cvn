@@ -1,0 +1,113 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableView class="oracle.dbtools.crest.model.design.relational.TableView" directorySegmentName="seg_0" id="68DBBE9A-0114-0B80-C21E-23EA72C30B7F" name="CVN_VIEW_PER_PART_PROY">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>UJI_CVN</sourceObjSchema>
+<sourceObjName>CVN_VIEW_PER_PART_PROY</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<userDefined>true</userDefined>
+<userDefinedSQL>CREATE OR REPLACE VIEW CVN_VIEW_PER_PART_PROY&lt;br/&gt;AS &lt;br/&gt;SELECT   i.per_id AS persona,&lt;br/&gt;              (SELECT   MIN (s2.n)&lt;br/&gt;                 FROM   grs_oct.oct_solicitudes_contratos s2&lt;br/&gt;                WHERE   s2.codigo_externo = s.codigo_externo)&lt;br/&gt;                 AS proyecto,&lt;br/&gt;              MAX (ivs.principal) AS calidad_participacion,&lt;br/&gt;              MAX (ivs.principal) AS responsable,&lt;br/&gt;              &apos;&apos; AS tipo_participacion,&lt;br/&gt;              &apos;&apos; AS aportaciones,&lt;br/&gt;              MAX (ivs.horas_contratadas) AS dedicacion&lt;br/&gt;       FROM               grs_oct.oct_investigadores i&lt;br/&gt;                       JOIN&lt;br/&gt;                          grs_oct.oct_componentes_solicitudes ivs&lt;br/&gt;                       ON i.id = ivs.inv_id&lt;br/&gt;                    JOIN&lt;br/&gt;                       grs_oct.oct_solicitudes_contratos s&lt;br/&gt;                    ON ivs.contr_n = s.n&lt;br/&gt;                 LEFT JOIN&lt;br/&gt;                    grs_oct.oct_datos_contrataciones c&lt;br/&gt;                 ON s.n = c.contr_n&lt;br/&gt;              JOIN&lt;br/&gt;                 grs_oct.oct_anexos a&lt;br/&gt;              ON     a.id = s.anexo_id&lt;br/&gt;                 AND a.convoc_id = s.anexo_convoc_id&lt;br/&gt;                 AND a.convoc_ejercicio = s.anexo_convoc_ejercicio&lt;br/&gt;      WHERE   s.codigo_externo IS NOT NULL AND c.fecha_inicio IS NOT NULL&lt;br/&gt;              AND (a.t_anexo_tipo = 2&lt;br/&gt;                   AND (a.t_anexo_subtipo = &apos;P&apos;&lt;br/&gt;                        OR (a.t_anexo_subtipo = &apos;A&apos;&lt;br/&gt;                            AND a.t_anexo_microtipo = &apos;P&apos;)))&lt;br/&gt;   GROUP BY   i.per_id, s.codigo_externo&lt;br/&gt;   UNION ALL&lt;br/&gt;     SELECT   i.per_id AS persona,&lt;br/&gt;              s.n AS proyecto,&lt;br/&gt;              MAX (ivs.principal) AS calidad_participacion,&lt;br/&gt;              MAX (ivs.principal) AS responsable,&lt;br/&gt;              &apos;&apos; AS tipo_participacion,&lt;br/&gt;              &apos;&apos; AS aportaciones,&lt;br/&gt;              MAX (ivs.horas_contratadas) AS dedicacion&lt;br/&gt;       FROM               grs_oct.oct_investigadores i&lt;br/&gt;                       JOIN&lt;br/&gt;                          grs_oct.oct_componentes_solicitudes ivs&lt;br/&gt;                       ON i.id = ivs.inv_id&lt;br/&gt;                    JOIN&lt;br/&gt;                       grs_oct.oct_solicitudes_contratos s&lt;br/&gt;                    ON ivs.contr_n = s.n&lt;br/&gt;                 LEFT JOIN&lt;br/&gt;                    grs_oct.oct_datos_contrataciones c&lt;br/&gt;                 ON s.n = c.contr_n&lt;br/&gt;              JOIN&lt;br/&gt;                 grs_oct.oct_anexos a&lt;br/&gt;              ON     a.id = s.anexo_id&lt;br/&gt;                 AND a.convoc_id = s.anexo_convoc_id&lt;br/&gt;                 AND a.convoc_ejercicio = s.anexo_convoc_ejercicio&lt;br/&gt;      WHERE   s.titulo IS NOT NULL -- AND s.codigo_externo   IS NULL&lt;br/&gt;              AND c.fecha_inicio IS NOT NULL&lt;br/&gt;              AND ( (    a.t_anexo_tipo = 1&lt;br/&gt;                     AND a.t_anexo_subtipo = &apos;C&apos;&lt;br/&gt;                     AND a.t_anexo_microtipo != &apos;T&apos;))&lt;br/&gt;   GROUP BY   i.per_id, s.n&lt;br/&gt;   </userDefinedSQL>
+<schemaObject>7C933943-7AB0-84C2-BE06-D7313F6E5071</schemaObject>
+<viewElements>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="PERSONA" id="F46AEFFA-F935-FCF1-8603-2C2DC878DF65">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PART_PROY</sourceObjSchema>
+<sourceObjName>PERSONA</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>PERSONA</alias>
+<dataType>NUMBER (8)</dataType>
+<headerAlias>PERSONA</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="PROYECTO" id="31E5F1E2-74FE-43EE-6C55-EBE786F69536">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PART_PROY</sourceObjSchema>
+<sourceObjName>PROYECTO</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>PROYECTO</alias>
+<dataType>NUMBER</dataType>
+<headerAlias>PROYECTO</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="CALIDAD_PARTICIPACION" id="5525E847-1513-C91C-84D0-37E8880B279C">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PART_PROY</sourceObjSchema>
+<sourceObjName>CALIDAD_PARTICIPACION</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>CALIDAD_PARTICIPACION</alias>
+<dataType>VARCHAR2 (480)</dataType>
+<headerAlias>CALIDAD_PARTICIPACION</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="RESPONSABLE" id="DF5881EA-FCDF-2CC1-44A9-E3BF20D0595C">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PART_PROY</sourceObjSchema>
+<sourceObjName>RESPONSABLE</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>RESPONSABLE</alias>
+<dataType>VARCHAR2 (480)</dataType>
+<headerAlias>RESPONSABLE</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="TIPO_PARTICIPACION" id="B43A94F8-A919-2E35-4347-632089B8AF10">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PART_PROY</sourceObjSchema>
+<sourceObjName>TIPO_PARTICIPACION</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>TIPO_PARTICIPACION</alias>
+<dataType>CHAR</dataType>
+<headerAlias>TIPO_PARTICIPACION</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="APORTACIONES" id="B5935DCC-4DEC-B546-DA8E-75D3FC51316F">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PART_PROY</sourceObjSchema>
+<sourceObjName>APORTACIONES</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>APORTACIONES</alias>
+<dataType>CHAR</dataType>
+<headerAlias>APORTACIONES</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="DEDICACION" id="032C7A13-B06B-72B2-9CA8-982816A27802">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PART_PROY</sourceObjSchema>
+<sourceObjName>DEDICACION</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>DEDICACION</alias>
+<dataType>NUMBER</dataType>
+<headerAlias>DEDICACION</headerAlias>
+<reference>false</reference>
+</viewElement>
+</viewElements>
+</TableView>

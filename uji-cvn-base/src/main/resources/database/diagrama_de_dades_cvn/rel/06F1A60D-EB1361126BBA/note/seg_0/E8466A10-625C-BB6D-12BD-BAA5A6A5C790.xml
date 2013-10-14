@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Note class="oracle.dbtools.crest.model.design.Note" name="Note_1" directorySegmentName="seg_0" id="E8466A10-625C-BB6D-12BD-BAA5A6A5C790">
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:21:12 UTC</createdTime>
+<comment>UJI_CVN&lt;br/&gt;10/09/2013</comment>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+</Note>

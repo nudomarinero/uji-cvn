@@ -1,0 +1,115 @@
+#lista-consulta-cvn, #lista-plantillas-cvn {
+	width: 100%;
+}
+
+#lista-consulta-cvn-estado {
+	width: 75%;
+}
+
+#lista-consulta-cvn-fecha-admin {
+	width: 20%;
+}
+
+#lista-consulta-cvn th,#lista-consulta-cvn td,#lista-consulta-cvn a {
+	font-size: 12px !important;
+}
+
+h4 {
+	margin-top: 4px;
+	margin-bottom: 15px;
+}
+
+.error {
+	font-weight: bold;
+	color: red;
+}
+
+#consulta-form {
+	margin-top: 25px;
+}
+
+#consulta-form .button {
+	float: right;
+	margin-top: 10px;
+}
+
+#consulta-form p {
+	font-size : 14px !important;
+}
+
+#consulta-form-error {
+	margin-top : 0;
+	margin-bottom : 0;
+}
+
+#lista-plantillas-cvn-nombre {
+	width: 50%;
+}
+
+#lista-plantillas-cvn th,#lista-plantillas-cvn td,#lista-plantillas-cvn a {
+	font-size: 12px !important;
+}
+
+.alert-box span {
+	font-size: 1em !important;
+}
+
+a.close:hover {
+	text-decoration : none;
+}
+
+#form-plantillas {
+	margin-top: 10px;
+}
+
+#form-plantillas label.titulo {
+	font-size: 18px !important;	
+}
+
+#form-plantillas input {
+	height: 32px;
+}
+
+.form-opciones {
+	margin-top: 10px;
+	padding-left: 28px;
+}
+
+.form-opciones .bloque {
+	margin-right: 15px;
+}
+
+#form-plantillas fieldset {
+	padding : 0 0 5px 0;
+}
+
+#form-plantillas .item {
+	padding : 5px 8px 5px 8px;
+	background-color: #C0C0C0;
+}
+
+#form-plantillas-idiomas {
+	margin-bottom : 5px;
+}
+
+#form-plantillas-botones {
+	margin-top: 10px;
+}
+
+#form-plantillas div.error {
+	margin-top : 15px;
+}
+
+#consulta-cvn-botones {
+	margin-top: 15px;
+}
+
+#selector-plantilla-cvn-admin {
+	margin-top: 10px;
+	float: left;
+	width: 60%;
+}
+
+#selector-plantilla-cvn select {
+	width: 60%;
+}

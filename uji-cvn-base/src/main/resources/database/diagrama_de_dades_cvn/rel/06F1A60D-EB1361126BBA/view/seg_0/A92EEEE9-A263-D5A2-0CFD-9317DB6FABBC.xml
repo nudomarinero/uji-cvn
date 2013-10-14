@@ -1,0 +1,477 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableView class="oracle.dbtools.crest.model.design.relational.TableView" directorySegmentName="seg_0" id="A92EEEE9-A263-D5A2-0CFD-9317DB6FABBC" name="CVN_VIEW_PROD_CONGRESOS">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>UJI_CVN</sourceObjSchema>
+<sourceObjName>CVN_VIEW_PROD_CONGRESOS</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<userDefined>true</userDefined>
+<userDefinedSQL>CREATE OR REPLACE VIEW CVN_VIEW_PROD_CONGRESOS&lt;br/&gt;AS &lt;br/&gt;SELECT   p.id,&lt;br/&gt;            REGEXP_REPLACE (p.titulo,&lt;br/&gt;                            &apos;^(.*)\s*\(\s*p[oÃ³Ã²]ster\s*\)\s*$&apos;,&lt;br/&gt;                            &apos;\1&apos;,&lt;br/&gt;                            1,&lt;br/&gt;                            0,&lt;br/&gt;                            &apos;i&apos;)&lt;br/&gt;               AS titulo,&lt;br/&gt;            --para que no saque la cadena (Poster) al final de los poster.&lt;br/&gt;            &apos;008&apos; AS tipo_evento,&lt;br/&gt;            p.pri_pca_id AS caracter,&lt;br/&gt;            -- 20: docente !20: cientÃ­fico&lt;br/&gt;            &apos;&apos; AS tipo_acceso,&lt;br/&gt;            &apos;&apos; AS ambito,&lt;br/&gt;            p.nombre AS nombre_congreso,&lt;br/&gt;            NULL AS entidad_organizadora,&lt;br/&gt;            REGEXP_REPLACE (&lt;br/&gt;               REGEXP_SUBSTR (p.lugar, &apos;\(\s*([0-9]{3})\s*\)\s*$&apos;),&lt;br/&gt;               &apos;^.*\(\s*([0-9]{3})\s*\)\s*$&apos;,&lt;br/&gt;               &apos;\1&apos;&lt;br/&gt;            )&lt;br/&gt;               AS pais_congreso,&lt;br/&gt;            NULL AS region_congreso,&lt;br/&gt;            p.lugar AS ciudad_congreso,&lt;br/&gt;            p.fecha AS fecha_congreso,&lt;br/&gt;            -- si esta es vacia, usaremos el aÃ±o, de abajo.&lt;br/&gt;            p.ano AS ano_congreso,&lt;br/&gt;            NULL AS is_acta,&lt;br/&gt;            NULL AS is_pub_evaluada,&lt;br/&gt;            p.isbn AS tipo_publicacion,&lt;br/&gt;            --artÃ­culo o capÃ­tulo de libro, segÃºn el formato que tenga el dato: isbn o issn.&lt;br/&gt;            NVL (p.titulo, r.nombre_ext) AS titulo_publicacion,&lt;br/&gt;            &apos;&apos; AS nombre_publicacion,&lt;br/&gt;            --    p.editorial  AS volumen_pub,  --el contenido depende del tipo_publicacion&lt;br/&gt;            NULL AS volumen_pub,&lt;br/&gt;            --no contiene la info esperada. de momento esto.&lt;br/&gt;            &apos;&apos; AS paginas_pub,&lt;br/&gt;            p.editorial AS editorial_pub,&lt;br/&gt;            --el contenido depende del tipo_publicacion&lt;br/&gt;            REGEXP_REPLACE (&lt;br/&gt;               REGEXP_SUBSTR (p.otro, &apos;\(\s*([0-9]{3})\s*\)\s*$&apos;),&lt;br/&gt;               &apos;^.*\(\s*([0-9]{3})\s*\)\s*$&apos;,&lt;br/&gt;               &apos;\1&apos;&lt;br/&gt;            )&lt;br/&gt;               AS pais_pub,&lt;br/&gt;            -- p.otro llevarÃ¡ la cadena &apos; (iso_numÃ©rico_del_paÃ­s_de_ediciÃ³n)&apos;&lt;br/&gt;            &apos;&apos; AS region_pub,&lt;br/&gt;            p.ano AS fecha_pub,&lt;br/&gt;            p.texto AS web_pub,&lt;br/&gt;            p.isbn AS isbn_pub,&lt;br/&gt;            -- si exitieran mÃ¡s, serializarlos en este campo&lt;br/&gt;            &apos;&apos; AS dep_legal_pub,&lt;br/&gt;            NULL AS fecha_fin,&lt;br/&gt;            -- campos especÃ­ficos de los congresos de caracter docente.&lt;br/&gt;            &apos;&apos; AS objetivos,&lt;br/&gt;            &apos;&apos; AS destinatarios,&lt;br/&gt;            &apos;&apos; AS idioma,&lt;br/&gt;            NULL AS fecha_presentacion,&lt;br/&gt;            NULL AS horas&lt;br/&gt;     FROM      grs_oct.oct_produc_cientificas p&lt;br/&gt;            --  join oct_pci_participaciones ppr&lt;br/&gt;            --  on p.ppi_ppr_id=ppr.id&lt;br/&gt;            --  join oct_pci_caracteres pca&lt;br/&gt;            --  on p.pri_pca_id=pca.id&lt;br/&gt;            LEFT JOIN&lt;br/&gt;               GRS_OCT.oct_pci_revistas r&lt;br/&gt;            ON REGEXP_REPLACE (p.isbn,&lt;br/&gt;                               &apos;^[^0-9]*([0-9]{4})[- :]([0-9Xx]{4})[^0-9]*$&apos;,&lt;br/&gt;                               &apos;\1-\2&apos;) = r.issn&lt;br/&gt;               AND r.estado != &apos;R&apos;                        -- revista rechazada&lt;br/&gt;    WHERE   p.justificado = &apos;S&apos; AND p.borrado = &apos;N&apos; AND p.iin_id IN (35, 41)&lt;br/&gt;   --congreso_presenta, congreso_organiza&lt;br/&gt;   </userDefinedSQL>
+<schemaObject>7C933943-7AB0-84C2-BE06-D7313F6E5071</schemaObject>
+<viewElements>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="ID" id="F7E3DE11-7B7B-0B9E-09E9-CAD807C79229">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>ID</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>ID</alias>
+<dataType>NUMBER (8)</dataType>
+<headerAlias>ID</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="TITULO" id="B546AB19-9C93-AC4A-AD65-BA1B97323858">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>TITULO</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>TITULO</alias>
+<dataType>VARCHAR2 (4000)</dataType>
+<headerAlias>TITULO</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="TIPO_EVENTO" id="B4EFD10C-2677-1C90-FB41-3B0017408A46">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>TIPO_EVENTO</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>TIPO_EVENTO</alias>
+<dataType>CHAR (9)</dataType>
+<headerAlias>TIPO_EVENTO</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="CARACTER" id="13329E6C-E954-CFFA-A85F-5D27B3876F6F">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>CARACTER</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>CARACTER</alias>
+<dataType>NUMBER (8)</dataType>
+<headerAlias>CARACTER</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="TIPO_ACCESO" id="7D44C737-AF71-8519-EF34-AB718BAF5394">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>TIPO_ACCESO</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>TIPO_ACCESO</alias>
+<dataType>CHAR</dataType>
+<headerAlias>TIPO_ACCESO</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="AMBITO" id="CC3E332E-CA30-A0A6-E6CE-36D1F19FB925">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>AMBITO</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>AMBITO</alias>
+<dataType>CHAR</dataType>
+<headerAlias>AMBITO</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="NOMBRE_CONGRESO" id="AB293777-461D-E47C-8C0F-EC1A35233F87">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>NOMBRE_CONGRESO</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>NOMBRE_CONGRESO</alias>
+<dataType>VARCHAR2 (4000)</dataType>
+<headerAlias>NOMBRE_CONGRESO</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="ENTIDAD_ORGANIZADORA" id="F204F092-04E3-04BD-C7F1-F0F483654FA8">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>ENTIDAD_ORGANIZADORA</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>ENTIDAD_ORGANIZADORA</alias>
+<dataType>VARCHAR2</dataType>
+<headerAlias>ENTIDAD_ORGANIZADORA</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="PAIS_CONGRESO" id="3FC6424E-9C11-CFDB-4B82-F590DAA01D38">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>PAIS_CONGRESO</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>PAIS_CONGRESO</alias>
+<dataType>VARCHAR2 (4000)</dataType>
+<headerAlias>PAIS_CONGRESO</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="REGION_CONGRESO" id="079CD585-0C0E-A45E-CEC7-C9B40B32FDCA">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>REGION_CONGRESO</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>REGION_CONGRESO</alias>
+<dataType>VARCHAR2</dataType>
+<headerAlias>REGION_CONGRESO</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="CIUDAD_CONGRESO" id="66D6ECCC-4D75-008A-5A82-290087F659BF">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>CIUDAD_CONGRESO</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>CIUDAD_CONGRESO</alias>
+<dataType>VARCHAR2 (400)</dataType>
+<headerAlias>CIUDAD_CONGRESO</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="FECHA_CONGRESO" id="AF7E50B3-6140-0009-1214-1F4ADA6E3843">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>FECHA_CONGRESO</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>FECHA_CONGRESO</alias>
+<dataType>DATE (7)</dataType>
+<headerAlias>FECHA_CONGRESO</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="ANO_CONGRESO" id="7FFF759E-C343-C5BB-FF61-516D91940DE3">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>ANO_CONGRESO</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>ANO_CONGRESO</alias>
+<dataType>NUMBER (4)</dataType>
+<headerAlias>ANO_CONGRESO</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="IS_ACTA" id="C2A53081-37DA-63E7-3F99-D741A36D58B3">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>IS_ACTA</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>IS_ACTA</alias>
+<dataType>VARCHAR2</dataType>
+<headerAlias>IS_ACTA</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="IS_PUB_EVALUADA" id="F1448D26-969E-41BB-A753-D2178865E158">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>IS_PUB_EVALUADA</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>IS_PUB_EVALUADA</alias>
+<dataType>VARCHAR2</dataType>
+<headerAlias>IS_PUB_EVALUADA</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="TIPO_PUBLICACION" id="F981FDC4-01DF-7331-E7F4-61DD5022F46F">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>TIPO_PUBLICACION</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>TIPO_PUBLICACION</alias>
+<dataType>VARCHAR2 (25)</dataType>
+<headerAlias>TIPO_PUBLICACION</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="TITULO_PUBLICACION" id="930C3821-8C91-102E-C9B6-BA9D9C3F2475">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>TITULO_PUBLICACION</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>TITULO_PUBLICACION</alias>
+<dataType>VARCHAR2 (4000)</dataType>
+<headerAlias>TITULO_PUBLICACION</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="NOMBRE_PUBLICACION" id="6C9A3499-1E9A-0845-D8C5-DF7FD39519DD">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>NOMBRE_PUBLICACION</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>NOMBRE_PUBLICACION</alias>
+<dataType>CHAR</dataType>
+<headerAlias>NOMBRE_PUBLICACION</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="VOLUMEN_PUB" id="15AE2108-BA4B-988D-C975-CF84B09EC066">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>VOLUMEN_PUB</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>VOLUMEN_PUB</alias>
+<dataType>VARCHAR2</dataType>
+<headerAlias>VOLUMEN_PUB</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="PAGINAS_PUB" id="C754156A-C238-8E36-3B64-1D613CEEBEC2">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>PAGINAS_PUB</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>PAGINAS_PUB</alias>
+<dataType>CHAR</dataType>
+<headerAlias>PAGINAS_PUB</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="EDITORIAL_PUB" id="784C7EDF-97EC-BB28-C91D-B116F343A56D">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>EDITORIAL_PUB</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>EDITORIAL_PUB</alias>
+<dataType>VARCHAR2 (160)</dataType>
+<headerAlias>EDITORIAL_PUB</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="PAIS_PUB" id="1E467477-A1D1-EF61-C127-315415F04E15">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>PAIS_PUB</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>PAIS_PUB</alias>
+<dataType>VARCHAR2 (4000)</dataType>
+<headerAlias>PAIS_PUB</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="REGION_PUB" id="1D84448C-6CF3-718D-B18E-E5A54F634F0F">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>REGION_PUB</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>REGION_PUB</alias>
+<dataType>CHAR</dataType>
+<headerAlias>REGION_PUB</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="FECHA_PUB" id="C5F1EE8E-2C36-4708-7732-CAAFC7E2E6F2">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>FECHA_PUB</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>FECHA_PUB</alias>
+<dataType>NUMBER (4)</dataType>
+<headerAlias>FECHA_PUB</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="WEB_PUB" id="FD67BFC8-1CE6-FE9E-9B83-6336BD40ACBB">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>WEB_PUB</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>WEB_PUB</alias>
+<dataType>VARCHAR2 (4000)</dataType>
+<headerAlias>WEB_PUB</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="ISBN_PUB" id="D9563698-A444-B0C7-89C7-A8558F56285D">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>ISBN_PUB</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>ISBN_PUB</alias>
+<dataType>VARCHAR2 (25)</dataType>
+<headerAlias>ISBN_PUB</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="DEP_LEGAL_PUB" id="3F0F588A-74E1-E16F-2662-F12F5CB77714">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>DEP_LEGAL_PUB</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>DEP_LEGAL_PUB</alias>
+<dataType>CHAR</dataType>
+<headerAlias>DEP_LEGAL_PUB</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="FECHA_FIN" id="384D4845-9AFA-426C-D9D1-1FC1B301A230">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>FECHA_FIN</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>FECHA_FIN</alias>
+<dataType>VARCHAR2</dataType>
+<headerAlias>FECHA_FIN</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="OBJETIVOS" id="352EE5B3-0224-0414-32E0-903210F398BC">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>OBJETIVOS</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>OBJETIVOS</alias>
+<dataType>CHAR</dataType>
+<headerAlias>OBJETIVOS</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="DESTINATARIOS" id="2F087508-3960-7569-8457-69A96C96B24A">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>DESTINATARIOS</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>DESTINATARIOS</alias>
+<dataType>CHAR</dataType>
+<headerAlias>DESTINATARIOS</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="IDIOMA" id="8FFF7DD3-8FAA-5910-BA2A-38766FA82630">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>IDIOMA</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>IDIOMA</alias>
+<dataType>CHAR</dataType>
+<headerAlias>IDIOMA</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="FECHA_PRESENTACION" id="093880E3-17A1-6D6C-CB07-89D21DF54591">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>FECHA_PRESENTACION</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>FECHA_PRESENTACION</alias>
+<dataType>VARCHAR2</dataType>
+<headerAlias>FECHA_PRESENTACION</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="HORAS" id="D4821FEC-0342-5AC8-2E89-36D4289D13A2">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PROD_CONGRESOS</sourceObjSchema>
+<sourceObjName>HORAS</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>HORAS</alias>
+<dataType>VARCHAR2</dataType>
+<headerAlias>HORAS</headerAlias>
+<reference>false</reference>
+</viewElement>
+</viewElements>
+</TableView>

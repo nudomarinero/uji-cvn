@@ -1,0 +1,155 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableView class="oracle.dbtools.crest.model.design.relational.TableView" directorySegmentName="seg_0" id="C6997DA0-293C-777C-F125-0D0E064D0FE7" name="CVN_EXT_ENTIDADES">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>UJI_CVN</sourceObjSchema>
+<sourceObjName>CVN_EXT_ENTIDADES</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<userDefined>true</userDefined>
+<userDefinedSQL>CREATE OR REPLACE VIEW CVN_EXT_ENTIDADES&lt;br/&gt;AS &lt;br/&gt;SELECT   p.id AS id,&lt;br/&gt;            NVL (p.nombre_comercial, p.nombre) AS nombre,&lt;br/&gt;            o.acronimo AS acronimo,&lt;br/&gt;            o.t_org_tipo AS tipo,&lt;br/&gt;            o.t_org_subtipo AS subtipo,&lt;br/&gt;            torg.nombre AS tipo_descr,&lt;br/&gt;            UPPER (c.codigo_mec) AS pais,&lt;br/&gt;            NULL AS region,&lt;br/&gt;            NULL AS region_str,&lt;br/&gt;            d.pueblo AS ciudad&lt;br/&gt;     FROM               per_personas p&lt;br/&gt;                     JOIN&lt;br/&gt;                        grs_oct.oct_organismos o&lt;br/&gt;                     ON o.per_id = p.id&lt;br/&gt;                  JOIN&lt;br/&gt;                     per_paises c&lt;br/&gt;                  ON p.pai_id = c.id              --para sacar el iso del pais&lt;br/&gt;               JOIN&lt;br/&gt;                  per_vw_domicilios d&lt;br/&gt;               ON p.id = d.per_id            --para sacar la dir de la empresa&lt;br/&gt;            JOIN&lt;br/&gt;               grs_oct.oct_tipos_organismo torg&lt;br/&gt;            ON o.t_org_tipo = torg.tipo AND o.t_org_subtipo = torg.subtipo&lt;br/&gt;    WHERE   p.tipo_persona = &apos;J&apos;&lt;br/&gt;   </userDefinedSQL>
+<schemaObject>7C933943-7AB0-84C2-BE06-D7313F6E5071</schemaObject>
+<viewElements>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="ID" id="C54ADE49-390C-33CD-3835-CC08D620EC1A">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_EXT_ENTIDADES</sourceObjSchema>
+<sourceObjName>ID</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>ID</alias>
+<dataType>NUMBER (8)</dataType>
+<headerAlias>ID</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="NOMBRE" id="38F62A3E-BA84-4237-F8A0-1297F0A1099D">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_EXT_ENTIDADES</sourceObjSchema>
+<sourceObjName>NOMBRE</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>NOMBRE</alias>
+<dataType>VARCHAR2 (200)</dataType>
+<headerAlias>NOMBRE</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="ACRONIMO" id="97898332-5850-F7D6-3D21-5B0C524693B3">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_EXT_ENTIDADES</sourceObjSchema>
+<sourceObjName>ACRONIMO</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>ACRONIMO</alias>
+<dataType>VARCHAR2 (20)</dataType>
+<headerAlias>ACRONIMO</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="TIPO" id="ECAC2201-A99C-04D7-838B-E7603C9BEB6E">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_EXT_ENTIDADES</sourceObjSchema>
+<sourceObjName>TIPO</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>TIPO</alias>
+<dataType>NUMBER (1)</dataType>
+<headerAlias>TIPO</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="SUBTIPO" id="34CA4018-DA7B-CD6A-039F-AABDAB115B7E">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_EXT_ENTIDADES</sourceObjSchema>
+<sourceObjName>SUBTIPO</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>SUBTIPO</alias>
+<dataType>VARCHAR2 (1)</dataType>
+<headerAlias>SUBTIPO</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="TIPO_DESCR" id="C70C986A-57B4-5710-DC39-6DF5E199380C">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_EXT_ENTIDADES</sourceObjSchema>
+<sourceObjName>TIPO_DESCR</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>TIPO_DESCR</alias>
+<dataType>VARCHAR2 (200)</dataType>
+<headerAlias>TIPO_DESCR</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="PAIS" id="7884235E-5A7E-D6E8-765C-CF0B2C65C783">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_EXT_ENTIDADES</sourceObjSchema>
+<sourceObjName>PAIS</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>PAIS</alias>
+<dataType>VARCHAR2 (3)</dataType>
+<headerAlias>PAIS</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="REGION" id="0546F459-B6A9-A87F-C6AA-B3BA7E2158A5">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_EXT_ENTIDADES</sourceObjSchema>
+<sourceObjName>REGION</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>REGION</alias>
+<dataType>VARCHAR2</dataType>
+<headerAlias>REGION</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="REGION_STR" id="5E930777-8C99-FCCD-B4F0-D21EA751BF2D">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_EXT_ENTIDADES</sourceObjSchema>
+<sourceObjName>REGION_STR</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>REGION_STR</alias>
+<dataType>VARCHAR2</dataType>
+<headerAlias>REGION_STR</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="CIUDAD" id="254C5892-3CB8-A30D-6D48-75519296D815">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_EXT_ENTIDADES</sourceObjSchema>
+<sourceObjName>CIUDAD</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>CIUDAD</alias>
+<dataType>VARCHAR2 (255)</dataType>
+<headerAlias>CIUDAD</headerAlias>
+<reference>false</reference>
+</viewElement>
+</viewElements>
+</TableView>

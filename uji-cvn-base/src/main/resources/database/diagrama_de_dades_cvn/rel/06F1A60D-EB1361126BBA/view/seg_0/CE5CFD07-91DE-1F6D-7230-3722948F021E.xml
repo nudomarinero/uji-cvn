@@ -1,0 +1,43 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableView class="oracle.dbtools.crest.model.design.relational.TableView" directorySegmentName="seg_0" id="CE5CFD07-91DE-1F6D-7230-3722948F021E" name="CVN_VIEW_ENT_FINANCIA_PROY">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>UJI_CVN</sourceObjSchema>
+<sourceObjName>CVN_VIEW_ENT_FINANCIA_PROY</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<userDefined>true</userDefined>
+<userDefinedSQL>CREATE OR REPLACE VIEW CVN_VIEW_ENT_FINANCIA_PROY&lt;br/&gt;AS &lt;br/&gt;SELECT   o.per_id AS entidad,&lt;br/&gt;              (SELECT   MIN (s2.n)&lt;br/&gt;                 FROM   grs_oct.oct_solicitudes_contratos s2&lt;br/&gt;                WHERE   s2.codigo_externo = s.codigo_externo)&lt;br/&gt;                 AS proyecto&lt;br/&gt;       FROM               grs_oct.oct_organismos o&lt;br/&gt;                       JOIN&lt;br/&gt;                          grs_oct.oct_promueven oc&lt;br/&gt;                       ON o.id = oc.org_id&lt;br/&gt;                    JOIN&lt;br/&gt;                       grs_oct.oct_convocatorias c&lt;br/&gt;                    ON oc.convoc_id = c.id&lt;br/&gt;                       AND oc.convoc_ejercicio = c.ejercicio&lt;br/&gt;                 JOIN&lt;br/&gt;                    grs_oct.oct_solicitudes_contratos s&lt;br/&gt;                 ON (c.id = s.anexo_convoc_id&lt;br/&gt;                     AND c.ejercicio = s.anexo_convoc_ejercicio)&lt;br/&gt;              JOIN&lt;br/&gt;                 grs_oct.oct_anexos a&lt;br/&gt;              ON     a.id = s.anexo_id&lt;br/&gt;                 AND a.convoc_id = s.anexo_convoc_id&lt;br/&gt;                 AND a.convoc_ejercicio = s.anexo_convoc_ejercicio&lt;br/&gt;      WHERE   c.titulo IS NOT NULL AND s.codigo_externo IS NOT NULL&lt;br/&gt;              AND (a.t_anexo_tipo = 2&lt;br/&gt;                   AND (a.t_anexo_subtipo = &apos;P&apos;&lt;br/&gt;                        OR (a.t_anexo_subtipo = &apos;A&apos;&lt;br/&gt;                            AND a.t_anexo_microtipo = &apos;P&apos;)))&lt;br/&gt;   GROUP BY   s.codigo_externo, o.per_id&lt;br/&gt;   UNION ALL&lt;br/&gt;     SELECT   o.per_id AS entidad,&lt;br/&gt;              (SELECT   MIN (s2.n)&lt;br/&gt;                 FROM   grs_oct.oct_solicitudes_contratos s2&lt;br/&gt;                WHERE   s2.codigo_externo IS NULL AND s2.titulo = s.titulo)&lt;br/&gt;                 AS proyecto&lt;br/&gt;       FROM               grs_oct.oct_organismos o&lt;br/&gt;                       JOIN&lt;br/&gt;                          grs_oct.oct_promueven oc&lt;br/&gt;                       ON o.id = oc.org_id&lt;br/&gt;                    JOIN&lt;br/&gt;                       grs_oct.oct_convocatorias c&lt;br/&gt;                    ON oc.convoc_id = c.id&lt;br/&gt;                       AND oc.convoc_ejercicio = c.ejercicio&lt;br/&gt;                 JOIN&lt;br/&gt;                    grs_oct.oct_solicitudes_contratos s&lt;br/&gt;                 ON (c.id = s.anexo_convoc_id&lt;br/&gt;                     AND c.ejercicio = s.anexo_convoc_ejercicio)&lt;br/&gt;              JOIN&lt;br/&gt;                 grs_oct.oct_anexos a&lt;br/&gt;              ON     a.id = s.anexo_id&lt;br/&gt;                 AND a.convoc_id = s.anexo_convoc_id&lt;br/&gt;                 AND a.convoc_ejercicio = s.anexo_convoc_ejercicio&lt;br/&gt;      WHERE   c.titulo IS NOT NULL&lt;br/&gt;              --  AND s.codigo_externo   IS NULL&lt;br/&gt;              AND ( (    a.t_anexo_tipo = 1&lt;br/&gt;                     AND a.t_anexo_subtipo = &apos;C&apos;&lt;br/&gt;                     AND a.t_anexo_microtipo != &apos;T&apos;))&lt;br/&gt;   GROUP BY   s.titulo, o.per_id&lt;br/&gt;   </userDefinedSQL>
+<schemaObject>7C933943-7AB0-84C2-BE06-D7313F6E5071</schemaObject>
+<viewElements>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="ENTIDAD" id="1A4EC64C-143B-7C79-C27F-C05521BF77A9">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_ENT_FINANCIA_PROY</sourceObjSchema>
+<sourceObjName>ENTIDAD</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>ENTIDAD</alias>
+<dataType>NUMBER (8)</dataType>
+<headerAlias>ENTIDAD</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="PROYECTO" id="D535F2EE-6F47-35A4-F2A6-000E6D0880D5">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_ENT_FINANCIA_PROY</sourceObjSchema>
+<sourceObjName>PROYECTO</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>PROYECTO</alias>
+<dataType>NUMBER</dataType>
+<headerAlias>PROYECTO</headerAlias>
+<reference>false</reference>
+</viewElement>
+</viewElements>
+</TableView>

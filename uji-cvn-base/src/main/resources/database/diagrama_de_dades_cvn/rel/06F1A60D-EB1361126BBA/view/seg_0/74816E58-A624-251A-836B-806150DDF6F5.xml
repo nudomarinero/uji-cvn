@@ -1,0 +1,141 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableView class="oracle.dbtools.crest.model.design.relational.TableView" directorySegmentName="seg_0" id="74816E58-A624-251A-836B-806150DDF6F5" name="CVN_VIEW_PER_PART_PROD_PUBL">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>UJI_CVN</sourceObjSchema>
+<sourceObjName>CVN_VIEW_PER_PART_PROD_PUBL</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<userDefined>true</userDefined>
+<userDefinedSQL>CREATE OR REPLACE VIEW CVN_VIEW_PER_PART_PROD_PUBL&lt;br/&gt;AS &lt;br/&gt;SELECT   i.per_id AS persona,&lt;br/&gt;            a.pci_id AS produccion,&lt;br/&gt;            &apos;070&apos; AS calidad_participacion,&lt;br/&gt;            &apos;&apos; AS calidad_participacion_str,&lt;br/&gt;            p.pri_pca_id AS caracter,&lt;br/&gt;            -- 20: docente !20: cientÃ­fico&lt;br/&gt;            a.orden,&lt;br/&gt;            NULL AS pos_sobre_total,&lt;br/&gt;            &apos;&apos; AS resultados_destacados,&lt;br/&gt;            NULL AS is_relevante_pub&lt;br/&gt;     FROM         grs_oct.oct_produc_cientificas p&lt;br/&gt;               JOIN&lt;br/&gt;                  GRS_OCT.oct_personas_pci a&lt;br/&gt;               ON a.pci_id = p.id&lt;br/&gt;            JOIN&lt;br/&gt;               GRS_OCT.oct_investigadores i&lt;br/&gt;            ON a.inv_id = i.id&lt;br/&gt;    WHERE   p.justificado = &apos;S&apos; AND p.borrado = &apos;N&apos; AND p.iin_id = 32&lt;br/&gt;   --artÃ­culos&lt;br/&gt;   UNION ALL&lt;br/&gt;   SELECT   i.per_id AS persona,&lt;br/&gt;            a.pci_id AS produccion,&lt;br/&gt;            &apos;090&apos; AS calidad_participacion,&lt;br/&gt;            &apos;&apos; AS calidad_participacion_str,&lt;br/&gt;            p.pri_pca_id AS caracter,&lt;br/&gt;            -- 20: docente !20: cientÃ­fico&lt;br/&gt;            a.orden,&lt;br/&gt;            NULL AS pos_sobre_total,&lt;br/&gt;            &apos;&apos; AS resultados_destacados,&lt;br/&gt;            NULL AS is_relevante_pub&lt;br/&gt;     FROM         grs_oct.oct_produc_cientificas p&lt;br/&gt;               JOIN&lt;br/&gt;                  GRS_OCT.oct_personas_pci a&lt;br/&gt;               ON a.pci_id = p.id&lt;br/&gt;            JOIN&lt;br/&gt;               GRS_OCT.oct_investigadores i&lt;br/&gt;            ON a.inv_id = i.id&lt;br/&gt;    WHERE   p.justificado = &apos;S&apos; AND p.borrado = &apos;N&apos; AND p.iin_id = 34 -- capÃ­tulos de libro&lt;br/&gt;            AND p.ppi_ppr_id IN (1)                                 --es autor&lt;br/&gt;                                   AND p.pri_pca_id NOT IN (7) --no es obra de arte&lt;br/&gt;   UNION ALL&lt;br/&gt;   SELECT   i.per_id AS persona,&lt;br/&gt;            a.pci_id AS produccion,&lt;br/&gt;            &apos;120&apos; AS calidad_participacion,&lt;br/&gt;            &apos;&apos; AS calidad_participacion_str,&lt;br/&gt;            p.pri_pca_id AS caracter,&lt;br/&gt;            -- 20: docente !20: cientÃ­fico&lt;br/&gt;            a.orden,&lt;br/&gt;            NULL AS pos_sobre_total,&lt;br/&gt;            &apos;&apos; AS resultados_destacados,&lt;br/&gt;            NULL AS is_relevante_pub&lt;br/&gt;     FROM         grs_oct.oct_produc_cientificas p&lt;br/&gt;               JOIN&lt;br/&gt;                  GRS_OCT.oct_personas_pci a&lt;br/&gt;               ON a.pci_id = p.id&lt;br/&gt;            JOIN&lt;br/&gt;               GRS_OCT.oct_investigadores i&lt;br/&gt;            ON a.inv_id = i.id&lt;br/&gt;    WHERE       p.justificado = &apos;S&apos;&lt;br/&gt;            AND p.borrado = &apos;N&apos;&lt;br/&gt;            AND p.iin_id = 33                                         -- libro&lt;br/&gt;            AND p.ppi_ppr_id IN (1)                                 --es autor&lt;br/&gt;            AND p.pri_pca_id NOT IN (7)                   --no es obra de arte&lt;br/&gt;   UNION ALL&lt;br/&gt;   SELECT   i.per_id AS persona,&lt;br/&gt;            a.pci_id AS produccion,&lt;br/&gt;            &apos;140&apos; AS calidad_participacion,&lt;br/&gt;            &apos;&apos; AS calidad_participacion_str,&lt;br/&gt;            p.pri_pca_id AS caracter,&lt;br/&gt;            -- 20: docente !20: cientÃ­fico&lt;br/&gt;            a.orden,&lt;br/&gt;            NULL AS pos_sobre_total,&lt;br/&gt;            &apos;&apos; AS resultados_destacados,&lt;br/&gt;            NULL AS is_relevante_pub&lt;br/&gt;     FROM         grs_oct.oct_produc_cientificas p&lt;br/&gt;               JOIN&lt;br/&gt;                  GRS_OCT.oct_personas_pci a&lt;br/&gt;               ON a.pci_id = p.id&lt;br/&gt;            JOIN&lt;br/&gt;               GRS_OCT.oct_investigadores i&lt;br/&gt;            ON a.inv_id = i.id&lt;br/&gt;    WHERE   p.justificado = &apos;S&apos; AND p.borrado = &apos;N&apos; AND p.iin_id IN (33, 34) -- libro o capÃ­tulo&lt;br/&gt;            AND p.ppi_ppr_id IN (1)                                 --es autor&lt;br/&gt;                                   AND p.pri_pca_id IN (7)&lt;br/&gt;   --SÃ es obra de arte&lt;br/&gt;   UNION ALL&lt;br/&gt;   SELECT   i.per_id AS persona,&lt;br/&gt;            a.pci_id AS produccion,&lt;br/&gt;            &apos;390&apos; AS calidad_participacion,&lt;br/&gt;            &apos;&apos; AS calidad_participacion_str,&lt;br/&gt;            p.pri_pca_id AS caracter,&lt;br/&gt;            -- 20: docente !20: cientÃ­fico&lt;br/&gt;            a.orden AS orden,&lt;br/&gt;            NULL AS pos_sobre_total,&lt;br/&gt;            &apos;&apos; AS resultados_destacados,&lt;br/&gt;            NULL AS is_relevante_pub&lt;br/&gt;     FROM         grs_oct.oct_produc_cientificas p&lt;br/&gt;               JOIN&lt;br/&gt;                  GRS_OCT.oct_personas_pci a&lt;br/&gt;               ON a.pci_id = p.id&lt;br/&gt;            JOIN&lt;br/&gt;               GRS_OCT.oct_investigadores i&lt;br/&gt;            ON a.inv_id = i.id&lt;br/&gt;    WHERE       p.justificado = &apos;S&apos;&lt;br/&gt;            AND p.borrado = &apos;N&apos;&lt;br/&gt;            AND p.iin_id = 33                                         -- libro&lt;br/&gt;            AND p.ppi_ppr_id IN (2)                                --es editor&lt;br/&gt;   </userDefinedSQL>
+<schemaObject>7C933943-7AB0-84C2-BE06-D7313F6E5071</schemaObject>
+<viewElements>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="PERSONA" id="B56B863E-EA94-00D2-31E7-C7A443D0B34B">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PART_PROD_PUBL</sourceObjSchema>
+<sourceObjName>PERSONA</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>PERSONA</alias>
+<dataType>NUMBER (8)</dataType>
+<headerAlias>PERSONA</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="PRODUCCION" id="ABBF48D6-9C20-42A1-93C0-DD9EE1AE3A04">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PART_PROD_PUBL</sourceObjSchema>
+<sourceObjName>PRODUCCION</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>PRODUCCION</alias>
+<dataType>NUMBER (8)</dataType>
+<headerAlias>PRODUCCION</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="CALIDAD_PARTICIPACION" id="2E7C3269-EDA0-212A-2572-DF0E8B793D6D">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PART_PROD_PUBL</sourceObjSchema>
+<sourceObjName>CALIDAD_PARTICIPACION</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>CALIDAD_PARTICIPACION</alias>
+<dataType>CHAR (9)</dataType>
+<headerAlias>CALIDAD_PARTICIPACION</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="CALIDAD_PARTICIPACION_STR" id="B1934ACA-9F5C-F325-0B91-08D2A3A78F6E">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PART_PROD_PUBL</sourceObjSchema>
+<sourceObjName>CALIDAD_PARTICIPACION_STR</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>CALIDAD_PARTICIPACION_STR</alias>
+<dataType>CHAR</dataType>
+<headerAlias>CALIDAD_PARTICIPACION_STR</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="CARACTER" id="5469EFF4-924B-1AA9-80D2-1958F260ADFF">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PART_PROD_PUBL</sourceObjSchema>
+<sourceObjName>CARACTER</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>CARACTER</alias>
+<dataType>NUMBER (8)</dataType>
+<headerAlias>CARACTER</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="ORDEN" id="D8626F65-EECB-18ED-BED6-1AFD4E5D3280">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PART_PROD_PUBL</sourceObjSchema>
+<sourceObjName>ORDEN</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>ORDEN</alias>
+<dataType>NUMBER (4)</dataType>
+<headerAlias>ORDEN</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="POS_SOBRE_TOTAL" id="D08E5AA3-FD27-E7FD-CDBD-974D08561C55">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PART_PROD_PUBL</sourceObjSchema>
+<sourceObjName>POS_SOBRE_TOTAL</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>POS_SOBRE_TOTAL</alias>
+<dataType>VARCHAR2</dataType>
+<headerAlias>POS_SOBRE_TOTAL</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="RESULTADOS_DESTACADOS" id="2265035F-9E6C-992B-FBE6-BC8D4A4AB2B1">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PART_PROD_PUBL</sourceObjSchema>
+<sourceObjName>RESULTADOS_DESTACADOS</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>RESULTADOS_DESTACADOS</alias>
+<dataType>CHAR</dataType>
+<headerAlias>RESULTADOS_DESTACADOS</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="IS_RELEVANTE_PUB" id="68F21B37-13A1-28DF-4A00-27B6510F79BB">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PART_PROD_PUBL</sourceObjSchema>
+<sourceObjName>IS_RELEVANTE_PUB</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>IS_RELEVANTE_PUB</alias>
+<dataType>VARCHAR2</dataType>
+<headerAlias>IS_RELEVANTE_PUB</headerAlias>
+<reference>false</reference>
+</viewElement>
+</viewElements>
+</TableView>

@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<SchemaObject class="oracle.dbtools.crest.model.design.relational.SchemaObject" name="UJI_CVN" directorySegmentName="seg_0" id="7C933943-7AB0-84C2-BE06-D7313F6E5071">
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:30 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+</SchemaObject>

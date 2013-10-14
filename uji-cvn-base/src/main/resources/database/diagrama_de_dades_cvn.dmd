@@ -1,0 +1,9 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="diagrama_de_dades_cvn" id="EEC29E7D-2C9F-01C3-7449-A8444327A87A" version="3.5">
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:19:00 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>EEC29E7D-2C9F-01C3-7449-A8444327A87A</designId>
+</OSDM_Design>

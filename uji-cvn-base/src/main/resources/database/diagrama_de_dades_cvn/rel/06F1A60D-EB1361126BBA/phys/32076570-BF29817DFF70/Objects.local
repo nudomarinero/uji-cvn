@@ -1,0 +1,32 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<oracle.dbtools.crest.model.design.storage.oracle.v11g.StorageDesignOraclev11g>
+   <object objectType="TSpace" objectID="FB901913-3E78-696A-C2D1-0529994CA9E7" name="USERS" seqName="seg_0"/>
+   <object objectType="User" objectID="MDSYS" name="MDSYS" seqName="seg_0"/>
+   <object objectType="User" objectID="PUBLIC" name="PUBLIC" seqName="seg_0"/>
+   <object objectType="User" objectID="8F4476B9-D3C6-4946-B78E-2F336B4056CB" name="UJI_CVN" seqName="seg_0"/>
+   <object objectType="SType" objectID="47E390DE-0671-C4B1-8428-0F45CBEE18F8" name="SDO_GEOMETRY" seqName="seg_0"/>
+   <object objectType="SType" objectID="F72C39E0-D1CA-8821-2AD7-A1E95A37D3D1" name="XMLTYPE" seqName="seg_0"/>
+   <object objectType="Table" objectID="1F805AC9-282E-74F6-F598-8EAAAF88AB73" name="CVN_LOGS" seqName="seg_0"/>
+   <object objectType="Table" objectID="BDDA0BD2-1201-0FCC-F4AD-509FAE66ADDE" name="CVN_PLANTILLAS" seqName="seg_0"/>
+   <object objectType="Table" objectID="BFE8E855-3690-3799-F33B-D2C5554C1B6A" name="CVN_PDFS_GENERADOS" seqName="seg_0"/>
+   <object objectType="Segment" objectID="C12F420F-9DA9-38EA-E577-61E14B091015" name="Storage1" seqName="seg_0"/>
+   <object objectType="Segment" objectID="A7E17103-1A35-3E3A-90B9-230647223E63" name="Storage4" seqName="seg_0"/>
+   <object objectType="View" objectID="1CACFE80-C330-F38B-0784-D1028C27A779" name="CVN_VIEW_PER_EXT_PART_PUBL" seqName="seg_0"/>
+   <object objectType="View" objectID="2256EAF0-A5EE-ACDA-F5A7-1CAD885174BF" name="CVN_VIEW_PER_PART_PROD_CONG" seqName="seg_0"/>
+   <object objectType="View" objectID="4343EF14-4A1D-1FBD-CB00-E7956352F4A2" name="CVN_VIEW_PROY_INV" seqName="seg_0"/>
+   <object objectType="View" objectID="5ACE3FAE-C54F-788D-2C7F-023F9425B958" name="CVN_VIEW_ENT_PARTICIPA_PROY" seqName="seg_0"/>
+   <object objectType="View" objectID="68DBBE9A-0114-0B80-C21E-23EA72C30B7F" name="CVN_VIEW_PER_PART_PROY" seqName="seg_0"/>
+   <object objectType="View" objectID="74816E58-A624-251A-836B-806150DDF6F5" name="CVN_VIEW_PER_PART_PROD_PUBL" seqName="seg_0"/>
+   <object objectType="View" objectID="7DC39017-93D2-1C0A-7260-D657C53D53DB" name="CVN_VIEW_PER_PARTICIPA_GRUPO" seqName="seg_0"/>
+   <object objectType="View" objectID="88228751-703B-CFEB-8252-FA337F163B9B" name="CVN_VIEW_PROD_PUBLICACIONES" seqName="seg_0"/>
+   <object objectType="View" objectID="8E5B298E-BAAF-3E11-7025-23E8C9B212AF" name="CVN_VIEW_PROY_EXT" seqName="seg_0"/>
+   <object objectType="View" objectID="9770E280-470B-B505-3728-51D85D15AD39" name="CVN_EXT_PERSONAS" seqName="seg_0"/>
+   <object objectType="View" objectID="A92EEEE9-A263-D5A2-0CFD-9317DB6FABBC" name="CVN_VIEW_PROD_CONGRESOS" seqName="seg_0"/>
+   <object objectType="View" objectID="B710969B-3311-30A4-A9E5-9A744EA2E2E6" name="CVN_VIEW_PER_PART_PROY_EXT" seqName="seg_0"/>
+   <object objectType="View" objectID="C6997DA0-293C-777C-F125-0D0E064D0FE7" name="CVN_EXT_ENTIDADES" seqName="seg_0"/>
+   <object objectType="View" objectID="CCD83AE6-6795-80FF-E758-ABF00DA73061" name="CVN_EXT_DOMICILIOS" seqName="seg_0"/>
+   <object objectType="View" objectID="CD76C6C4-D0C9-35E9-1813-8861CB199583" name="CVN_VIEW_GRUPOS_INVESTIGACION" seqName="seg_0"/>
+   <object objectType="View" objectID="CDBDD1A0-4DBF-4C7E-7938-89BEBDB7A308" name="CVN_VIEW_PER_PART_PROD_CONG_EX" seqName="seg_0"/>
+   <object objectType="View" objectID="CE5CFD07-91DE-1F6D-7230-3722948F021E" name="CVN_VIEW_ENT_FINANCIA_PROY" seqName="seg_0"/>
+   <object objectType="View" objectID="D21CBB0E-7FD1-1DCB-8CAD-9BD4B721DD9D" name="CVN_VIEW_IMPACTO_PROD_PUBL" seqName="seg_0"/>
+</oracle.dbtools.crest.model.design.storage.oracle.v11g.StorageDesignOraclev11g>

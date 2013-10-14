@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<LogicalDesign class="oracle.dbtools.crest.model.design.logical.LogicalDesign" name="Logical" id="DFAF86FD-48E9-EB27-64E1-6E66D692F516" mainViewID="99A50AF0-896F-696D-62A6-D993A1259263">
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:19:00 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+</LogicalDesign>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:CVN xsi:schemaLocation="http://cv.normalizado.org/cvn CVN.xsd" xmlns:tns="http://cv.normalizado.org/cvn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Version>
+		<VersionID>
+			<CVN_Identification code="000.020.000.010">
+				<Item>8435246600028000100000000000499</Item>
+			</CVN_Identification>
+			<Date code="000.020.000.020">
+				<Item>2006-09-28</Item>
+			</Date>
+			<CVLanguage>
+				<LanguageName code="000.020.000.070">
+					<Item>Español</Item>
+				</LanguageName>
+				<LanguageCode code="000.020.000.070">
+					<Item>spa</Item>
+				</LanguageCode>
+			</CVLanguage>
+			<CodificationVersion code="000.020.000.080">
+				<Item>1.3.0</Item>
+			</CodificationVersion>
+		</VersionID>
+	</Version>
+	<Agent>
+		<Identification>
+			<PersonalIdentification>
+				<GivenName code="000.010.000.020">
+					<Item>Pedro</Item>
+				</GivenName>
+				<FirstFamilyName code="000.010.000.010">
+					<Item>Martín</Item>
+				</FirstFamilyName>
+				<SecondFamilyName code="000.010.000.010">
+					<Item>Peña</Item>
+				</SecondFamilyName>
+				<OfficialId>
+					<DNI code="000.010.000.100">
+						<Item>46462369T</Item>
+					</DNI>
+				</OfficialId>
+				<Nacionality code="000.010.000.040">
+					<Item>724</Item>
+				</Nacionality>
+				<BirthDate code="000.010.000.050">
+					<Item>1980-05-27</Item>
+				</BirthDate>
+				<BirthCountry code="000.010.000.060">
+					<Item>724</Item>
+				</BirthCountry>
+				<BirthRegion>
+					<Code code="000.010.000.070">
+						<Item>ES41</Item>
+					</Code>
+					<Name code="000.010.000.070">
+						<Item>Castilla y León</Item>
+					</Name>
+				</BirthRegion>
+				<BirthCity code="000.010.000.090">
+					<Item>Valladolid</Item>
+				</BirthCity>
+				<Gender code="000.010.000.030">
+					<Item>000</Item>
+				</Gender>
+			</PersonalIdentification>
+		</Identification>
+		<Address>
+			<City code="000.010.000.170">
+				<Item>Valladolid</Item>
+			</City>
+			<Streets code="000.010.000.140">
+				<Item>C/Buenaventura 23 2ºB</Item>
+			</Streets>
+			<OtherInformation code="000.010.000.150">
+				<Item>Residencial el Eucalipto</Item>
+			</OtherInformation>
+			<PostalCode code="000.010.000.160">
+				<Item>47023</Item>
+			</PostalCode>
+			<Region>
+				<Code code="000.010.000.190">
+					<Item>ES41</Item>
+				</Code>
+				<Name code="000.010.000.190">
+					<Item>Castilla y León</Item>
+				</Name>
+			</Region>
+			<CountryCode code="000.010.000.180">
+				<Item>724</Item>
+			</CountryCode>
+			<Province>
+				<Code code="000.010.000.200">
+					<Item>010</Item>
+				</Code>
+				<Name code="000.010.000.200">
+					<Item>Lugo</Item>
+				</Name>
+			</Province>
+		</Address>
+		<Contact>
+			<Telephone Type="000">
+				<InternationalCode code="000.010.000.210">
+					<Item>34</Item>
+				</InternationalCode>
+				<Number code="000.010.000.210">
+					<Item>9174250909</Item>
+				</Number>
+				<Extension code="000.010.000.210">
+					<Item>222</Item>
+				</Extension>
+			</Telephone>
+			<Telephone Type="010">
+				<InternationalCode code="000.010.000.240">
+					<Item>34</Item>
+				</InternationalCode>
+				<Number code="000.010.000.240">
+					<Item>6174250909</Item>
+				</Number>
+			</Telephone>
+			<Fax Type="000">
+				<InternationalCode code="000.010.000.220">
+					<Item>34</Item>
+				</InternationalCode>
+				<Number code="000.010.000.220">
+					<Item>915712172</Item>
+				</Number>
+			</Fax>
+			<InternetEmailAddress code="000.010.000.230">
+				<Item>sugerencias.cvn@fecyt.es</Item>
+			</InternetEmailAddress>
+			<PersonalWeb code="000.010.000.250">
+				<Item>http://www.cvnet.es</Item>
+			</PersonalWeb>
+		</Contact>
+	</Agent>
+</tns:CVN>

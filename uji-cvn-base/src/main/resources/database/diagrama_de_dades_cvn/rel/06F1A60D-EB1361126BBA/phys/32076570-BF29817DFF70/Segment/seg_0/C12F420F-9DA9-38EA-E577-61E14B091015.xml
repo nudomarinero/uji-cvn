@@ -1,0 +1,11 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<SegmentOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.SegmentOraclev10g" name="Storage1" directorySegmentName="seg_0" id="C12F420F-9DA9-38EA-E577-61E14B091015">
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:30 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<maxTrans>255</maxTrans>
+<scInitialExtent>16384</scInitialExtent>
+<scMaxExtents>2147483645</scMaxExtents>
+<scNextExtent>8192</scNextExtent>
+</SegmentOraclev10g>

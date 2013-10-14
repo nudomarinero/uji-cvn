@@ -1,0 +1,85 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableView class="oracle.dbtools.crest.model.design.relational.TableView" directorySegmentName="seg_0" id="CDBDD1A0-4DBF-4C7E-7938-89BEBDB7A308" name="CVN_VIEW_PER_PART_PROD_CONG_EX">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>UJI_CVN</sourceObjSchema>
+<sourceObjName>CVN_VIEW_PER_PART_PROD_CONG_EX</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<userDefined>true</userDefined>
+<userDefinedSQL>CREATE OR REPLACE VIEW CVN_VIEW_PER_PART_PROD_CONG_EX&lt;br/&gt;AS &lt;br/&gt;SELECT   ax.nombre AS persona,&lt;br/&gt;            ax.pci_id AS produccion,&lt;br/&gt;            &apos;730&apos; AS tipo_participacion,&lt;br/&gt;            &apos;&apos; AS tipo_participacion_str,&lt;br/&gt;            ax.orden AS orden&lt;br/&gt;     FROM      grs_oct.oct_produc_cientificas p&lt;br/&gt;            JOIN&lt;br/&gt;               GRS_OCT.oct_otras_personas_pci ax&lt;br/&gt;            ON ax.pci_id = p.id&lt;br/&gt;    WHERE       p.justificado = &apos;S&apos;&lt;br/&gt;            AND p.borrado = &apos;N&apos;&lt;br/&gt;            AND p.iin_id IN (35)                                     --ponente&lt;br/&gt;            AND p.logico2 = &apos;S&apos;                                     --invitado&lt;br/&gt;   UNION ALL&lt;br/&gt;   SELECT   ax.nombre AS persona,&lt;br/&gt;            ax.pci_id AS produccion,&lt;br/&gt;            &apos;960&apos; AS tipo_participacion,&lt;br/&gt;            &apos;&apos; AS tipo_participacion_str,&lt;br/&gt;            ax.orden AS orden&lt;br/&gt;     FROM      grs_oct.oct_produc_cientificas p&lt;br/&gt;            JOIN&lt;br/&gt;               GRS_OCT.oct_otras_personas_pci ax&lt;br/&gt;            ON ax.pci_id = p.id&lt;br/&gt;    WHERE       p.justificado = &apos;S&apos;&lt;br/&gt;            AND p.borrado = &apos;N&apos;&lt;br/&gt;            AND p.iin_id IN (35)                                     --ponente&lt;br/&gt;            AND p.logico2 = &apos;N&apos;                                        --libre&lt;br/&gt;   UNION ALL&lt;br/&gt;   SELECT   ax.nombre AS persona,&lt;br/&gt;            ax.pci_id AS produccion,&lt;br/&gt;            &apos;980&apos; AS tipo_participacion,&lt;br/&gt;            &apos;&apos; AS tipo_participacion_str,&lt;br/&gt;            ax.orden AS orden&lt;br/&gt;     FROM      grs_oct.oct_produc_cientificas p&lt;br/&gt;            JOIN&lt;br/&gt;               GRS_OCT.oct_otras_personas_pci ax&lt;br/&gt;            ON ax.pci_id = p.id&lt;br/&gt;    WHERE       p.justificado = &apos;S&apos;&lt;br/&gt;            AND p.borrado = &apos;N&apos;&lt;br/&gt;            AND p.iin_id IN (41)                                 --organizador&lt;br/&gt;            AND p.ppi_ppr_id IN (9)                       --comitÃ© organizador&lt;br/&gt;   UNION ALL&lt;br/&gt;   SELECT   ax.nombre AS persona,&lt;br/&gt;            ax.pci_id AS produccion,&lt;br/&gt;            &apos;990&apos; AS tipo_participacion,&lt;br/&gt;            &apos;&apos; AS tipo_participacion_str,&lt;br/&gt;            ax.orden AS orden&lt;br/&gt;     FROM      grs_oct.oct_produc_cientificas p&lt;br/&gt;            JOIN&lt;br/&gt;               GRS_OCT.oct_otras_personas_pci ax&lt;br/&gt;            ON ax.pci_id = p.id&lt;br/&gt;    WHERE       p.justificado = &apos;S&apos;&lt;br/&gt;            AND p.borrado = &apos;N&apos;&lt;br/&gt;            AND p.iin_id IN (41)                                 --organizador&lt;br/&gt;            AND p.ppi_ppr_id IN (10)                       --comitÃ© cientÃ­fico&lt;br/&gt;   </userDefinedSQL>
+<schemaObject>7C933943-7AB0-84C2-BE06-D7313F6E5071</schemaObject>
+<viewElements>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="PERSONA" id="D4C154D4-798D-C748-7A5C-7445048D1A15">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PART_PROD_CONG_EX</sourceObjSchema>
+<sourceObjName>PERSONA</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>PERSONA</alias>
+<dataType>VARCHAR2 (80)</dataType>
+<headerAlias>PERSONA</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="PRODUCCION" id="C69BE755-2B89-B29E-63E6-D03D2FB2AF79">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PART_PROD_CONG_EX</sourceObjSchema>
+<sourceObjName>PRODUCCION</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>PRODUCCION</alias>
+<dataType>NUMBER (8)</dataType>
+<headerAlias>PRODUCCION</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="TIPO_PARTICIPACION" id="BB18E34C-B884-AA84-7A22-155C3668C002">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PART_PROD_CONG_EX</sourceObjSchema>
+<sourceObjName>TIPO_PARTICIPACION</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>TIPO_PARTICIPACION</alias>
+<dataType>CHAR (9)</dataType>
+<headerAlias>TIPO_PARTICIPACION</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="TIPO_PARTICIPACION_STR" id="9CFE14B8-D33F-53F8-4C9A-F2C7113CFF56">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PART_PROD_CONG_EX</sourceObjSchema>
+<sourceObjName>TIPO_PARTICIPACION_STR</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>TIPO_PARTICIPACION_STR</alias>
+<dataType>CHAR</dataType>
+<headerAlias>TIPO_PARTICIPACION_STR</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="ORDEN" id="684D582F-5AE7-C30B-1059-6B10330392B3">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_VIEW_PER_PART_PROD_CONG_EX</sourceObjSchema>
+<sourceObjName>ORDEN</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>ORDEN</alias>
+<dataType>NUMBER (4)</dataType>
+<headerAlias>ORDEN</headerAlias>
+<reference>false</reference>
+</viewElement>
+</viewElements>
+</TableView>

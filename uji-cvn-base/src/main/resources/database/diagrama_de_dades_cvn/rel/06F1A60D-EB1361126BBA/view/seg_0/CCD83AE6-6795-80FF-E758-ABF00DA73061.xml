@@ -1,0 +1,155 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableView class="oracle.dbtools.crest.model.design.relational.TableView" directorySegmentName="seg_0" id="CCD83AE6-6795-80FF-E758-ABF00DA73061" name="CVN_EXT_DOMICILIOS">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>UJI_CVN</sourceObjSchema>
+<sourceObjName>CVN_EXT_DOMICILIOS</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:34 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<userDefined>true</userDefined>
+<userDefinedSQL>CREATE OR REPLACE VIEW CVN_EXT_DOMICILIOS&lt;br/&gt;AS &lt;br/&gt;SELECT   p.id AS id,&lt;br/&gt;            p.id AS per_id,&lt;br/&gt;            d.pueblo AS ciudad_contacto,&lt;br/&gt;            d.via || &apos; &apos; || d.domicilio || &apos; &apos; || d.numero&lt;br/&gt;               AS direccion_contacto,&lt;br/&gt;            NULL AS direccion_contacto_aux,&lt;br/&gt;            d.codpostal AS codigo_postal,&lt;br/&gt;            NULL AS region_contacto,&lt;br/&gt;            &apos;999&apos; AS pais_contacto,&lt;br/&gt;            --no puede ser null 999:desconocido, 724:ES&lt;br/&gt;            pr.id AS provincia_contacto,&lt;br/&gt;            &apos;10&apos; AS orden_preferencia&lt;br/&gt;     FROM         per_personas p&lt;br/&gt;               JOIN&lt;br/&gt;                  per_vw_domicilios d&lt;br/&gt;               ON p.id = d.per_id&lt;br/&gt;            JOIN&lt;br/&gt;               per_provincias pr&lt;br/&gt;            ON d.provincia = pr.nombre&lt;br/&gt;    WHERE   p.tipo_persona = &apos;F&apos;&lt;br/&gt;   </userDefinedSQL>
+<schemaObject>7C933943-7AB0-84C2-BE06-D7313F6E5071</schemaObject>
+<viewElements>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="ID" id="079B3D9E-1A1B-8D05-EC72-4F2B689C88B6">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_EXT_DOMICILIOS</sourceObjSchema>
+<sourceObjName>ID</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>ID</alias>
+<dataType>NUMBER (8)</dataType>
+<headerAlias>ID</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="PER_ID" id="260FB827-E832-0DA2-23ED-56E8B75D8F0F">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_EXT_DOMICILIOS</sourceObjSchema>
+<sourceObjName>PER_ID</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>PER_ID</alias>
+<dataType>NUMBER (8)</dataType>
+<headerAlias>PER_ID</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="CIUDAD_CONTACTO" id="4DDEBB87-4271-90DF-63B1-EE9BA95779A3">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_EXT_DOMICILIOS</sourceObjSchema>
+<sourceObjName>CIUDAD_CONTACTO</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>CIUDAD_CONTACTO</alias>
+<dataType>VARCHAR2 (255)</dataType>
+<headerAlias>CIUDAD_CONTACTO</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="DIRECCION_CONTACTO" id="36B2BBCA-6A62-4630-778C-AAB17AA64193">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_EXT_DOMICILIOS</sourceObjSchema>
+<sourceObjName>DIRECCION_CONTACTO</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>DIRECCION_CONTACTO</alias>
+<dataType>VARCHAR2 (269)</dataType>
+<headerAlias>DIRECCION_CONTACTO</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="DIRECCION_CONTACTO_AUX" id="2E81B30C-0A47-4A2F-8EEB-611298C6464F">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_EXT_DOMICILIOS</sourceObjSchema>
+<sourceObjName>DIRECCION_CONTACTO_AUX</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>DIRECCION_CONTACTO_AUX</alias>
+<dataType>VARCHAR2</dataType>
+<headerAlias>DIRECCION_CONTACTO_AUX</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="CODIGO_POSTAL" id="8F63B360-A2A5-530B-4278-2E2C2066E520">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_EXT_DOMICILIOS</sourceObjSchema>
+<sourceObjName>CODIGO_POSTAL</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>CODIGO_POSTAL</alias>
+<dataType>VARCHAR2 (20)</dataType>
+<headerAlias>CODIGO_POSTAL</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="REGION_CONTACTO" id="B05507F3-DAF9-7568-4B51-8EFF236CE766">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_EXT_DOMICILIOS</sourceObjSchema>
+<sourceObjName>REGION_CONTACTO</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>REGION_CONTACTO</alias>
+<dataType>VARCHAR2</dataType>
+<headerAlias>REGION_CONTACTO</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="PAIS_CONTACTO" id="3F5F8A45-35CD-1C7F-C34A-FE7AC6F7B8FC">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_EXT_DOMICILIOS</sourceObjSchema>
+<sourceObjName>PAIS_CONTACTO</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>PAIS_CONTACTO</alias>
+<dataType>CHAR (9)</dataType>
+<headerAlias>PAIS_CONTACTO</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="PROVINCIA_CONTACTO" id="81B11A7C-3A8B-2248-BCAB-1C66D1DE045C">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_EXT_DOMICILIOS</sourceObjSchema>
+<sourceObjName>PROVINCIA_CONTACTO</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>PROVINCIA_CONTACTO</alias>
+<dataType>VARCHAR2 (2)</dataType>
+<headerAlias>PROVINCIA_CONTACTO</headerAlias>
+<reference>false</reference>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="ORDEN_PREFERENCIA" id="FC524FC4-2435-B368-65A0-60634E74AB99">
+<sourceConnName>uji_cvn</sourceConnName>
+<sourceObjSchema>CVN_EXT_DOMICILIOS</sourceObjSchema>
+<sourceObjName>ORDEN_PREFERENCIA</sourceObjName>
+<createdBy>ferrerq</createdBy>
+<createdTime>2013-09-10 11:20:35 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>diagrama_de_dades_cvn</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<alias>ORDEN_PREFERENCIA</alias>
+<dataType>CHAR (6)</dataType>
+<headerAlias>ORDEN_PREFERENCIA</headerAlias>
+<reference>false</reference>
+</viewElement>
+</viewElements>
+</TableView>
