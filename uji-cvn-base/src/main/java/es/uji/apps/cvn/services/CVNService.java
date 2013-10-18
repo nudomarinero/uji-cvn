@@ -145,7 +145,6 @@ public class CVNService
         generatePDF(personaId, template, lang, cvnGenerado, plantillaId, false);
     }
 
-    @Role({"ADMIN"})
     public void generateCVNEnFormatoPDFAdminByPersonaId(Long personaId, String template, String lang,
                                                         CvnGenerado cvnGenerado, Long plantillaId,
                                                         Long connectedUserId)
