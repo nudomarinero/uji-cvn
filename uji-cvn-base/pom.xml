@@ -26,7 +26,13 @@
     <dependency>
       <groupId>es.uji.commons</groupId>
       <artifactId>uji-commons-web-template</artifactId>
-      <version>0.0.8</version>
+      <version>0.0.9</version>
+    </dependency>
+
+    <dependency>
+      <groupId>es.uji.commons</groupId>
+      <artifactId>uji-commons-web-template-model</artifactId>
+      <version>0.0.3</version>
     </dependency>
 
     <dependency>

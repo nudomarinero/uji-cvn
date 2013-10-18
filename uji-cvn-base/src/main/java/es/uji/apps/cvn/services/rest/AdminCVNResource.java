@@ -1,35 +1,27 @@
 package es.uji.apps.cvn.services.rest;
 
-import java.net.MalformedURLException;
-import java.text.ParseException;
-import java.util.List;
-
-import javax.ws.rs.CookieParam;
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
-
 import com.sun.jersey.api.core.InjectParam;
-
 import es.uji.apps.cvn.model.CvnGenerado;
 import es.uji.apps.cvn.model.PlantillaCvn;
-import es.uji.apps.cvn.publicacion.Menu;
 import es.uji.apps.cvn.publicacion.MenuFactory;
-import es.uji.apps.cvn.publicacion.Pagina;
 import es.uji.apps.cvn.services.CVNService;
 import es.uji.apps.cvn.services.PlantillaCVNService;
 import es.uji.commons.sso.AccessManager;
 import es.uji.commons.web.template.Template;
+import es.uji.commons.web.template.model.Menu;
+import es.uji.commons.web.template.model.Pagina;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import java.net.MalformedURLException;
+import java.text.ParseException;
+import java.util.List;
 
 @Path("admin")
 public class AdminCVNResource extends AppBaseCVNResource
 {
     @InjectParam
     private CVNService cvnService;
-
     @InjectParam
     private PlantillaCVNService plantillaCVNService;
 
@@ -90,8 +82,8 @@ public class AdminCVNResource extends AppBaseCVNResource
     @GET
     @Path("plantillas/form")
     public Template formPlantillaCVN(@CookieParam("uji-lang") @DefaultValue("ca") String idioma,
-            @QueryParam("idioma") String idiomaForzado,
-            @QueryParam("plantillaId") String plantillaId) throws MalformedURLException,
+                                     @QueryParam("idioma") String idiomaForzado,
+                                     @QueryParam("plantillaId") String plantillaId) throws MalformedURLException,
             ParseException
     {
         Long connectedUserId = AccessManager.getConnectedUserId(request);

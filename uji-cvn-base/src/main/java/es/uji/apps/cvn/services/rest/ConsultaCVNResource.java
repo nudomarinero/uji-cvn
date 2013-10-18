@@ -3,12 +3,12 @@ package es.uji.apps.cvn.services.rest;
 import com.sun.jersey.api.core.InjectParam;
 import es.uji.apps.cvn.model.CvnGenerado;
 import es.uji.apps.cvn.model.PlantillaCvn;
-import es.uji.apps.cvn.publicacion.Menu;
 import es.uji.apps.cvn.publicacion.MenuFactory;
-import es.uji.apps.cvn.publicacion.Pagina;
 import es.uji.apps.cvn.services.CVNService;
 import es.uji.commons.sso.AccessManager;
 import es.uji.commons.web.template.Template;
+import es.uji.commons.web.template.model.Menu;
+import es.uji.commons.web.template.model.Pagina;
 
 import java.net.MalformedURLException;
 import java.text.ParseException;

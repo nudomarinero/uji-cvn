@@ -8,11 +8,11 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
-import es.uji.apps.cvn.publicacion.Menu;
-import es.uji.apps.cvn.publicacion.Pagina;
 import es.uji.commons.rest.CoreBaseService;
 import es.uji.commons.web.template.HTMLTemplate;
 import es.uji.commons.web.template.Template;
+import es.uji.commons.web.template.model.Menu;
+import es.uji.commons.web.template.model.Pagina;
 
 public class AppBaseCVNResource extends CoreBaseService
 {

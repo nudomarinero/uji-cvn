@@ -1,5 +1,9 @@
 package es.uji.apps.cvn.publicacion;
 
+import es.uji.commons.web.template.model.GrupoMenu;
+import es.uji.commons.web.template.model.ItemMenu;
+import es.uji.commons.web.template.model.Menu;
+
 public class MenuFactory
 {
     private static final String IDIOMA_CA = "ca";
