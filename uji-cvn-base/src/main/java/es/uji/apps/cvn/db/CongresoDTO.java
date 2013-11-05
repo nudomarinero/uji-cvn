@@ -1,9 +1,14 @@
 package es.uji.apps.cvn.db;
 
 import java.io.Serializable;
-import javax.persistence.*;
-
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * The persistent class for the CVN_VIEW_PROD_CONGRESOS database table.
@@ -97,18 +102,18 @@ public class CongresoDTO implements Serializable
 
     @Column(name = "WEB_PUB")
     private String webPub;
-    
-    //ESpecíficos de congreso de caracter docente
-    
+
+    // ESpecíficos de congreso de caracter docente
+
     private String objetivos;
-    
+
     private String destinatarios;
-    
+
     private String idioma;
 
-    @Column(name="FECHA_PRESENTACION")
+    @Column(name = "FECHA_PRESENTACION")
     private Date fechaPresentacion;
-    
+
     private String horas;
 
     public CongresoDTO()
@@ -395,45 +400,54 @@ public class CongresoDTO implements Serializable
         this.webPub = webPub;
     }
 
-	public String getObjetivos() {
-		return objetivos;
-	}
+    public String getObjetivos()
+    {
+        return objetivos;
+    }
 
-	public void setObjetivos(String objetivos) {
-		this.objetivos = objetivos;
-	}
+    public void setObjetivos(String objetivos)
+    {
+        this.objetivos = objetivos;
+    }
 
-	public String getDestinatarios() {
-		return destinatarios;
-	}
+    public String getDestinatarios()
+    {
+        return destinatarios;
+    }
 
-	public void setDestinatarios(String destinatarios) {
-		this.destinatarios = destinatarios;
-	}
+    public void setDestinatarios(String destinatarios)
+    {
+        this.destinatarios = destinatarios;
+    }
 
-	public String getIdioma() {
-		return idioma;
-	}
+    public String getIdioma()
+    {
+        return idioma;
+    }
 
-	public void setIdioma(String idioma) {
-		this.idioma = idioma;
-	}
+    public void setIdioma(String idioma)
+    {
+        this.idioma = idioma;
+    }
 
-	public Date getFechaPresentacion() {
-		return fechaPresentacion;
-	}
+    public Date getFechaPresentacion()
+    {
+        return fechaPresentacion;
+    }
 
-	public void setFechaPresentacion(Date fechaPresentacion) {
-		this.fechaPresentacion = fechaPresentacion;
-	}
+    public void setFechaPresentacion(Date fechaPresentacion)
+    {
+        this.fechaPresentacion = fechaPresentacion;
+    }
 
-	public String getHoras() {
-		return horas;
-	}
+    public String getHoras()
+    {
+        return horas;
+    }
 
-	public void setHoras(String horas) {
-		this.horas = horas;
-	}
+    public void setHoras(String horas)
+    {
+        this.horas = horas;
+    }
 
-    
 }

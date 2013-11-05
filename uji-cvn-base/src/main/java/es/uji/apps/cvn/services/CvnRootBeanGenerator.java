@@ -11,6 +11,7 @@ import es.uji.apps.cvn.model.ParticipacionProyecto;
 import es.uji.apps.cvn.model.ParticipacionPublicacionCientificoTecnica;
 import es.uji.apps.cvn.model.ParticipacionPublicacionDocente;
 import es.uji.apps.cvn.model.Persona;
+import es.uji.apps.cvn.model.Tesis;
 import es.uji.apps.cvn.model.cvn.CVN;
 import es.uji.apps.cvn.model.cvn.Entidad;
 import es.uji.apps.cvn.model.cvn.grupos.GrupoInvestigacion;
@@ -19,6 +20,8 @@ import es.uji.apps.cvn.model.cvn.grupos.ParticipacionGrupoInvestigacion;
 import es.uji.apps.cvn.model.cvn.identificacion.Contacto;
 import es.uji.apps.cvn.model.cvn.identificacion.DatosPersonales;
 import es.uji.apps.cvn.model.cvn.identificacion.Identificacion;
+import es.uji.apps.cvn.model.cvn.docente.CvnTesis;
+import es.uji.apps.cvn.model.cvn.docente.ParticipacionEnTesis;
 import es.uji.apps.cvn.model.cvn.proyectos.FinanciacionProyecto;
 import es.uji.apps.cvn.model.cvn.proyectos.InvestigadorProyecto;
 import es.uji.apps.cvn.model.cvn.proyectos.InvestigadorProyectoCompetitivo;
@@ -72,6 +75,7 @@ public class CvnRootBeanGenerator
 
         cvn.addCvnItemBean(generateDatosPersonaBean());
 
+
         for (ParticipacionGrupo participacionGrupo : GruposInvestigacion.aplicaFiltros(
                 persona.getParticipacionesGrupos(), plantilla))
         {
@@ -114,8 +118,14 @@ public class CvnRootBeanGenerator
             cvn.addCvnItemBean(generateDatosCongresoDocente(participacionCongreso));
         }
 
+        for (Tesis tesis :   persona.getTesis())
+        {
+            cvn.addCvnItemBean(generateDatosTesis(tesis));
+        }
+
         return this.cvn;
     }
+
 
     private void addGruposInvestigacion()
     {
@@ -731,6 +741,32 @@ public class CvnRootBeanGenerator
                 .getDepositoLegal());
 
         return participacionEnCongreso;
+    }
+
+
+    private CvnItemBean generateDatosTesis(Tesis tesis) {
+
+        ParticipacionEnTesis participacionEnTesis = new ParticipacionEnTesis();
+        CvnTesis cvnTesis = participacionEnTesis.getCvnTesis();
+
+        cvnTesis.addTipo(tesis.getTipoId());
+        cvnTesis.addTitulo(tesis.getTitulo());
+        cvnTesis.addCodirector(tesis.getCodirectorNombre(), tesis.getCodirectorApellido1(), tesis.getCodirectorApellido2());
+        cvnTesis.addPaisLectura(tesis.getPais());
+        cvnTesis.addCiudadDireccion(tesis.getCiudad());
+        cvnTesis.addEntidad(tesis.getEntidad());
+        cvnTesis.addTipoEntidad(tesis.getTipoEntidad());
+        cvnTesis.addAlumno(tesis.getAlumnoNombre(),tesis.getAlumnoApellido1(),tesis.getAlumnoApellido2());
+        cvnTesis.addFechaLectura(tesis.getFechaLectura());
+        cvnTesis.addCalificacion(tesis.getCalificacion());
+        cvnTesis.addFechaDoctorEuropeo(tesis.getFechaDoctorEuropeo());
+        cvnTesis.addDoctorEuropeo(tesis.isDoctorEuropeo());
+        cvnTesis.addMencionCalidad(tesis.isMencionCalidad());
+        cvnTesis.addComunidadAutonoma(tesis.getRegion());
+
+
+        return participacionEnTesis;
+
     }
 
 }

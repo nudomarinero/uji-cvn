@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import com.mysema.query.jpa.impl.JPAQuery;
@@ -34,10 +35,15 @@ import es.uji.commons.rest.exceptions.RegistroNoEncontradoException;
 public class PublicacionDAO extends BaseDAODatabaseImpl
 {
     final private static Long CARACTER_DOCENTE = 20L;
+    private static final Logger log = Logger.getLogger(PublicacionDAO.class);
 
     public List<ParticipacionPublicacionCientificoTecnica> getParticipacionesEnPublicacionesCientificoTecnicasByPersonaId(
             Long personaId) throws RegistroNoEncontradoException
     {
+
+        Long mili = System.currentTimeMillis();
+
+
         JPAQuery query = new JPAQuery(entityManager);
         QParticipacionPersonaEnPublicacionDTO qParticipacionPublicacion = QParticipacionPersonaEnPublicacionDTO.participacionPersonaEnPublicacionDTO;
 
@@ -55,6 +61,10 @@ public class PublicacionDAO extends BaseDAODatabaseImpl
                     .add(creaParticipacionPublicacionCientificoTecnicaDesde(participacionPublicacionDTO));
         }
 
+        mili = System.currentTimeMillis()-mili;
+        log.info("PublicacionDAO.getParticipacionesEnPublicacionesCientificoTecnicasByPersonaId " + mili);
+
+
         return participacionPublicaciones;
     }
     
@@ -63,6 +73,10 @@ public class PublicacionDAO extends BaseDAODatabaseImpl
     public List<ParticipacionPublicacionDocente> getParticipacionesEnPublicacionesDocentesByPersonaId(
             Long personaId) throws RegistroNoEncontradoException
     {
+
+        Long mili = System.currentTimeMillis();
+
+
         JPAQuery query = new JPAQuery(entityManager);
         QParticipacionPersonaEnPublicacionDTO qParticipacionPublicacion = QParticipacionPersonaEnPublicacionDTO.participacionPersonaEnPublicacionDTO;
 
@@ -79,6 +93,8 @@ public class PublicacionDAO extends BaseDAODatabaseImpl
             participacionPublicaciones
                     .add(creaParticipacionPublicacionDocenteDesde(participacionPublicacionDTO));
         }
+        mili = System.currentTimeMillis()-mili;
+        log.info("PublicacionDAO.getParticipacionesEnPublicacionesDocentesByPersonaId " + mili);
 
         return participacionPublicaciones;
     }
@@ -90,6 +106,9 @@ public class PublicacionDAO extends BaseDAODatabaseImpl
     private PublicacionCientificoTecnica getPublicacionCientificoTecnicaById(Long publicacionId)
             throws RegistroNoEncontradoException
     {
+        Long mili = System.currentTimeMillis();
+
+
         PublicacionDTO publicacion = null;
 
         try
@@ -114,6 +133,8 @@ public class PublicacionDAO extends BaseDAODatabaseImpl
         {
             publicacion.setListaImpactoPublicacion(new ArrayList<ImpactoPublicacionDTO>());
         }
+        mili = System.currentTimeMillis()-mili;
+        log.info("PublicacionDAO.getPublicacionCientificoTecnicaById " + mili);
 
         return creaPublicacionCientificoTecnicaDesde(publicacion);
     }
@@ -123,7 +144,10 @@ public class PublicacionDAO extends BaseDAODatabaseImpl
     private PublicacionDocente getPublicacionDocenteById(Long publicacionId)
     throws RegistroNoEncontradoException
     {
-    	PublicacionDTO publicacion = null;
+        Long mili = System.currentTimeMillis();
+
+
+        PublicacionDTO publicacion = null;
 
     	try
     	{
@@ -138,13 +162,17 @@ public class PublicacionDAO extends BaseDAODatabaseImpl
     	{
     		throw new RegistroNoEncontradoException();	
         }
+        mili = System.currentTimeMillis()-mili;
+        log.info("PublicacionDAO.getPublicacionDocenteById " + mili);
 
-    	return creaPublicacionDocenteDesde(publicacion);
+        return creaPublicacionDocenteDesde(publicacion);
     }
 
 
 	private List<ImpactoPublicacionDTO> getListaImpactoByPublicacionId(Long publicacionId)
     {
+        Long mili = System.currentTimeMillis();
+
         JPAQuery query = new JPAQuery(entityManager);
         QImpactoPublicacionDTO qImpactoPublicacion = QImpactoPublicacionDTO.impactoPublicacionDTO;
 
@@ -157,6 +185,8 @@ public class PublicacionDAO extends BaseDAODatabaseImpl
     private List<AutorPublicacion> getAutoresPublicacion(Long publicacionId)
             throws RegistroNoEncontradoException
     {
+        Long mili = System.currentTimeMillis();
+
         JPAQuery query = new JPAQuery(entityManager);
         QParticipacionPersonaEnPublicacionDTO qParticipacion = QParticipacionPersonaEnPublicacionDTO.participacionPersonaEnPublicacionDTO;
 
@@ -176,12 +206,17 @@ public class PublicacionDAO extends BaseDAODatabaseImpl
                 throw new RegistroNoEncontradoException();
             }
         }
+        mili = System.currentTimeMillis()-mili;
+        log.info("PublicacionDAO.QParticipacionPersonaEnPublicacionDTO " + mili);
 
         return autores;
     }
 
     private List<AutorPublicacion> getAutoresExternosPublicacion(Long publicacionId)
     {
+        Long mili = System.currentTimeMillis();
+
+
         JPAQuery query = new JPAQuery(entityManager);
         QParticipacionPersonaExternaEnPublicacionDTO qParticipacion = QParticipacionPersonaExternaEnPublicacionDTO.participacionPersonaExternaEnPublicacionDTO;
 
@@ -194,6 +229,8 @@ public class PublicacionDAO extends BaseDAODatabaseImpl
         {
             autores.add(creaAutorPublicacionDesde(participacionDTO));
         }
+        mili = System.currentTimeMillis()-mili;
+        log.info("PublicacionDAO.getAutoresExternosPublicacion " + mili);
 
         return autores;
     }

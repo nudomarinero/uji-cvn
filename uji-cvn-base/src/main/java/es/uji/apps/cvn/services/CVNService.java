@@ -12,6 +12,7 @@ import es.uji.apps.cvn.model.plantilla.Plantilla;
 import es.uji.apps.cvn.ui.beans.CvnRootBean;
 import es.uji.commons.rest.Role;
 import es.uji.commons.rest.exceptions.RegistroNoEncontradoException;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,8 @@ import java.util.List;
 @Service
 public class CVNService
 {
+    private static final Logger log = Logger.getLogger(CVNService.class);
+
     final private static String NAME_WS = "cvn";
     final private static String SUCCESS_WS_CODE = "00";
     final private static String URL_DESCARGA_BASE = "doc/get";
@@ -56,6 +59,8 @@ public class CVNService
     @Autowired
     private CongresoDAO congresoDAO;
     @Autowired
+    private TesisDAO tesisDAO;
+    @Autowired
     private CvnGeneradoDAO cvnGeneradoDAO;
     @Autowired
     private PlantillaDAO plantillaDAO;
@@ -73,8 +78,7 @@ public class CVNService
     }
 
     public void generatePDF(Long personaId, String template, String lang, CvnGenerado cvnGenerado,
-                            Long plantillaId, boolean admin)
-    {
+                            Long plantillaId, boolean admin) throws RegistroNoEncontradoException, GeneradorPDFWSException, IOException {
         try
         {
             Plantilla plantilla;
@@ -126,6 +130,7 @@ public class CVNService
             logDAO.insertLog(Log.logError(personaId, personaId,
                     "Error al obtener los datos del usuario",
                     re.getMessage() + "\n" + Utils.exceptionStackTraceToString(re)));
+            throw re;
         }
         catch (Exception e)
         {
@@ -136,19 +141,18 @@ public class CVNService
             logDAO.insertLog(Log.logError(personaId, personaId,
                     "Error al descargar el PDF del usuario",
                     e.getMessage() + "\n" + Utils.exceptionStackTraceToString(e)));
+            throw e;
         }
     }
 
     public void generateCVNEnFormatoPDFByPersonaId(Long personaId, String template, String lang,
-                                                   CvnGenerado cvnGenerado, Long plantillaId)
-    {
+                                                   CvnGenerado cvnGenerado, Long plantillaId) throws IOException, GeneradorPDFWSException, RegistroNoEncontradoException {
         generatePDF(personaId, template, lang, cvnGenerado, plantillaId, false);
     }
 
     public void generateCVNEnFormatoPDFAdminByPersonaId(Long personaId, String template, String lang,
                                                         CvnGenerado cvnGenerado, Long plantillaId,
-                                                        Long connectedUserId)
-    {
+                                                        Long connectedUserId) throws IOException, GeneradorPDFWSException, RegistroNoEncontradoException {
         generatePDF(personaId, template, lang, cvnGenerado, plantillaId, true);
     }
 
@@ -247,6 +251,9 @@ public class CVNService
             persona.setParticipacionesCongresosDocentes(participacionCongresosDocentes);
         }
 
+        List<Tesis> listaTesis = tesisDAO.getTesisPersonaId(personaId);
+        persona.setTesis(listaTesis);
+
         return persona;
     }
 
@@ -258,13 +265,13 @@ public class CVNService
         GeneradorPDFWS port = pdfService.getGeneraradorPDFWSPort(wsdlPortName);
 
         Long mili = System.currentTimeMillis();
-        System.out.println("Inici de sol·licitud del PDF a Madrid: ");
+        log.info("Inici de sol·licitud del PDF a Madrid: ");
         DocumentoCVN documentoCVN = port.crearPDFBeanCvnRootBean(cvnWsUser, cvnWsPasswd, NAME_WS,
                 cvnRootBean, (template != null) ? template : cvnWsTemplateDefault,
                 (lang != null) ? lang : cvnWsLangDefault);
         mili = System.currentTimeMillis()-mili;
         mili = mili/1000;
-        System.out.println("Fi de sol·licitud del PDF a Madrid: " + mili);
+        log.info("Fi de sol·licitud del PDF a Madrid: " + mili);
         return documentoCVN;
     }
 

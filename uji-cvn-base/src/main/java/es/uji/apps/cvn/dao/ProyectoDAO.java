@@ -3,6 +3,7 @@ package es.uji.apps.cvn.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import com.mysema.query.jpa.impl.JPAQuery;
@@ -26,11 +27,19 @@ import es.uji.commons.rest.exceptions.RegistroNoEncontradoException;
 @Repository
 public class ProyectoDAO extends BaseDAODatabaseImpl
 {
+
+    private static final Logger log = Logger.getLogger(ProyectoDAO.class);
+
     public List<ParticipacionProyecto> getParticipacionesEnProyectosByPersonaId(Long personaId)
             throws RegistroNoEncontradoException
     {
+        Long mili = System.currentTimeMillis();
+
         List<ParticipacionProyecto> participacionProyectos = getParticipacionesEnProyectos(personaId);
         participacionProyectos.addAll(getParticipacionesEnProyectosExternos(personaId));
+
+        mili = System.currentTimeMillis()-mili;
+        log.info("ProyectoDAO.getParticipacionesEnProyectosByPersonaId " + mili);
 
         return participacionProyectos;
     }
@@ -38,6 +47,9 @@ public class ProyectoDAO extends BaseDAODatabaseImpl
     private List<ParticipacionProyecto> getParticipacionesEnProyectos(Long personaId)
             throws RegistroNoEncontradoException
     {
+        Long mili = System.currentTimeMillis();
+
+
         JPAQuery query = new JPAQuery(entityManager);
         QParticipacionPersonaEnProyectoDTO qParticipacionProyecto = QParticipacionPersonaEnProyectoDTO.participacionPersonaEnProyectoDTO;
 
@@ -56,12 +68,17 @@ public class ProyectoDAO extends BaseDAODatabaseImpl
             participacionProyectos.add(participacionProyecto);
         }
 
+        mili = System.currentTimeMillis()-mili;
+        log.info("ProyectoDAO.getParticipacionesEnProyectos " + mili);
+
         return participacionProyectos;
     }
 
     private List<ParticipacionProyecto> getParticipacionesEnProyectosExternos(Long personaId)
             throws RegistroNoEncontradoException
     {
+        Long mili = System.currentTimeMillis();
+
         JPAQuery query = new JPAQuery(entityManager);
         QParticipacionPersonaEnProyectoExternoDTO qParticipacionProyecto = QParticipacionPersonaEnProyectoExternoDTO.participacionPersonaEnProyectoExternoDTO;
 
@@ -80,11 +97,16 @@ public class ProyectoDAO extends BaseDAODatabaseImpl
             participacionProyectos.add(participacionProyecto);
         }
 
+        mili = System.currentTimeMillis()-mili;
+        log.info("ProyectoDAO.getParticipacionesEnProyectosExternos " + mili);
+
         return participacionProyectos;
     }
 
     private List<Persona> getResponsablesByProyectoId(Long proyectoId)
     {
+        Long mili = System.currentTimeMillis();
+
         JPAQuery query = new JPAQuery(entityManager);
         QParticipacionPersonaEnProyectoDTO qParticipacionProyecto = QParticipacionPersonaEnProyectoDTO.participacionPersonaEnProyectoDTO;
         QPersonaDTO qPersona = QPersonaDTO.personaDTO;
@@ -100,12 +122,17 @@ public class ProyectoDAO extends BaseDAODatabaseImpl
         {
             responsables.add(creaResponsableDesde(responsableDTO));
         }
+        mili = System.currentTimeMillis()-mili;
+        log.info("ProyectoDAO.getResponsablesByProyectoId " + mili);
+
 
         return responsables;
     }
 
     private List<Persona> getResponsablesByProyectoExternoId(Long proyectoId)
     {
+        Long mili = System.currentTimeMillis();
+
         JPAQuery query = new JPAQuery(entityManager);
         QParticipacionPersonaEnProyectoExternoDTO qParticipacionProyecto = QParticipacionPersonaEnProyectoExternoDTO.participacionPersonaEnProyectoExternoDTO;
         QPersonaDTO qPersona = QPersonaDTO.personaDTO;
@@ -121,6 +148,8 @@ public class ProyectoDAO extends BaseDAODatabaseImpl
         {
             responsables.add(creaResponsableDesde(responsableDTO));
         }
+        mili = System.currentTimeMillis()-mili;
+        log.info("ProyectoDAO.getResponsablesByProyectoExternoId " + mili);
 
         return responsables;
     }
@@ -129,6 +158,7 @@ public class ProyectoDAO extends BaseDAODatabaseImpl
             ParticipacionPersonaEnProyectoDTO participacionPersonaEnProyectoDTO)
             throws RegistroNoEncontradoException
     {
+
         ParticipacionProyecto participacionProyecto = new ParticipacionProyecto();
 
         participacionProyecto.setAportaciones(participacionPersonaEnProyectoDTO.getAportaciones());

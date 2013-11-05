@@ -72,8 +72,9 @@ public class Persona
     
     private List<ParticipacionCongreso> participacionesCongresosDocentes;
 
+    private List<Tesis> tesis;
 
-	final private static String DATE_FORMATTER = "yyyy-MM-dd";
+    final private static String DATE_FORMATTER = "yyyy-MM-dd";
 
     public Persona()
     {
@@ -412,4 +413,11 @@ public class Persona
 		this.participacionesCongresosDocentes = participacionesCongresosDocentes;
 	}
 
+    public void setTesis(List<Tesis> listaTesis) {
+        this.tesis=listaTesis;
+    }
+
+    public List<Tesis> getTesis() {
+        return tesis;
+    }
 }

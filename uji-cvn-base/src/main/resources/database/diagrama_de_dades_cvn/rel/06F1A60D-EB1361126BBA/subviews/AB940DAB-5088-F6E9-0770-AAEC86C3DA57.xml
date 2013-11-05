@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Diagram class="oracle.dbtools.crest.swingui.relational.DPVRelational" name="Relational_1" id="AB940DAB-5088-F6E9-0770-AAEC86C3DA57">
+<Diagram class="oracle.dbtools.crest.swingui.relational.DPVRelational" name="UJI_CVN" id="AB940DAB-5088-F6E9-0770-AAEC86C3DA57">
 <createdBy>ferrerq</createdBy>
 <createdTime>2013-09-10 11:20:29 UTC</createdTime>
 <autoRoute>false</autoRoute>
@@ -109,6 +109,10 @@
 <fontSize>32</fontSize>
 <fontStyle>1</fontStyle>
 <colorRGB>-1</colorRGB>
+</FontObject>
+<FontObject>
+<foType>Title</foType>
+<colorRGB>-16777216</colorRGB>
 </FontObject>
 </fonts>
 </OView>

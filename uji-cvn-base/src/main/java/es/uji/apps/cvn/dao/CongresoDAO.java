@@ -3,6 +3,7 @@ package es.uji.apps.cvn.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import com.mysema.query.jpa.impl.JPAQuery;
@@ -25,10 +26,14 @@ import es.uji.commons.rest.exceptions.RegistroNoEncontradoException;
 public class CongresoDAO extends BaseDAODatabaseImpl
 {
     final private static Long CARACTER_DOCENTE = 20L;
+    private static final Logger log = Logger.getLogger(CongresoDAO.class);
 
     public List<ParticipacionCongreso> getParticipacionesEnCongresosByPersonaId(Long personaId)
             throws RegistroNoEncontradoException
     {
+
+        Long mili = System.currentTimeMillis();
+
         JPAQuery query = new JPAQuery(entityManager);
         QParticipacionPersonaEnCongresoDTO qParticipacionCongreso = QParticipacionPersonaEnCongresoDTO.participacionPersonaEnCongresoDTO;
 
@@ -45,6 +50,9 @@ public class CongresoDAO extends BaseDAODatabaseImpl
             participacionEnCongresos.add(creaParticipacionCongresoDesde(participacionCongresoDTO));
         }
 
+        mili = System.currentTimeMillis()-mili;
+        log.info("CongresoDAO.getParticipacionesEnCongresosByPersonaId " + mili);
+
         return participacionEnCongresos;
     }
     
@@ -52,7 +60,10 @@ public class CongresoDAO extends BaseDAODatabaseImpl
     public List<ParticipacionCongreso> getParticipacionesEnCongresosDocentesByPersonaId(Long personaId)
     throws RegistroNoEncontradoException
     {
-    	JPAQuery query = new JPAQuery(entityManager);
+
+        Long mili = System.currentTimeMillis();
+
+        JPAQuery query = new JPAQuery(entityManager);
     	QParticipacionPersonaEnCongresoDTO qParticipacionCongreso = QParticipacionPersonaEnCongresoDTO.participacionPersonaEnCongresoDTO;
 
     	List<ParticipacionPersonaEnCongresoDTO> participacionCongresosDTO = query
@@ -68,6 +79,9 @@ public class CongresoDAO extends BaseDAODatabaseImpl
     		participacionEnCongresos.add(creaParticipacionCongresoDesde(participacionCongresoDTO));
     	}
 
+        mili = System.currentTimeMillis()-mili;
+        log.info("CongresoDAO.getParticipacionesEnCongresosDocentesByPersonaId " + mili);
+
     	return participacionEnCongresos;
     }
 
@@ -77,6 +91,8 @@ public class CongresoDAO extends BaseDAODatabaseImpl
 
     private Congreso getCongresoById(Long congresoId) throws RegistroNoEncontradoException
     {
+        Long mili = System.currentTimeMillis();
+
         CongresoDTO congresoDTO = null;
 
         try
@@ -88,12 +104,19 @@ public class CongresoDAO extends BaseDAODatabaseImpl
             throw new RegistroNoEncontradoException();
         }
 
+
+        mili = System.currentTimeMillis()-mili;
+        log.info("CongresoDAO.getCongresoById " + mili);
+
         return creaCongresoDesde(congresoDTO);
     }
 
     private List<AutorPublicacion> getAutoresCongreso(Long congresoId)
             throws RegistroNoEncontradoException
     {
+        Long mili = System.currentTimeMillis();
+
+
         JPAQuery query = new JPAQuery(entityManager);
         QParticipacionPersonaEnCongresoDTO qParticipacion = QParticipacionPersonaEnCongresoDTO.participacionPersonaEnCongresoDTO;
 
@@ -114,11 +137,16 @@ public class CongresoDAO extends BaseDAODatabaseImpl
             }
         }
 
+        mili = System.currentTimeMillis()-mili;
+        log.info("CongresoDAO.getAutoresCongreso " + mili);
+
         return autores;
     }
 
     private List<AutorPublicacion> getAutoresExternosCongreso(Long congresoId)
     {
+        Long mili = System.currentTimeMillis();
+
         JPAQuery query = new JPAQuery(entityManager);
         QParticipacionPersonaExternaEnCongresoDTO qParticipacion = QParticipacionPersonaExternaEnCongresoDTO.participacionPersonaExternaEnCongresoDTO;
 
@@ -131,6 +159,9 @@ public class CongresoDAO extends BaseDAODatabaseImpl
         {
             autores.add(creaAutorPublicacionCongresoDesde(participacionDTO));
         }
+
+        mili = System.currentTimeMillis()-mili;
+        log.info("CongresoDAO.getAutoresExternosCongreso " + mili);
 
         return autores;
     }
