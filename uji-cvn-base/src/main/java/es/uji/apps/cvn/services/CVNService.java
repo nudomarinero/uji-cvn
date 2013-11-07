@@ -1,26 +1,45 @@
 package es.uji.apps.cvn.services;
 
-import es.uji.apps.cvn.Utils;
-import es.uji.apps.cvn.client.DocumentoCVN;
-import es.uji.apps.cvn.client.GeneradorPDFWS;
-import es.uji.apps.cvn.client.GeneradorPDFWSClient;
-import es.uji.apps.cvn.client.exceptions.CvnNoGeneradoException;
-import es.uji.apps.cvn.client.exceptions.GeneradorPDFWSException;
-import es.uji.apps.cvn.dao.*;
-import es.uji.apps.cvn.model.*;
-import es.uji.apps.cvn.model.plantilla.Plantilla;
-import es.uji.apps.cvn.ui.beans.CvnRootBean;
-import es.uji.commons.rest.Role;
-import es.uji.commons.rest.exceptions.RegistroNoEncontradoException;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.List;
+import es.uji.apps.cvn.Utils;
+import es.uji.apps.cvn.client.DocumentoCVN;
+import es.uji.apps.cvn.client.GeneradorPDFWS;
+import es.uji.apps.cvn.client.GeneradorPDFWSClient;
+import es.uji.apps.cvn.client.exceptions.CvnNoGeneradoException;
+import es.uji.apps.cvn.client.exceptions.GeneradorPDFWSException;
+import es.uji.apps.cvn.dao.CongresoDAO;
+import es.uji.apps.cvn.dao.CvnGeneradoDAO;
+import es.uji.apps.cvn.dao.GrupoDAO;
+import es.uji.apps.cvn.dao.LogDAO;
+import es.uji.apps.cvn.dao.PersonaDAO;
+import es.uji.apps.cvn.dao.PlantillaDAO;
+import es.uji.apps.cvn.dao.ProyectoDAO;
+import es.uji.apps.cvn.dao.PublicacionDAO;
+import es.uji.apps.cvn.dao.TesisDAO;
+import es.uji.apps.cvn.model.CvnGenerado;
+import es.uji.apps.cvn.model.Domicilio;
+import es.uji.apps.cvn.model.Log;
+import es.uji.apps.cvn.model.ParticipacionCongreso;
+import es.uji.apps.cvn.model.ParticipacionProyecto;
+import es.uji.apps.cvn.model.ParticipacionPublicacionCientificoTecnica;
+import es.uji.apps.cvn.model.ParticipacionPublicacionDocente;
+import es.uji.apps.cvn.model.Persona;
+import es.uji.apps.cvn.model.PlantillaCvn;
+import es.uji.apps.cvn.model.ProyectoInvestigacion;
+import es.uji.apps.cvn.model.Tesis;
+import es.uji.apps.cvn.model.plantilla.Plantilla;
+import es.uji.apps.cvn.ui.beans.CvnRootBean;
+import es.uji.commons.rest.Role;
+import es.uji.commons.rest.exceptions.RegistroNoEncontradoException;
 
 @Service
 public class CVNService
@@ -30,6 +49,7 @@ public class CVNService
     final private static String NAME_WS = "cvn";
     final private static String SUCCESS_WS_CODE = "00";
     final private static String URL_DESCARGA_BASE = "doc/get";
+
     @Value("${uji.cvn.ws.user}")
     private String cvnWsUser;
     @Value("${uji.cvn.ws.passwd}")
@@ -48,6 +68,7 @@ public class CVNService
     private String wsdlPortName;
     @Value("${uji.cvn.app.path}")
     private String cvnAppPath;
+
     @Autowired
     private PersonaDAO personaDAO;
     @Autowired
@@ -78,14 +99,15 @@ public class CVNService
     }
 
     public void generatePDF(Long personaId, String template, String lang, CvnGenerado cvnGenerado,
-                            Long plantillaId, boolean admin) throws RegistroNoEncontradoException, GeneradorPDFWSException, IOException {
+            Long plantillaId, boolean admin)
+    {
         try
         {
             Plantilla plantilla;
             try
             {
-                plantilla = Plantilla.unserialize(
-                        plantillaDAO.getPlantillaByPlantillaId(plantillaId).getPlantilla());
+                plantilla = Plantilla.unserialize(plantillaDAO.getPlantillaByPlantillaId(
+                        plantillaId).getPlantilla());
             }
             catch (Exception e)
             {
@@ -130,7 +152,7 @@ public class CVNService
             logDAO.insertLog(Log.logError(personaId, personaId,
                     "Error al obtener los datos del usuario",
                     re.getMessage() + "\n" + Utils.exceptionStackTraceToString(re)));
-            throw re;
+            log.error(Utils.exceptionStackTraceToString(re));
         }
         catch (Exception e)
         {
@@ -141,24 +163,25 @@ public class CVNService
             logDAO.insertLog(Log.logError(personaId, personaId,
                     "Error al descargar el PDF del usuario",
                     e.getMessage() + "\n" + Utils.exceptionStackTraceToString(e)));
-            throw e;
+            log.error(Utils.exceptionStackTraceToString(e));
         }
     }
 
     public void generateCVNEnFormatoPDFByPersonaId(Long personaId, String template, String lang,
-                                                   CvnGenerado cvnGenerado, Long plantillaId) throws IOException, GeneradorPDFWSException, RegistroNoEncontradoException {
+            CvnGenerado cvnGenerado, Long plantillaId)
+    {
         generatePDF(personaId, template, lang, cvnGenerado, plantillaId, false);
     }
 
-    public void generateCVNEnFormatoPDFAdminByPersonaId(Long personaId, String template, String lang,
-                                                        CvnGenerado cvnGenerado, Long plantillaId,
-                                                        Long connectedUserId) throws IOException, GeneradorPDFWSException, RegistroNoEncontradoException {
+    public void generateCVNEnFormatoPDFAdminByPersonaId(Long personaId, String template,
+            String lang, CvnGenerado cvnGenerado, Long plantillaId, Long connectedUserId)
+    {
         generatePDF(personaId, template, lang, cvnGenerado, plantillaId, true);
     }
 
-    @Role({"ADMIN"})
+    @Role({ "ADMIN" })
     public DocumentoCVN generateAndGetCVNEnFormatoPDFAdminByPersonaId(Long personaId,
-                                                                      String template, String lang, Long connectedUserId, Long plantillaId)
+            String template, String lang, Long connectedUserId, Long plantillaId)
             throws RegistroNoEncontradoException, MalformedURLException, GeneradorPDFWSException
     {
         Plantilla plantilla;
@@ -258,7 +281,7 @@ public class CVNService
     }
 
     private DocumentoCVN getDocumentoCvnFromWSDL(CvnRootBean cvnRootBean, String template,
-                                                 String lang) throws MalformedURLException, GeneradorPDFWSException
+            String lang) throws MalformedURLException, GeneradorPDFWSException
     {
         GeneradorPDFWSClient pdfService = new GeneradorPDFWSClient(wsdlDocumentLocation,
                 wsdlDefUrl, wsdlName);
@@ -269,8 +292,8 @@ public class CVNService
         DocumentoCVN documentoCVN = port.crearPDFBeanCvnRootBean(cvnWsUser, cvnWsPasswd, NAME_WS,
                 cvnRootBean, (template != null) ? template : cvnWsTemplateDefault,
                 (lang != null) ? lang : cvnWsLangDefault);
-        mili = System.currentTimeMillis()-mili;
-        mili = mili/1000;
+        mili = System.currentTimeMillis() - mili;
+        mili = mili / 1000;
         log.info("Fi de sol·licitud del PDF a Madrid: " + mili);
         return documentoCVN;
     }
@@ -297,9 +320,9 @@ public class CVNService
         return DocumentoCVN.unserialize(cvnGenerado.getCvn());
     }
 
-    @Role({"ADMIN"})
+    @Role({ "ADMIN" })
     public DocumentoCVN getDocumentoCVNEnFormatoPDFAdminByPersonaId(Long personaId,
-                                                                    Long connectedUserId) throws CvnNoGeneradoException, ClassNotFoundException,
+            Long connectedUserId) throws CvnNoGeneradoException, ClassNotFoundException,
             IOException
     {
         CvnGenerado cvnGenerado;
@@ -347,7 +370,7 @@ public class CVNService
         return cvnGenerado;
     }
 
-    @Role({"ADMIN"})
+    @Role({ "ADMIN" })
     public List<CvnGenerado> getListaCvnsSolicitados(Long connectedUserId, String idioma)
     {
         List<CvnGenerado> listaCvnsGenerados = cvnGeneradoDAO
@@ -377,7 +400,7 @@ public class CVNService
         return listaCvnsGenerados;
     }
 
-    @Role({"ADMIN"})
+    @Role({ "ADMIN" })
     public void deleteListaCvnsBySolicitante(Long connectedUserId)
     {
         cvnGeneradoDAO.deleteListaCvnsGeneradosBySolicitante(connectedUserId);
@@ -394,21 +417,23 @@ public class CVNService
     }
 
     @Transactional
-    public void registraSolicitudGeneracionUsuario(Long userId, String idioma, String template, Long plantillaId)
+    public void registraSolicitudGeneracionUsuario(Long userId, String idioma, String template,
+            Long plantillaId)
     {
         registraSolicitudGeneracion(userId, userId, idioma, template, plantillaId,
                 InfoEstadoCVN.PENDIENTE_DATOS_USER.getEstado());
     }
 
     @Transactional
-    public void registraSolicitudGeneracionAdmin(Long connectedUserId, Long userId, String idioma, String template, Long plantillaId)
+    public void registraSolicitudGeneracionAdmin(Long connectedUserId, Long userId, String idioma,
+            String template, Long plantillaId)
     {
         registraSolicitudGeneracion(connectedUserId, userId, idioma, template, plantillaId,
                 InfoEstadoCVN.PENDIENTE_DATOS_ADMIN.getEstado());
     }
 
-    private void registraSolicitudGeneracion(Long connectedUserId, Long userId, String idioma, String template, Long plantillaId,
-                                             String estado)
+    private void registraSolicitudGeneracion(Long connectedUserId, Long userId, String idioma,
+            String template, Long plantillaId, String estado)
     {
         CvnGenerado cvnGenerado = solicitudGeneracionDocumentoCVN(userId, connectedUserId);
         cvnGenerado.setIdioma(idioma);

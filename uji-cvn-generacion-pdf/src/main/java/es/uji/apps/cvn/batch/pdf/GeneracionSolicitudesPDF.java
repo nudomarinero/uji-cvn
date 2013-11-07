@@ -1,13 +1,16 @@
 package es.uji.apps.cvn.batch.pdf;
 
+import es.uji.apps.cvn.client.exceptions.GeneradorPDFWSException;
 import es.uji.apps.cvn.db.CvnGeneradoDTO;
 import es.uji.apps.cvn.model.CvnGenerado;
 import es.uji.apps.cvn.service.SolicitudesGeneracionService;
 import es.uji.apps.cvn.services.CVNService;
+import es.uji.commons.rest.exceptions.RegistroNoEncontradoException;
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
