@@ -17,8 +17,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
+import org.apache.log4j.Logger;
 import com.sun.jersey.api.core.InjectParam;
 
+import es.uji.apps.cvn.Utils;
 import es.uji.apps.cvn.client.DocumentoCVN;
 import es.uji.apps.cvn.client.exceptions.CvnNoGeneradoException;
 import es.uji.apps.cvn.client.exceptions.GeneradorPDFWSException;
@@ -31,6 +33,9 @@ import es.uji.commons.sso.AccessManager;
 @Path("doc")
 public class CVNResource extends CoreBaseService
 {
+    private static final Logger log = Logger.getLogger(CVNResource.class);
+
+
     @Context
     protected HttpServletResponse servletResponse;
 
@@ -138,8 +143,7 @@ public class CVNResource extends CoreBaseService
     @Produces("application/pdf")
     public Response generateAndGetCVNEnFormatoPDF(@PathParam("personaId") String persona,
             @QueryParam("template") String template, @QueryParam("lang") String lang,
-            @QueryParam("plantilla") String plantilla) throws GeneradorPDFWSException,
-            RegistroNoEncontradoException, MalformedURLException
+            @QueryParam("plantilla") String plantilla)
     {
         ParamUtils.checkNotNull(persona);
         Long personaId = ParamUtils.parseLong(persona);
@@ -147,14 +151,30 @@ public class CVNResource extends CoreBaseService
 
         Long connectedUserId = AccessManager.getConnectedUserId(request);
 
-        DocumentoCVN documentoCVN = cvnService.generateAndGetCVNEnFormatoPDFAdminByPersonaId(
-                personaId, template, lang, connectedUserId, plantillaId);
+        DocumentoCVN documentoCVN = null;
+        ResponseBuilder builder=null;
+        try {
+            documentoCVN = cvnService.generateAndGetCVNEnFormatoPDFAdminByPersonaId(
+                    personaId, template, lang, connectedUserId, plantillaId);
 
-        ResponseBuilder builder = Response.ok(documentoCVN.getDataHandler()).header(
-                "Content-Disposition",
-                "attachment; filename=\"" + documentoCVN.getFilename() + "\"");
+            builder = Response.ok(documentoCVN.getDataHandler()).header(
+                    "Content-Disposition",
+                    "attachment; filename=\"" + documentoCVN.getFilename() + "\"");
 
-        return builder.build();
+        } catch (RegistroNoEncontradoException e) {
+            log.error(Utils.exceptionStackTraceToString(e));
+        } catch (MalformedURLException e) {
+            log.error(Utils.exceptionStackTraceToString(e));
+        } catch (GeneradorPDFWSException e) {
+            log.error(Utils.exceptionStackTraceToString(e));
+        }
+
+
+        if (builder!=null)
+          return builder.build();
+        else
+          return null;
+
     }
 
     @DELETE

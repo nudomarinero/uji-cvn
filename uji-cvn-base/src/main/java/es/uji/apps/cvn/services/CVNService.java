@@ -129,7 +129,6 @@ public class CVNService
 
             DocumentoCVN documentoCVN = getDocumentoCvnFromWSDL(cvnRootBean, template,
                     plantilla.getIdioma());
-
             if (documentoCVN.getReturnCode().equals(SUCCESS_WS_CODE))
             {
                 cvnGenerado.setCvn(DocumentoCVN.serialize(documentoCVN));

@@ -1,18 +1,16 @@
 package es.uji.apps.cvn.batch.pdf;
 
-import es.uji.apps.cvn.client.exceptions.GeneradorPDFWSException;
-import es.uji.apps.cvn.db.CvnGeneradoDTO;
-import es.uji.apps.cvn.model.CvnGenerado;
-import es.uji.apps.cvn.service.SolicitudesGeneracionService;
-import es.uji.apps.cvn.services.CVNService;
-import es.uji.commons.rest.exceptions.RegistroNoEncontradoException;
+import java.util.Date;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.io.IOException;
-import java.util.Date;
-import java.util.List;
+import es.uji.apps.cvn.db.CvnGeneradoDTO;
+import es.uji.apps.cvn.model.CvnGenerado;
+import es.uji.apps.cvn.service.SolicitudesGeneracionService;
+import es.uji.apps.cvn.services.CVNService;
 
 public class GeneracionSolicitudesPDF implements Runnable
 {
@@ -23,7 +21,8 @@ public class GeneracionSolicitudesPDF implements Runnable
     private CVNService cvnService;
     private SolicitudesGeneracionService solicitudesGeneracionService;
 
-    public GeneracionSolicitudesPDF(CVNService cvnService, SolicitudesGeneracionService solicitudesGeneracionService)
+    public GeneracionSolicitudesPDF(CVNService cvnService,
+            SolicitudesGeneracionService solicitudesGeneracionService)
     {
         this.cvnService = cvnService;
         this.solicitudesGeneracionService = solicitudesGeneracionService;
@@ -35,9 +34,11 @@ public class GeneracionSolicitudesPDF implements Runnable
                 "classpath:applicationContext.xml");
 
         CVNService cvnService = context.getBean(CVNService.class);
-        SolicitudesGeneracionService solicitudesGeneracionService = context.getBean(SolicitudesGeneracionService.class);
+        SolicitudesGeneracionService solicitudesGeneracionService = context
+                .getBean(SolicitudesGeneracionService.class);
 
-        GeneracionSolicitudesPDF generacionSolicitudesPDF = new GeneracionSolicitudesPDF(cvnService, solicitudesGeneracionService);
+        GeneracionSolicitudesPDF generacionSolicitudesPDF = new GeneracionSolicitudesPDF(
+                cvnService, solicitudesGeneracionService);
 
         log.info("START GeneracionSolicitudesPDF " + new Date());
 
@@ -50,24 +51,28 @@ public class GeneracionSolicitudesPDF implements Runnable
         {
             try
             {
-                List<CvnGeneradoDTO> peticiones = solicitudesGeneracionService.getSolicitudesPendientes();
+                List<CvnGeneradoDTO> peticiones = solicitudesGeneracionService
+                        .getSolicitudesPendientes();
 
                 for (CvnGeneradoDTO peticion : peticiones)
                 {
-                    CvnGenerado cvnGenerado = cvnService.solicitudGeneracionDocumentoCVN(peticion.getPersonaId(), peticion.getSolicitante());
+                    CvnGenerado cvnGenerado = cvnService.solicitudGeneracionDocumentoCVN(
+                            peticion.getPersonaId(), peticion.getSolicitante());
 
                     Long personaId = peticion.getPersonaId();
                     String template = peticion.getTemplate();
                     String idioma = peticion.getIdioma();
                     Long plantillaId = peticion.getPlantillaId();
 
-                    if (peticion.getMensaje().startsWith("1"))
+                    if (peticion.getEstado().equals("100"))
                     {
-                        cvnService.generateCVNEnFormatoPDFAdminByPersonaId(personaId, template, idioma, cvnGenerado, plantillaId, personaId);
+                        cvnService.generateCVNEnFormatoPDFAdminByPersonaId(personaId, template,
+                                idioma, cvnGenerado, plantillaId, personaId);
                     }
                     else
                     {
-                        cvnService.generateCVNEnFormatoPDFByPersonaId(personaId, template, idioma, cvnGenerado, plantillaId);
+                        cvnService.generateCVNEnFormatoPDFByPersonaId(personaId, template, idioma,
+                                cvnGenerado, plantillaId);
                     }
                 }
 
