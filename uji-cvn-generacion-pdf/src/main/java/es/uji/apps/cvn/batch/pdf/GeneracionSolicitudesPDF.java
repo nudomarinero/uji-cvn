@@ -28,7 +28,7 @@ public class GeneracionSolicitudesPDF implements Runnable
         this.solicitudesGeneracionService = solicitudesGeneracionService;
     }
 
-    public static void main(String[] args) throws Exception
+    public static void main(String[] args)
     {
         ApplicationContext context = new ClassPathXmlApplicationContext(
                 "classpath:applicationContext.xml");
@@ -56,24 +56,32 @@ public class GeneracionSolicitudesPDF implements Runnable
 
                 for (CvnGeneradoDTO peticion : peticiones)
                 {
-                    CvnGenerado cvnGenerado = cvnService.solicitudGeneracionDocumentoCVN(
-                            peticion.getPersonaId(), peticion.getSolicitante());
+                    log.info("Procesando CVN del usuario: " + peticion.getSolicitante());
 
-                    Long personaId = peticion.getPersonaId();
-                    String template = peticion.getTemplate();
-                    String idioma = peticion.getIdioma();
-                    Long plantillaId = peticion.getPlantillaId();
+                    try
+                    {
+                        CvnGenerado cvnGenerado = cvnService.solicitudGeneracionDocumentoCVN(peticion.getPersonaId(), peticion.getSolicitante());
 
-                    if (peticion.getEstado().equals("100"))
-                    {
-                        cvnService.generateCVNEnFormatoPDFAdminByPersonaId(personaId, template,
-                                idioma, cvnGenerado, plantillaId, personaId);
+                        Long personaId = peticion.getPersonaId();
+                        String template = peticion.getTemplate();
+                        String idioma = peticion.getIdioma();
+                        Long plantillaId = peticion.getPlantillaId();
+
+                        if (peticion.getMensaje().startsWith("100"))
+                        {
+                            cvnService.generateCVNEnFormatoPDFAdminByPersonaId(personaId, template, idioma, cvnGenerado, plantillaId, personaId);
+                        }
+                        else
+                        {
+                            cvnService.generateCVNEnFormatoPDFByPersonaId(personaId, template, idioma, cvnGenerado, plantillaId);
+                        }
                     }
-                    else
+                    catch (Exception e)
                     {
-                        cvnService.generateCVNEnFormatoPDFByPersonaId(personaId, template, idioma,
-                                cvnGenerado, plantillaId);
+                        log.error("Error generando el CVN de " + peticion.getSolicitante(), e);
                     }
+
+                    log.info("CVN de " + peticion.getSolicitante() + " procesado correctamente");
                 }
 
                 Thread.sleep(TIEMPO_ESPERA_ENTRE_CONSULTAS);
