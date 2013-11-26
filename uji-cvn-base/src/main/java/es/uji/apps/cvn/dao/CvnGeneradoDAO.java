@@ -3,6 +3,7 @@ package es.uji.apps.cvn.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import com.mysema.query.jpa.impl.JPAQuery;
@@ -16,6 +17,8 @@ import es.uji.commons.rest.exceptions.RegistroNoEncontradoException;
 @Repository
 public class CvnGeneradoDAO extends BaseDAODatabaseImpl
 {
+    private static final Logger log = Logger.getLogger(CvnGeneradoDAO.class);
+
     private CvnGeneradoDTO creaCvnGeneradoDTOFrom(CvnGenerado cvnGenerado)
     {
         CvnGeneradoDTO cvnGeneradoDTO = new CvnGeneradoDTO();
@@ -99,6 +102,7 @@ public class CvnGeneradoDAO extends BaseDAODatabaseImpl
         }
         catch (Exception e)
         {
+            log.error("Error al obtener los datos del usuario", e);
         }
     }
 

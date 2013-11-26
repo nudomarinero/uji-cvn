@@ -4,6 +4,12 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.namespace.QName;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -101,6 +107,8 @@ public class CVNService
     public void generatePDF(Long personaId, String template, String lang, CvnGenerado cvnGenerado,
             Long plantillaId, boolean admin)
     {
+        CvnRootBean cvnRootBean = null;
+        JAXBContext context = null;
         try
         {
             Plantilla plantilla;
@@ -112,6 +120,7 @@ public class CVNService
             catch (Exception e)
             {
                 plantilla = Plantilla.getPlantillaPorDefecto(lang);
+                log.error("Error al generar la plantilla for defecto", e);
             }
 
             Persona persona = getDatosCVNPersona(personaId, plantilla);
@@ -121,11 +130,22 @@ public class CVNService
             cvnGeneradoDAO.actualizaCvn(cvnGenerado);
 
             CvnRootBeanGenerator generator = new CvnRootBeanGenerator(persona, plantilla);
-            CvnRootBean cvnRootBean = generator.generate();
+            cvnRootBean = generator.generate();
 
-            cvnGenerado.actualizaEstado(EstadoCvn.PENDIENTE.getEstado(),
-                    getCode(InfoEstadoCVN.PENDIENTE_SOL_USER.getEstado(), admin));
             cvnGeneradoDAO.actualizaCvn(cvnGenerado);
+            log.info("CVN de " + personaId + " generado");
+
+        /*
+            context = JAXBContext.newInstance("es.uji.apps.cvn.ui.beans");
+
+            Marshaller marshaller = context.createMarshaller();
+
+            JAXBElement jaxbElement = new JAXBElement(new QName("x"), CvnRootBean.class,
+                    cvnRootBean);
+
+            marshaller.marshal(jaxbElement, System.out);
+          */
+
 
             DocumentoCVN documentoCVN = getDocumentoCvnFromWSDL(cvnRootBean, template,
                     plantilla.getIdioma());
@@ -151,10 +171,48 @@ public class CVNService
             logDAO.insertLog(Log.logError(personaId, personaId,
                     "Error al obtener los datos del usuario",
                     re.getMessage() + "\n" + Utils.exceptionStackTraceToString(re)));
-            log.error(Utils.exceptionStackTraceToString(re));
+            log.error("Error al obtener los datos del usuario", re);
         }
+
+        catch (ExceptionInInitializerError e)
+        {
+            // Imprimimos el XML que ha dado error
+
+            try
+            {
+                context = JAXBContext.newInstance("es.uji.apps.cvn.ui.beans");
+
+                Marshaller marshaller = context.createMarshaller();
+
+                JAXBElement jaxbElement = new JAXBElement(new QName("x"), CvnRootBean.class,
+                        cvnRootBean);
+
+                marshaller.marshal(jaxbElement, System.out);
+            }
+            catch (Exception e1)
+            {
+                e1.printStackTrace();
+            }
+
+            cvnGenerado.actualizaEstado(EstadoCvn.PENDIENTE.getEstado(),
+                    getCode(InfoEstadoCVN.PENDIENTE_SOL_USER.getEstado(), admin));
+
+            cvnGenerado.actualizaEstado(EstadoCvn.ERROR.getEstado(),
+                    getCode(InfoEstadoCVN.ERROR_PDF_USER.getEstado(), admin));
+            cvnGeneradoDAO.actualizaCvn(cvnGenerado);
+
+            logDAO.insertLog(Log.logError(personaId, personaId,
+                    "Error al descargar el PDF del usuario",
+                    e.getMessage() + "\n" + e.getException().getMessage()));
+            log.error("Error al descargar el PDF del usuario", e);
+        }
+
         catch (Exception e)
         {
+
+            cvnGenerado.actualizaEstado(EstadoCvn.PENDIENTE.getEstado(),
+                    getCode(InfoEstadoCVN.PENDIENTE_SOL_USER.getEstado(), admin));
+
             cvnGenerado.actualizaEstado(EstadoCvn.ERROR.getEstado(),
                     getCode(InfoEstadoCVN.ERROR_PDF_USER.getEstado(), admin));
             cvnGeneradoDAO.actualizaCvn(cvnGenerado);
@@ -162,7 +220,7 @@ public class CVNService
             logDAO.insertLog(Log.logError(personaId, personaId,
                     "Error al descargar el PDF del usuario",
                     e.getMessage() + "\n" + Utils.exceptionStackTraceToString(e)));
-            log.error(Utils.exceptionStackTraceToString(e));
+            log.error("Error al descargar el PDF del usuario", e);
         }
     }
 
@@ -284,17 +342,21 @@ public class CVNService
     {
         GeneradorPDFWSClient pdfService = new GeneradorPDFWSClient(wsdlDocumentLocation,
                 wsdlDefUrl, wsdlName);
+
         GeneradorPDFWS port = pdfService.getGeneraradorPDFWSPort(wsdlPortName);
 
         Long mili = System.currentTimeMillis();
-        log.info("Inici de sol·licitud del PDF a Madrid: ");
-        DocumentoCVN documentoCVN = port.crearPDFBeanCvnRootBean(cvnWsUser, cvnWsPasswd, NAME_WS,
+        log.info("Inici de sol·licitud del PDF a Madrid");
+        DocumentoCVN documentoCVN = null;
+        documentoCVN = port.crearPDFBeanCvnRootBean(cvnWsUser, cvnWsPasswd, NAME_WS,
                 cvnRootBean, (template != null) ? template : cvnWsTemplateDefault,
                 (lang != null) ? lang : cvnWsLangDefault);
+
         mili = System.currentTimeMillis() - mili;
         mili = mili / 1000;
-        log.info("Fi de sol·licitud del PDF a Madrid: " + mili);
+        log.info("Fi de sol·licitud del PDF a Madrid: " + mili + " ms.");
         return documentoCVN;
+
     }
 
     public DocumentoCVN getDocumentoCVNEnFormatoPDFByPersonaId(Long personaId)

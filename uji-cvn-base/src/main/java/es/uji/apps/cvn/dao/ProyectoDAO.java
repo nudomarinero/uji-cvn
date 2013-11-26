@@ -160,8 +160,12 @@ public class ProyectoDAO extends BaseDAODatabaseImpl
     {
 
         ParticipacionProyecto participacionProyecto = new ParticipacionProyecto();
-
+        try {
         participacionProyecto.setAportaciones(participacionPersonaEnProyectoDTO.getAportaciones());
+        } catch (Exception e){
+              log.error("Error",e);
+       }
+
         participacionProyecto.setCalidadParticipacion(participacionPersonaEnProyectoDTO
                 .getCalidadParticipacion());
         participacionProyecto
