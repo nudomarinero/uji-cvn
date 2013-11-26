@@ -67,7 +67,7 @@ public class GeneracionSolicitudesPDF implements Runnable
                         String idioma = peticion.getIdioma();
                         Long plantillaId = peticion.getPlantillaId();
 
-                        if (peticion.getMensaje().startsWith("100"))
+                        if (peticion.getMensaje().startsWith("1"))
                         {
                             cvnService.generateCVNEnFormatoPDFAdminByPersonaId(personaId, template, idioma, cvnGenerado, plantillaId, personaId);
                         }
