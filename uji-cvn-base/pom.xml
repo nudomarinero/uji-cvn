@@ -198,6 +198,14 @@
           <weaveDependencies>
             <weaveDependency>
               <groupId>es.uji.commons</groupId>
+              <artifactId>uji-commons-db</artifactId>
+            </weaveDependency>
+            <weaveDependency>
+              <groupId>es.uji.commons</groupId>
+              <artifactId>uji-commons-sso</artifactId>
+            </weaveDependency>
+            <weaveDependency>
+              <groupId>es.uji.commons</groupId>
               <artifactId>uji-commons-rest</artifactId>
             </weaveDependency>
           </weaveDependencies>
