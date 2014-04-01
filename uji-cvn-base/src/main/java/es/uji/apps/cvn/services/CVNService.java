@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.namespace.QName;
 
@@ -30,6 +29,7 @@ import es.uji.apps.cvn.dao.PersonaDAO;
 import es.uji.apps.cvn.dao.PlantillaDAO;
 import es.uji.apps.cvn.dao.ProyectoDAO;
 import es.uji.apps.cvn.dao.PublicacionDAO;
+import es.uji.apps.cvn.dao.SituacionProfesionalDAO;
 import es.uji.apps.cvn.dao.TesisDAO;
 import es.uji.apps.cvn.model.CvnGenerado;
 import es.uji.apps.cvn.model.Domicilio;
@@ -41,6 +41,7 @@ import es.uji.apps.cvn.model.ParticipacionPublicacionDocente;
 import es.uji.apps.cvn.model.Persona;
 import es.uji.apps.cvn.model.PlantillaCvn;
 import es.uji.apps.cvn.model.ProyectoInvestigacion;
+import es.uji.apps.cvn.model.SituacionProfesional;
 import es.uji.apps.cvn.model.Tesis;
 import es.uji.apps.cvn.model.plantilla.Plantilla;
 import es.uji.apps.cvn.ui.beans.CvnRootBean;
@@ -77,6 +78,8 @@ public class CVNService
 
     @Autowired
     private PersonaDAO personaDAO;
+    @Autowired
+    private SituacionProfesionalDAO situacionProfesionalDAO;
     @Autowired
     private ProyectoDAO proyectoDAO;
     @Autowired
@@ -135,15 +138,15 @@ public class CVNService
             cvnGeneradoDAO.actualizaCvn(cvnGenerado);
             log.info("CVN de " + personaId + " generado");
 
-        /*
-            context = JAXBContext.newInstance("es.uji.apps.cvn.ui.beans");
 
-            Marshaller marshaller = context.createMarshaller();
+        /*  context = JAXBContext.newInstance("es.uji.apps.cvn.ui.beans");
 
-            JAXBElement jaxbElement = new JAXBElement(new QName("x"), CvnRootBean.class,
-                    cvnRootBean);
+                Marshaller marshaller = context.createMarshaller();
 
-            marshaller.marshal(jaxbElement, System.out);
+                JAXBElement jaxbElement = new JAXBElement(new QName("x"), CvnRootBean.class,
+                        cvnRootBean);
+
+                marshaller.marshal(jaxbElement, System.out);
           */
 
 
@@ -333,6 +336,12 @@ public class CVNService
 
         List<Tesis> listaTesis = tesisDAO.getTesisPersonaId(personaId);
         persona.setTesis(listaTesis);
+
+        List<SituacionProfesional> listaSituacionPersonalActual = situacionProfesionalDAO.getSituacionPersonalId(personaId, true);
+        persona.setSituacionProfesionalActiva(listaSituacionPersonalActual);
+
+        List<SituacionProfesional> listaSituacionPersonalAnterior = situacionProfesionalDAO.getSituacionPersonalId(personaId,false);
+        persona.setSituacionProfesionalAnterior(listaSituacionPersonalAnterior);
 
         return persona;
     }

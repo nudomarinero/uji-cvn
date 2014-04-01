@@ -26,7 +26,7 @@ public class Citas extends CvnCodeGroup
 
     public void addFuenteOtros(String fuenteOtros)
     {
-        cvnItem.addCvnStringToCvnCodeGroup(cvnItem.buildCvnString("060.010.010.323", fuenteOtros),
+        cvnItem.addCvnStringToCvnCodeGroup(cvnItem.buildCvnString("060.010.010.323", fuenteOtros),               // todo otros 323 ?
                 this);
     }
 }

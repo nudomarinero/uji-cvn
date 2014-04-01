@@ -74,6 +74,10 @@ public class Persona
 
     private List<Tesis> tesis;
 
+    private List<SituacionProfesional> situacionProfesionalActiva;
+
+    private List<SituacionProfesional> situacionProfesionalAnterior;
+
     final private static String DATE_FORMATTER = "yyyy-MM-dd";
 
     public Persona()
@@ -420,4 +424,23 @@ public class Persona
     public List<Tesis> getTesis() {
         return tesis;
     }
+
+    public void setSituacionProfesionalActiva(List<SituacionProfesional> situacionProfesionalActiva) {
+        this.situacionProfesionalActiva = situacionProfesionalActiva;
+    }
+
+    public List<SituacionProfesional> getSituacionProfesionalActiva() {
+        return situacionProfesionalActiva;
+    }
+
+    public void setSituacionProfesionalAnterior(List<SituacionProfesional> situacionProfesionalAnterior) {
+        this.situacionProfesionalAnterior = situacionProfesionalAnterior;
+    }
+
+    public List<SituacionProfesional> getSituacionProfesionalAnterior(){
+        return situacionProfesionalAnterior;
+    }
+
+
+
 }

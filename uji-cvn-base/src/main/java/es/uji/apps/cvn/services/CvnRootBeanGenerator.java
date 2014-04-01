@@ -11,6 +11,7 @@ import es.uji.apps.cvn.model.ParticipacionProyecto;
 import es.uji.apps.cvn.model.ParticipacionPublicacionCientificoTecnica;
 import es.uji.apps.cvn.model.ParticipacionPublicacionDocente;
 import es.uji.apps.cvn.model.Persona;
+import es.uji.apps.cvn.model.SituacionProfesional;
 import es.uji.apps.cvn.model.Tesis;
 import es.uji.apps.cvn.model.cvn.CVN;
 import es.uji.apps.cvn.model.cvn.Entidad;
@@ -22,6 +23,10 @@ import es.uji.apps.cvn.model.cvn.identificacion.DatosPersonales;
 import es.uji.apps.cvn.model.cvn.identificacion.Identificacion;
 import es.uji.apps.cvn.model.cvn.docente.CvnTesis;
 import es.uji.apps.cvn.model.cvn.docente.ParticipacionEnTesis;
+import es.uji.apps.cvn.model.cvn.laboral.CvnDetalleSituacionProfesionalActual;
+import es.uji.apps.cvn.model.cvn.laboral.CvnDetalleSituacionProfesionalAntigua;
+import es.uji.apps.cvn.model.cvn.laboral.SituacionProfesionalActual;
+import es.uji.apps.cvn.model.cvn.laboral.SituacionProfesionalAntigua;
 import es.uji.apps.cvn.model.cvn.proyectos.FinanciacionProyecto;
 import es.uji.apps.cvn.model.cvn.proyectos.InvestigadorProyecto;
 import es.uji.apps.cvn.model.cvn.proyectos.InvestigadorProyectoCompetitivo;
@@ -75,7 +80,6 @@ public class CvnRootBeanGenerator
 
         cvn.addCvnItemBean(generateDatosPersonaBean());
 
-
         for (ParticipacionGrupo participacionGrupo : GruposInvestigacion.aplicaFiltros(
                 persona.getParticipacionesGrupos(), plantilla))
         {
@@ -118,14 +122,24 @@ public class CvnRootBeanGenerator
             cvn.addCvnItemBean(generateDatosCongresoDocente(participacionCongreso));
         }
 
-        for (Tesis tesis :   persona.getTesis())
+        for (Tesis tesis : persona.getTesis())
         {
             cvn.addCvnItemBean(generateDatosTesis(tesis));
         }
 
+        for (SituacionProfesional sp : persona.getSituacionProfesionalActiva())
+        {
+            cvn.addCvnItemBean(generateDatosSituacionProfesionalActiva(sp));
+        }
+
+        for (SituacionProfesional sp : persona.getSituacionProfesionalAnterior())
+        {
+            cvn.addCvnItemBean(generateDatosSituacionProfesionalAntigua(sp));
+        }
+
+
         return this.cvn;
     }
-
 
     private void addGruposInvestigacion()
     {
@@ -743,20 +757,22 @@ public class CvnRootBeanGenerator
         return participacionEnCongreso;
     }
 
-
-    private CvnItemBean generateDatosTesis(Tesis tesis) {
+    private CvnItemBean generateDatosTesis(Tesis tesis)
+    {
 
         ParticipacionEnTesis participacionEnTesis = new ParticipacionEnTesis();
         CvnTesis cvnTesis = participacionEnTesis.getCvnTesis();
 
         cvnTesis.addTipo(tesis.getTipoId());
         cvnTesis.addTitulo(tesis.getTitulo());
-        cvnTesis.addCodirector(tesis.getCodirectorNombre(), tesis.getCodirectorApellido1(), tesis.getCodirectorApellido2());
+        cvnTesis.addCodirector(tesis.getCodirectorNombre(), tesis.getCodirectorApellido1(),
+                tesis.getCodirectorApellido2());
         cvnTesis.addPaisLectura(tesis.getPais());
         cvnTesis.addCiudadDireccion(tesis.getCiudad());
         cvnTesis.addEntidad(tesis.getEntidad());
         cvnTesis.addTipoEntidad(tesis.getTipoEntidad());
-        cvnTesis.addAlumno(tesis.getAlumnoNombre(),tesis.getAlumnoApellido1(),tesis.getAlumnoApellido2());
+        cvnTesis.addAlumno(tesis.getAlumnoNombre(), tesis.getAlumnoApellido1(),
+                tesis.getAlumnoApellido2());
         cvnTesis.addFechaLectura(tesis.getFechaLectura());
         cvnTesis.addCalificacion(tesis.getCalificacion());
         cvnTesis.addFechaDoctorEuropeo(tesis.getFechaDoctorEuropeo());
@@ -764,9 +780,71 @@ public class CvnRootBeanGenerator
         cvnTesis.addMencionCalidad(tesis.isMencionCalidad());
         cvnTesis.addComunidadAutonoma(tesis.getRegion());
 
-
         return participacionEnTesis;
 
+    }
+
+    private CvnItemBean generateDatosSituacionProfesionalActiva(SituacionProfesional sp)
+    {
+        SituacionProfesionalActual spa = new SituacionProfesionalActual();
+        CvnDetalleSituacionProfesionalActual actual = spa.getCvnDetalleSituacionProfesionalActual();
+
+        actual.addGestionDocente(sp.getGestionDocente());
+        actual.addEntidad(sp.getNombreEntidad());
+        actual.addTipoEntidad(sp.getTipoEntidad());
+        actual.addCentro(sp.getCentroVal());
+        actual.addServicio(sp.getServicioVal());
+        actual.addCiudad(sp.getCiudad());
+        actual.addPais(sp.getPais().toString());
+        actual.addRegion(sp.getRegion());
+        actual.addTelefono(sp.getTelefono());
+        actual.addFax(sp.getFax());
+        actual.addCorreo(sp.getMail());
+        actual.addCategoria(sp.getCategoria());
+        actual.addFechaInicio(sp.getFechaInicio());
+        actual.addSituacionActual(sp.getSituacion().toString());
+        if (sp.getSituacion().toString() == "030") // 030 es otros
+            actual.addSituacionActualOtros(sp.getSituacionOtros());
+        actual.addDedicacion(sp.getDedicacion());
+        actual.addUNESCO1(sp.getUnesco1());
+        actual.addUNESCO2(sp.getUnesco2());
+        actual.addUNESCO3(sp.getUnesco3());
+        actual.addDedicacinProfesional(sp.getTextoDedicacion());
+        actual.addPalabrasClave(sp.getPalabrasClave());
+
+        return spa;
+    }
+
+    private CvnItemBean generateDatosSituacionProfesionalAntigua(SituacionProfesional sp)
+    {
+        SituacionProfesionalAntigua spa = new SituacionProfesionalAntigua();
+        CvnDetalleSituacionProfesionalAntigua antigua = spa.getCvnDetalleSituacionProfesionalAntigua();
+
+        antigua.addGestionDocente(sp.getGestionDocente());
+        antigua.addEntidad(sp.getNombreEntidad());
+        antigua.addTipoEntidad(sp.getTipoEntidad());
+        antigua.addCentro(sp.getCentroVal());
+        antigua.addServicio(sp.getServicioVal());
+        antigua.addCiudad(sp.getCiudad());
+        antigua.addPais(sp.getPais().toString());
+        antigua.addRegion(sp.getRegion());
+        antigua.addTelefono(sp.getTelefono());
+        antigua.addFax(sp.getFax());
+        antigua.addCorreo(sp.getMail());
+        antigua.addCategoria(sp.getCategoria());
+        antigua.addFechaInicio(sp.getFechaInicio());
+        antigua.addDuracion(sp.getDuracion());
+      //  antigua.addSituacionActual(sp.getSituacion().toString());
+      //  if (sp.getSituacion().toString() == "030") // 030 es otros
+      //      antigua.addSituacionActualOtros(sp.getSituacionOtros());
+        antigua.addDedicacion(sp.getDedicacion());
+        antigua.addUNESCO1(sp.getUnesco1());
+        antigua.addUNESCO2(sp.getUnesco2());
+        antigua.addUNESCO3(sp.getUnesco3());
+        antigua.addDedicacinProfesional(sp.getTextoDedicacion());
+        antigua.addPalabrasClave(sp.getPalabrasClave());
+
+        return spa;
     }
 
 }
