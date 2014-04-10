@@ -181,6 +181,8 @@ public class CVNService
         {
             // Imprimimos el XML que ha dado error
 
+            e.printStackTrace();
+
             try
             {
                 context = JAXBContext.newInstance("es.uji.apps.cvn.ui.beans");
