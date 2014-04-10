@@ -123,7 +123,7 @@ public class ProyectoDAO extends BaseDAODatabaseImpl
             responsables.add(creaResponsableDesde(responsableDTO));
         }
         mili = System.currentTimeMillis()-mili;
-        log.info("ProyectoDAO.getResponsablesByProyectoId " + mili);
+        log.info("ProyectoDAO.getResponsablesByProyectoId ("+ proyectoId + "):" + mili + "m.");
 
 
         return responsables;
@@ -206,7 +206,7 @@ public class ProyectoDAO extends BaseDAODatabaseImpl
             throws RegistroNoEncontradoException
     {
         ProyectoInvestigacionDTO proyecto = null;
-
+        Long mili = System.currentTimeMillis();
         try
         {
             proyecto = get(ProyectoInvestigacionDTO.class, proyectoId).get(0);
@@ -215,6 +215,8 @@ public class ProyectoDAO extends BaseDAODatabaseImpl
         {
             throw new RegistroNoEncontradoException();
         }
+        mili = System.currentTimeMillis()-mili;
+        log.info("ProyectoDAO.getProyectoInvestigacionById ("+ proyectoId + "):" + mili + "m.");
 
         return creaProyectoInvestigacionDesde(proyecto);
     }

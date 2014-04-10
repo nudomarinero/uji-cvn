@@ -111,6 +111,7 @@ public class CVNService
             Long plantillaId, boolean admin)
     {
         CvnRootBean cvnRootBean = null;
+        CvnRootBean cvnRootBeanCopia = null;
         JAXBContext context = null;
         try
         {
@@ -133,23 +134,14 @@ public class CVNService
             cvnGeneradoDAO.actualizaCvn(cvnGenerado);
 
             CvnRootBeanGenerator generator = new CvnRootBeanGenerator(persona, plantilla);
+            CvnRootBeanGenerator generatorCopia = new CvnRootBeanGenerator(persona, plantilla);
             cvnRootBean = generator.generate();
+            cvnRootBeanCopia = generatorCopia.generate();
 
             cvnGeneradoDAO.actualizaCvn(cvnGenerado);
             log.info("CVN de " + personaId + " generado");
 
-
-        /*  context = JAXBContext.newInstance("es.uji.apps.cvn.ui.beans");
-
-                Marshaller marshaller = context.createMarshaller();
-
-                JAXBElement jaxbElement = new JAXBElement(new QName("x"), CvnRootBean.class,
-                        cvnRootBean);
-
-                marshaller.marshal(jaxbElement, System.out);
-          */
-
-
+          /*
             DocumentoCVN documentoCVN = getDocumentoCvnFromWSDL(cvnRootBean, template,
                     plantilla.getIdioma());
             if (documentoCVN.getReturnCode().equals(SUCCESS_WS_CODE))
@@ -163,6 +155,16 @@ public class CVNService
             {
                 throw new GeneradorPDFWSException(new String(documentoCVN.getDataHandler()));
             }
+            */
+
+            context = JAXBContext.newInstance("es.uji.apps.cvn.ui.beans");
+
+            Marshaller marshaller = context.createMarshaller();
+
+            JAXBElement jaxbElement = new JAXBElement(new QName("x"), CvnRootBean.class,
+                    cvnRootBeanCopia);
+
+            marshaller.marshal(jaxbElement, System.out);
 
         }
         catch (RegistroNoEncontradoException re)
@@ -339,11 +341,11 @@ public class CVNService
         List<Tesis> listaTesis = tesisDAO.getTesisPersonaId(personaId);
         persona.setTesis(listaTesis);
 
-        List<SituacionProfesional> listaSituacionPersonalActual = situacionProfesionalDAO.getSituacionPersonalId(personaId, true);
-        persona.setSituacionProfesionalActiva(listaSituacionPersonalActual);
+        //List<SituacionProfesional> listaSituacionPersonalActual = situacionProfesionalDAO.getSituacionPersonalId(personaId, true);
+        //persona.setSituacionProfesionalActiva(listaSituacionPersonalActual);
 
-        List<SituacionProfesional> listaSituacionPersonalAnterior = situacionProfesionalDAO.getSituacionPersonalId(personaId,false);
-        persona.setSituacionProfesionalAnterior(listaSituacionPersonalAnterior);
+        //List<SituacionProfesional> listaSituacionPersonalAnterior = situacionProfesionalDAO.getSituacionPersonalId(personaId,false);
+        //persona.setSituacionProfesionalAnterior(listaSituacionPersonalAnterior);
 
         return persona;
     }
