@@ -141,7 +141,7 @@ public class CVNService
             cvnGeneradoDAO.actualizaCvn(cvnGenerado);
             log.info("CVN de " + personaId + " generado");
 
-          /*
+
             DocumentoCVN documentoCVN = getDocumentoCvnFromWSDL(cvnRootBean, template,
                     plantilla.getIdioma());
             if (documentoCVN.getReturnCode().equals(SUCCESS_WS_CODE))
@@ -155,8 +155,8 @@ public class CVNService
             {
                 throw new GeneradorPDFWSException(new String(documentoCVN.getDataHandler()));
             }
-            */
 
+            /*
             context = JAXBContext.newInstance("es.uji.apps.cvn.ui.beans");
 
             Marshaller marshaller = context.createMarshaller();
@@ -165,7 +165,7 @@ public class CVNService
                     cvnRootBeanCopia);
 
             marshaller.marshal(jaxbElement, System.out);
-
+              */
         }
         catch (RegistroNoEncontradoException re)
         {

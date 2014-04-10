@@ -126,7 +126,7 @@ public class CvnRootBeanGenerator
         {
             cvn.addCvnItemBean(generateDatosTesis(tesis));
         }
-
+        /*
         for (SituacionProfesional sp : persona.getSituacionProfesionalActiva())
         {
             cvn.addCvnItemBean(generateDatosSituacionProfesionalActiva(sp));
@@ -136,7 +136,7 @@ public class CvnRootBeanGenerator
         {
             cvn.addCvnItemBean(generateDatosSituacionProfesionalAntigua(sp));
         }
-
+          */
 
         return this.cvn;
     }
