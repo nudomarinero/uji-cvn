@@ -18,6 +18,16 @@
       <artifactId>uji-cvn-base</artifactId>
       <version>${project.version}</version>
       <classifier>classes</classifier>
+      <exclusions>
+        <exclusion>
+          <groupId>com.sun.xml.bind</groupId>
+          <artifactId>jaxb-impl</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>javax.xml.bind</groupId>
+          <artifactId>jaxb-api</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
   </dependencies>
 
