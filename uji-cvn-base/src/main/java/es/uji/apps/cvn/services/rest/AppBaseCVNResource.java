@@ -50,7 +50,7 @@ public class AppBaseCVNResource extends CoreBaseService
     protected Pagina buildPagina(String titulo, String subtitulo, String idioma, Menu menu,
             String urlBase) throws ParseException, MalformedURLException
     {
-        Pagina pagina = new Pagina(urlBase, PLANTILLA_DEFECTO, idioma);
+        Pagina pagina = new Pagina(urlBase, PLANTILLA_DEFECTO, idioma, "CVN");
         pagina.setTitulo(titulo);
         pagina.setSubTitulo(subtitulo);
         pagina.setIdioma(idioma);
