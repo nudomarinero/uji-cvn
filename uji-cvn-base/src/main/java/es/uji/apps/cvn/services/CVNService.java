@@ -1,6 +1,8 @@
 package es.uji.apps.cvn.services;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.util.List;
 
@@ -111,7 +113,7 @@ public class CVNService
             Long plantillaId, boolean admin)
     {
         CvnRootBean cvnRootBean = null;
-        CvnRootBean cvnRootBeanCopia = null;
+        //CvnRootBean cvnRootBeanCopia = null;
         JAXBContext context = null;
         try
         {
@@ -134,9 +136,9 @@ public class CVNService
             cvnGeneradoDAO.actualizaCvn(cvnGenerado);
 
             CvnRootBeanGenerator generator = new CvnRootBeanGenerator(persona, plantilla);
-            CvnRootBeanGenerator generatorCopia = new CvnRootBeanGenerator(persona, plantilla);
+            //CvnRootBeanGenerator generatorCopia = new CvnRootBeanGenerator(persona, plantilla);
             cvnRootBean = generator.generate();
-            cvnRootBeanCopia = generatorCopia.generate();
+            //cvnRootBeanCopia = generatorCopia.generate();
 
             cvnGeneradoDAO.actualizaCvn(cvnGenerado);
             log.info("CVN de " + personaId + " generado");
@@ -156,16 +158,24 @@ public class CVNService
                 throw new GeneradorPDFWSException(new String(documentoCVN.getDataHandler()));
             }
 
-            /*
+           /*
             context = JAXBContext.newInstance("es.uji.apps.cvn.ui.beans");
 
             Marshaller marshaller = context.createMarshaller();
 
             JAXBElement jaxbElement = new JAXBElement(new QName("x"), CvnRootBean.class,
-                    cvnRootBeanCopia);
+                    cvnRootBean);
 
-            marshaller.marshal(jaxbElement, System.out);
-              */
+            //marshaller.marshal(jaxbElement, System.out);
+            OutputStream os = new FileOutputStream( personaId + "_xml.txt" );
+            marshaller.marshal( jaxbElement, os );
+
+            log.info("Fin generación de " + personaId);
+            cvnGenerado.actualizaEstado(EstadoCvn.FINALIZADO.getEstado(),
+                    getCode(InfoEstadoCVN.FINALIZADO_USER.getEstado(), admin));
+            cvnGeneradoDAO.actualizaCvn(cvnGenerado);
+                    */
+
         }
         catch (RegistroNoEncontradoException re)
         {
