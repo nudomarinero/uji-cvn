@@ -92,7 +92,7 @@ public class PublicacionCongresoDocente implements Publicacion
     }
 
     @Override
-    public void addAutorPorOrdenFirma(String nombre, String apellido1, String apellido2)
+    public void addAutorPorOrdenFirma(String nombre, String apellido1, String apellido2, Long orden)
     {
     }
 

@@ -258,7 +258,8 @@ public class ProyectoDAO extends BaseDAODatabaseImpl
         }
 
         proyectoInvestigacion.setDotacionTotal(proyectoInvestigacionDTO.getDotacionTotal());
-        proyectoInvestigacion.setDuracion(proyectoInvestigacionDTO.getDuracion());
+        //proyectoInvestigacion.setDuracion(proyectoInvestigacionDTO.getDuracion());
+        proyectoInvestigacion.setDuracion(proyectoInvestigacionDTO.getFechaInicio(), proyectoInvestigacionDTO.getFechaFin());
         proyectoInvestigacion.setEntidadEjecutora(proyectoInvestigacionDTO.getEntidadEjecutora());
         proyectoInvestigacion.setFechaFin(proyectoInvestigacionDTO.getFechaFin());
         proyectoInvestigacion.setFechaInicio(proyectoInvestigacionDTO.getFechaInicio());

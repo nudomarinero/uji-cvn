@@ -1,8 +1,11 @@
 package es.uji.apps.cvn.model;
 
+import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -146,7 +149,7 @@ public class ProyectoInvestigacion
         return dotacionTotal;
     }
 
-    public void setDotacionTotal(Float dotacionTotal)
+    public void setDotacionTotal(BigDecimal dotacionTotal)
     {
         if (dotacionTotal != null)
         {
@@ -159,9 +162,10 @@ public class ProyectoInvestigacion
         return duracion;
     }
 
-    public void setDuracion(Long duracion)
+    public void setDuracion(Float duracion)
     {
         // Convertimos la duración de días a meses (o días) y formateamos a estándar ISO
+
         if (duracion != null)
         {
             int duracionMeses = duracion.intValue() / 30;
@@ -174,6 +178,43 @@ public class ProyectoInvestigacion
                 this.duracion = "P" + duracion.intValue() + "D";
             }
         }
+        this.duracion="P01Y03M03D";
+    }
+
+    public void setDuracion(Date ini, Date fin){
+        GregorianCalendar gIni = new GregorianCalendar();
+        gIni.setTime(ini);
+        GregorianCalendar gFin = new GregorianCalendar();
+        gFin.setTime(fin);
+        setDuracion(gIni, gFin);
+
+      //  this.duracion="P01Y04M03D";
+    }
+
+    public void setDuracion(GregorianCalendar ini, GregorianCalendar fin){
+
+        int diffYear = fin.get(Calendar.YEAR) - ini.get(Calendar.YEAR);
+        int diffMonth = diffYear * 12 + fin.get(Calendar.MONTH) - ini.get(Calendar.MONTH);
+        int diffDays = fin.get(Calendar.DAY_OF_MONTH) - ini.get(Calendar.DAY_OF_MONTH);
+
+        if (diffDays<-1) {
+           diffMonth=diffMonth-1;
+           diffDays= 30+diffDays;
+        } else if (diffDays>=28) {
+            diffMonth=diffMonth+1;
+            diffDays=0;
+        } else
+            diffDays=diffDays+1; // Ya que siempre se incluye el último dia del rango
+
+
+        if ((diffDays==0) || (diffDays==1) || (diffDays==-1)){
+            this.duracion = "P" + diffMonth + "M";
+        }  else if (diffMonth==0) {
+            this.duracion = "P" + diffDays + "D";
+        }  else
+            this.duracion = "P00Y"  + diffMonth + "M" + diffDays + "D";
+       // this.duracion="P01Y05M03D";
+
     }
 
     public String getEntidadEjecutora()

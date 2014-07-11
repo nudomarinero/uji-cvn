@@ -16,6 +16,7 @@ import es.uji.apps.cvn.ui.beans.CvnEntityBean;
 import es.uji.apps.cvn.ui.beans.CvnExternalPKBean;
 import es.uji.apps.cvn.ui.beans.CvnFamilyNameBean;
 import es.uji.apps.cvn.ui.beans.CvnItemBean;
+import es.uji.apps.cvn.ui.beans.CvnLanguage;
 import es.uji.apps.cvn.ui.beans.CvnPageBean;
 import es.uji.apps.cvn.ui.beans.CvnPhoneBean;
 import es.uji.apps.cvn.ui.beans.CvnPhotoBean;
@@ -45,6 +46,8 @@ public class CVNItem extends CvnItemBean
         cvnString = new ArrayList<CvnString>();
         cvnTitleBean = new ArrayList<CvnTitleBean>();
         cvnVolumeBean = new ArrayList<CvnVolumeBean>();
+        cvnLanguage
+                = new ArrayList<CvnLanguage>();
     }
 
     public void addCvnBoolean(CvnBoolean cvnBoolean)
@@ -227,7 +230,19 @@ public class CVNItem extends CvnItemBean
     }
 
     public CvnAuthorBean buildCvnAuthorBean(String code, String givenName, String firstName,
-            String secondName)
+            String secondName, Long order)
+    {
+        CvnAuthorBean cvnAuthorBean = new CvnAuthorBean();
+        cvnAuthorBean.setCode(code);
+        cvnAuthorBean.setGivenName(givenName);
+        cvnAuthorBean.setCvnFamilyNameBean(buildCvnFamilyNameBean(code, firstName, secondName));
+        cvnAuthorBean.setSignatureOrder(order.intValue());
+
+        return cvnAuthorBean;
+    }
+
+    public CvnAuthorBean buildCvnAuthorBean(String code, String givenName, String firstName,
+                                            String secondName)
     {
         CvnAuthorBean cvnAuthorBean = new CvnAuthorBean();
         cvnAuthorBean.setCode(code);
@@ -236,6 +251,8 @@ public class CVNItem extends CvnItemBean
 
         return cvnAuthorBean;
     }
+
+
 
     public CvnDuration buildCvnDuration(String code, String value)
     {
@@ -372,6 +389,26 @@ public class CVNItem extends CvnItemBean
             }
             cvnCodeGroup.getCvnBoolean().add(cvnBoolean);
         }
+    }
+
+    public void addCvnLanguage(CvnLanguage cvnLanguage)
+    {
+        if (cvnLanguage.getCode() != null)
+        {
+            this.cvnLanguage.add(cvnLanguage);
+        }
+    }
+
+
+    public CvnLanguage buildCvnLanguage(String code, String name, String country)
+    {
+        CvnLanguage cvnLanguage = new CvnLanguage();
+        cvnLanguage.setCode(code);
+        cvnLanguage.setName(name);
+        cvnLanguage.setCountry(name);
+
+
+        return cvnLanguage;
     }
 
 }

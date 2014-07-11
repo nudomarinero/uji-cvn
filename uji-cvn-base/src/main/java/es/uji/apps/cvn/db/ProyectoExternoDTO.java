@@ -1,6 +1,7 @@
 package es.uji.apps.cvn.db;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -31,9 +32,9 @@ public class ProyectoExternoDTO implements Serializable
     private String dotacionSubproyecto;
 
     @Column(name = "DOTACION_TOTAL")
-    private Float dotacionTotal;
+    private BigDecimal dotacionTotal;
 
-    private Long duracion;
+    private Float duracion;
 
     @Column(name = "ENTIDAD_EJECUTORA")
     private String entidadEjecutora;
@@ -133,22 +134,22 @@ public class ProyectoExternoDTO implements Serializable
         this.dotacionSubproyecto = dotacionSubproyecto;
     }
 
-    public Float getDotacionTotal()
+    public BigDecimal getDotacionTotal()
     {
         return this.dotacionTotal;
     }
 
-    public void setDotacionTotal(Float dotacionTotal)
+    public void setDotacionTotal(BigDecimal dotacionTotal)
     {
         this.dotacionTotal = dotacionTotal;
     }
 
-    public Long getDuracion()
+    public Float getDuracion()
     {
         return this.duracion;
     }
 
-    public void setDuracion(Long duracion)
+    public void setDuracion(Float duracion)
     {
         this.duracion = duracion;
     }

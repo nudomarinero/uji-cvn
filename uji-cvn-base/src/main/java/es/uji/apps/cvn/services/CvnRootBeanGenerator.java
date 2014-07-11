@@ -15,6 +15,8 @@ import es.uji.apps.cvn.model.SituacionProfesional;
 import es.uji.apps.cvn.model.Tesis;
 import es.uji.apps.cvn.model.cvn.CVN;
 import es.uji.apps.cvn.model.cvn.Entidad;
+import es.uji.apps.cvn.model.cvn.datos.DatosCVN;
+import es.uji.apps.cvn.model.cvn.datos.Idioma;
 import es.uji.apps.cvn.model.cvn.grupos.GrupoInvestigacion;
 import es.uji.apps.cvn.model.cvn.grupos.InvestigadorGrupo;
 import es.uji.apps.cvn.model.cvn.grupos.ParticipacionGrupoInvestigacion;
@@ -80,6 +82,8 @@ public class CvnRootBeanGenerator
 
         cvn.addCvnItemBean(generateDatosPersonaBean());
 
+        cvn.addCvnItemBean(generaDatosCVN(plantilla));
+
         for (ParticipacionGrupo participacionGrupo : GruposInvestigacion.aplicaFiltros(
                 persona.getParticipacionesGrupos(), plantilla))
         {
@@ -139,6 +143,26 @@ public class CvnRootBeanGenerator
           */
 
         return this.cvn;
+    }
+
+    private CvnItemBean generaDatosCVN(Plantilla plantilla) {
+        DatosCVN cvnItemBean = new DatosCVN();
+
+        Idioma idioma = cvnItemBean.getIdioma();
+        if (plantilla.getIdioma().equals("spa")) {
+          idioma.addIdioma("Español","spa");}
+        if (plantilla.getIdioma().equals("cat")) {
+            idioma.addIdioma("Catalan","cat");}
+        if (plantilla.getIdioma().equals("cat")) {
+            idioma.addIdioma("Catalan","cat");}
+        if (plantilla.getIdioma().equals("eus")) {
+            idioma.addIdioma("Vasco","eus");}
+        if (plantilla.getIdioma().equals("glg")) {
+            idioma.addIdioma("Gallego","glg");}
+
+
+        return cvnItemBean;
+
     }
 
     private void addGruposInvestigacion()
@@ -470,7 +494,7 @@ public class CvnRootBeanGenerator
                 .getPublicacionCientificoTecnica().getPublicacion().getAutores())
         {
             publicacion.addAutorPorOrdenFirma(autorPublicacion.getNombre(),
-                    autorPublicacion.getApellido1(), autorPublicacion.getApellido2());
+                    autorPublicacion.getApellido1(), autorPublicacion.getApellido2(), autorPublicacion.getOrden());
         }
 
         publicacion.addSoporte(participacionPublicacion.getPublicacionCientificoTecnica()
@@ -600,7 +624,7 @@ public class CvnRootBeanGenerator
                 .getPublicacion().getAutores())
         {
             publicacion.addAutorPorOrdenFirma(autorPublicacion.getNombre(),
-                    autorPublicacion.getApellido1(), autorPublicacion.getApellido2());
+                    autorPublicacion.getApellido1(), autorPublicacion.getApellido2(), autorPublicacion.getOrden());
         }
 
         return participacionEnCongreso;
@@ -647,7 +671,7 @@ public class CvnRootBeanGenerator
                 .getPublicacion().getAutores())
         {
             publicacion.addAutorPorOrdenFirma(autorPublicacion.getNombre(),
-                    autorPublicacion.getApellido1(), autorPublicacion.getApellido2());
+                    autorPublicacion.getApellido1(), autorPublicacion.getApellido2(), autorPublicacion.getOrden());
         }
 
         publicacion.addSoporte(participacionPublicacion.getPublicacionDocente().getPublicacion()
@@ -777,7 +801,7 @@ public class CvnRootBeanGenerator
         cvnTesis.addCalificacion(tesis.getCalificacion());
         cvnTesis.addFechaDoctorEuropeo(tesis.getFechaDoctorEuropeo());
         cvnTesis.addDoctorEuropeo(tesis.isDoctorEuropeo());
-        cvnTesis.addMencionCalidad(tesis.isMencionCalidad());
+       // cvnTesis.addMencionCalidad(tesis.isMencionCalidad());
         cvnTesis.addComunidadAutonoma(tesis.getRegion());
 
         return participacionEnTesis;

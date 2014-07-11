@@ -90,11 +90,13 @@ public class PublicacionCientificoTecnica implements Publicacion
     }
 
     @Override
-    public void addAutorPorOrdenFirma(String nombre, String apellido1, String apellido2)
+    public void addAutorPorOrdenFirma(String nombre, String apellido1, String apellido2, Long orden)
     {
         cvnItem.addCvnAuthorBean(cvnItem.buildCvnAuthorBean("060.010.010.040", nombre, apellido1,
-                apellido2));
+                apellido2, orden));
+
     }
+
 
     @Override
     public void addTipo(String tipoProduccion)

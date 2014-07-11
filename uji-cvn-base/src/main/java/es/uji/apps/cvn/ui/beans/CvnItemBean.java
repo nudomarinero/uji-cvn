@@ -56,7 +56,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "CvnItemBean", propOrder = { "cvnAuthorBean", "cvnBoolean", "cvnCodeGroup",
         "cvnDateDayMonthYear", "cvnDateMonthYear", "cvnDateYear", "cvnDouble", "cvnDuration",
         "cvnEntityBean", "cvnExternalPKBean", "cvnFamilyNameBean", "cvnPageBean", "cvnPhoneBean",
-        "cvnPhotoBean", "cvnString", "cvnTitleBean", "cvnVolumeBean" })
+        "cvnPhotoBean", "cvnString", "cvnTitleBean", "cvnVolumeBean","cvnLanguage" })
 @XmlSeeAlso({ CvnCodeGroup.class })
 public class CvnItemBean extends CvnBean
 {
@@ -95,6 +95,8 @@ public class CvnItemBean extends CvnBean
     protected List<CvnTitleBean> cvnTitleBean;
     @XmlElement(name = "CvnVolumeBean")
     protected List<CvnVolumeBean> cvnVolumeBean;
+    @XmlElement(name = "CvnLanguage")
+    protected List<CvnLanguage> cvnLanguage;
 
     /**
      * Gets the value of the cvnAuthorBean property.

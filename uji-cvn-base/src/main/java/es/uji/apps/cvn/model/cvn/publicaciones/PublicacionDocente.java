@@ -89,10 +89,10 @@ public class PublicacionDocente implements Publicacion
     }
 
     @Override
-    public void addAutorPorOrdenFirma(String nombre, String apellido1, String apellido2)
+    public void addAutorPorOrdenFirma(String nombre, String apellido1, String apellido2, Long orden)
     {
         cvnItem.addCvnAuthorBean(cvnItem.buildCvnAuthorBean("030.070.000.030", nombre, apellido1,
-                apellido2));
+                apellido2, orden));
     }
 
     @Override

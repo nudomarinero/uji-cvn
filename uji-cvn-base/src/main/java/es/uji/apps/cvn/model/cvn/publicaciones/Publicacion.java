@@ -8,7 +8,7 @@ public interface Publicacion
 
     public void addNombre(String nombre);
 
-    public void addAutorPorOrdenFirma(String nombre, String apellido1, String apellido2);
+    public void addAutorPorOrdenFirma(String nombre, String apellido1, String apellido2, Long orden);
 
     public void addVolumen(String volumen);
 

@@ -136,9 +136,7 @@ public class CVNService
             cvnGeneradoDAO.actualizaCvn(cvnGenerado);
 
             CvnRootBeanGenerator generator = new CvnRootBeanGenerator(persona, plantilla);
-            //CvnRootBeanGenerator generatorCopia = new CvnRootBeanGenerator(persona, plantilla);
             cvnRootBean = generator.generate();
-            //cvnRootBeanCopia = generatorCopia.generate();
 
             cvnGeneradoDAO.actualizaCvn(cvnGenerado);
             log.info("CVN de " + personaId + " generado");
@@ -158,7 +156,7 @@ public class CVNService
                 throw new GeneradorPDFWSException(new String(documentoCVN.getDataHandler()));
             }
 
-           /*
+             /*
             context = JAXBContext.newInstance("es.uji.apps.cvn.ui.beans");
 
             Marshaller marshaller = context.createMarshaller();
@@ -174,7 +172,7 @@ public class CVNService
             cvnGenerado.actualizaEstado(EstadoCvn.FINALIZADO.getEstado(),
                     getCode(InfoEstadoCVN.FINALIZADO_USER.getEstado(), admin));
             cvnGeneradoDAO.actualizaCvn(cvnGenerado);
-                    */
+              */
 
         }
         catch (RegistroNoEncontradoException re)
