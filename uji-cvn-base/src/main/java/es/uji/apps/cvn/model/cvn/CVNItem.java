@@ -252,8 +252,6 @@ public class CVNItem extends CvnItemBean
         return cvnAuthorBean;
     }
 
-
-
     public CvnDuration buildCvnDuration(String code, String value)
     {
         CvnDuration cvnDuration = new CvnDuration();
