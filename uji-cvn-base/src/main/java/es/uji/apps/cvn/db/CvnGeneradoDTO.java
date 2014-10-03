@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "CVN_PDFS_GENERADOS")
+@Table(name = "CVN_PDFS_GENERADOS2")
 public class CvnGeneradoDTO implements Serializable
 {
     @Id

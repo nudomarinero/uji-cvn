@@ -7,7 +7,7 @@ public class DatosCVN   extends CVNItem
 
     private Idioma idioma;
 
-    public Idioma getIdioma()
+    public Idioma  getIdioma()
     {
         if (idioma == null)
         {

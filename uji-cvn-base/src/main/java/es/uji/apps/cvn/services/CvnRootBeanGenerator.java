@@ -1,6 +1,7 @@
 package es.uji.apps.cvn.services;
 
 import java.util.Calendar;
+import java.util.Collections;
 
 import es.uji.apps.cvn.model.AutorPublicacion;
 import es.uji.apps.cvn.model.Domicilio;
@@ -60,6 +61,7 @@ import es.uji.apps.cvn.model.plantilla.categorias.PublicacionesDocentes;
 import es.uji.apps.cvn.translators.TipoProduccion;
 import es.uji.apps.cvn.ui.beans.CvnItemBean;
 import es.uji.apps.cvn.ui.beans.CvnRootBean;
+import es.uji.apps.cvn.ui.beans.CvnString;
 
 public class CvnRootBeanGenerator
 {
@@ -82,7 +84,18 @@ public class CvnRootBeanGenerator
 
         cvn.addCvnItemBean(generateDatosPersonaBean());
 
-        cvn.addCvnItemBean(generaDatosCVN(plantilla));
+        //cvn.addCvnItemBean(generaDatosCVN(plantilla));
+
+        CvnString idioma = new CvnString();
+        idioma.setCode("000.020.000.070");
+        idioma.setValue(plantilla.getIdioma());
+
+        CvnItemBean identificacionCV = new CvnItemBean();
+        identificacionCV.setCode("000.020.000.000");
+        identificacionCV.setCvnString(Collections.singletonList(idioma));
+
+        cvn.addCvnItemBean(identificacionCV);
+
 
         for (ParticipacionGrupo participacionGrupo : GruposInvestigacion.aplicaFiltros(
                 persona.getParticipacionesGrupos(), plantilla))
@@ -150,9 +163,7 @@ public class CvnRootBeanGenerator
 
         Idioma idioma = cvnItemBean.getIdioma();
         if (plantilla.getIdioma().equals("spa")) {
-          idioma.addIdioma("Español","spa");}
-        if (plantilla.getIdioma().equals("cat")) {
-            idioma.addIdioma("Catalan","cat");}
+          idioma.addIdioma("Español", "spa");}
         if (plantilla.getIdioma().equals("cat")) {
             idioma.addIdioma("Catalan","cat");}
         if (plantilla.getIdioma().equals("eus")) {

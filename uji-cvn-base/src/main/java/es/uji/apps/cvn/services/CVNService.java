@@ -156,24 +156,26 @@ public class CVNService
                 throw new GeneradorPDFWSException(new String(documentoCVN.getDataHandler()));
             }
 
-             /*
+            /*
             context = JAXBContext.newInstance("es.uji.apps.cvn.ui.beans");
 
             Marshaller marshaller = context.createMarshaller();
 
-            JAXBElement jaxbElement = new JAXBElement(new QName("x"), CvnRootBean.class,
+            JAXBElement jaxbElement = new JAXBElement(new QName("CvnRootBean"), CvnRootBean.class,
                     cvnRootBean);
 
             //marshaller.marshal(jaxbElement, System.out);
             OutputStream os = new FileOutputStream( personaId + "_xml.txt" );
             marshaller.marshal( jaxbElement, os );
+            os.close();
+            log.info("Fichero guardado");
 
-            log.info("Fin generación de " + personaId);
+
+            log.info("Fin generación (v2) de " + personaId);
             cvnGenerado.actualizaEstado(EstadoCvn.FINALIZADO.getEstado(),
                     getCode(InfoEstadoCVN.FINALIZADO_USER.getEstado(), admin));
             cvnGeneradoDAO.actualizaCvn(cvnGenerado);
-              */
-
+                      */
         }
         catch (RegistroNoEncontradoException re)
         {

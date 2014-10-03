@@ -14,7 +14,8 @@ public class Idioma {
 
     public void addIdioma(String nombre, String codigo)
     {
-        cvnItem.addCvnLanguage(cvnItem.buildCvnLanguage("000.020.000.070", nombre, codigo));
+        //cvnItem.addCvnLanguage(cvnItem.buildCvnLanguage("000.020.000.070", nombre, codigo));
+
     }
 
 

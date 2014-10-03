@@ -405,7 +405,7 @@ public class CVNItem extends CvnItemBean
         CvnLanguage cvnLanguage = new CvnLanguage();
         cvnLanguage.setCode(code);
         cvnLanguage.setName(name);
-        cvnLanguage.setCountry(name);
+        cvnLanguage.setCountry(country);
 
 
         return cvnLanguage;
