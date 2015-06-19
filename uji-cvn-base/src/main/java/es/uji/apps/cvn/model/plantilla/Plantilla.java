@@ -18,6 +18,9 @@ import es.uji.apps.cvn.model.plantilla.categorias.GruposInvestigacion;
 import es.uji.apps.cvn.model.plantilla.categorias.Proyectos;
 import es.uji.apps.cvn.model.plantilla.categorias.Publicaciones;
 import es.uji.apps.cvn.model.plantilla.categorias.PublicacionesDocentes;
+import es.uji.apps.cvn.model.plantilla.categorias.SituacionProfesionalActiva;
+import es.uji.apps.cvn.model.plantilla.categorias.SituacionProfesionalAnterior;
+import es.uji.apps.cvn.model.plantilla.categorias.Thesis;
 
 @SuppressWarnings("serial")
 @XmlRootElement
@@ -44,6 +47,12 @@ public class Plantilla implements Serializable
     private Publicaciones publicaciones;
 
     private Congresos congresos;
+
+    private Thesis tesis;
+
+    private SituacionProfesionalActiva situacionProfesionalActiva;
+
+    private SituacionProfesionalAnterior situacionProfesionalAnterior;
 
     public Long getId()
     {
@@ -145,6 +154,36 @@ public class Plantilla implements Serializable
         this.congresos = congresos;
     }
 
+    public Thesis getTesis()
+    {
+        return tesis;
+    }
+
+    public void setTesis(Thesis tesis)
+    {
+        this.tesis = tesis;
+    }
+
+    public SituacionProfesionalActiva getSituacionProfesionalActiva()
+    {
+        return situacionProfesionalActiva;
+    }
+
+    public void setSituacionProfesionalActiva(SituacionProfesionalActiva situacionProfesionalActiva)
+    {
+        this.situacionProfesionalActiva = situacionProfesionalActiva;
+    }
+
+    public SituacionProfesionalAnterior getSituacionProfesionalAnterior()
+    {
+        return situacionProfesionalAnterior;
+    }
+
+    public void setSituacionProfesionalAnterior(SituacionProfesionalAnterior situacionProfesionalAnterior)
+    {
+        this.situacionProfesionalAnterior = situacionProfesionalAnterior;
+    }
+
     public static byte[] serialize(Plantilla plantilla) throws IOException
     {
         ByteArrayOutputStream bs = new ByteArrayOutputStream();
@@ -190,7 +229,10 @@ public class Plantilla implements Serializable
         plantilla.setContratos(new Contratos());
         plantilla.setPublicaciones(new Publicaciones());
         plantilla.setCongresos(new Congresos());
-        
+        plantilla.setTesis(new Thesis());
+        plantilla.setSituacionProfesionalActiva(new SituacionProfesionalActiva());
+        plantilla.setSituacionProfesionalAnterior(new SituacionProfesionalAnterior());
+
         return plantilla;
     }
 }

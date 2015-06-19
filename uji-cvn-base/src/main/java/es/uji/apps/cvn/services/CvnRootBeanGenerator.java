@@ -18,14 +18,14 @@ import es.uji.apps.cvn.model.cvn.CVN;
 import es.uji.apps.cvn.model.cvn.Entidad;
 import es.uji.apps.cvn.model.cvn.datos.DatosCVN;
 import es.uji.apps.cvn.model.cvn.datos.Idioma;
+import es.uji.apps.cvn.model.cvn.docente.CvnTesis;
+import es.uji.apps.cvn.model.cvn.docente.ParticipacionEnTesis;
 import es.uji.apps.cvn.model.cvn.grupos.GrupoInvestigacion;
 import es.uji.apps.cvn.model.cvn.grupos.InvestigadorGrupo;
 import es.uji.apps.cvn.model.cvn.grupos.ParticipacionGrupoInvestigacion;
 import es.uji.apps.cvn.model.cvn.identificacion.Contacto;
 import es.uji.apps.cvn.model.cvn.identificacion.DatosPersonales;
 import es.uji.apps.cvn.model.cvn.identificacion.Identificacion;
-import es.uji.apps.cvn.model.cvn.docente.CvnTesis;
-import es.uji.apps.cvn.model.cvn.docente.ParticipacionEnTesis;
 import es.uji.apps.cvn.model.cvn.laboral.CvnDetalleSituacionProfesionalActual;
 import es.uji.apps.cvn.model.cvn.laboral.CvnDetalleSituacionProfesionalAntigua;
 import es.uji.apps.cvn.model.cvn.laboral.SituacionProfesionalActual;
@@ -58,6 +58,9 @@ import es.uji.apps.cvn.model.plantilla.categorias.GruposInvestigacion;
 import es.uji.apps.cvn.model.plantilla.categorias.Proyectos;
 import es.uji.apps.cvn.model.plantilla.categorias.Publicaciones;
 import es.uji.apps.cvn.model.plantilla.categorias.PublicacionesDocentes;
+import es.uji.apps.cvn.model.plantilla.categorias.SituacionProfesionalActiva;
+import es.uji.apps.cvn.model.plantilla.categorias.SituacionProfesionalAnterior;
+import es.uji.apps.cvn.model.plantilla.categorias.Thesis;
 import es.uji.apps.cvn.translators.TipoProduccion;
 import es.uji.apps.cvn.ui.beans.CvnItemBean;
 import es.uji.apps.cvn.ui.beans.CvnRootBean;
@@ -139,21 +142,19 @@ public class CvnRootBeanGenerator
             cvn.addCvnItemBean(generateDatosCongresoDocente(participacionCongreso));
         }
 
-        for (Tesis tesis : persona.getTesis())
+        for (Tesis tesis : Thesis.aplicaFiltros(persona.getTesis(), plantilla))
         {
             cvn.addCvnItemBean(generateDatosTesis(tesis));
         }
-        /*
-        for (SituacionProfesional sp : persona.getSituacionProfesionalActiva())
+        for (SituacionProfesional sp : SituacionProfesionalActiva.aplicaFiltros(persona.getSituacionProfesionalActiva(), plantilla))
         {
             cvn.addCvnItemBean(generateDatosSituacionProfesionalActiva(sp));
         }
 
-        for (SituacionProfesional sp : persona.getSituacionProfesionalAnterior())
+        for (SituacionProfesional sp : SituacionProfesionalAnterior.aplicaFiltros(persona.getSituacionProfesionalAnterior(), plantilla))
         {
             cvn.addCvnItemBean(generateDatosSituacionProfesionalAntigua(sp));
         }
-          */
 
         return this.cvn;
     }

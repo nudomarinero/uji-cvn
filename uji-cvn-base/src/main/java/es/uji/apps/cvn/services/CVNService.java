@@ -1,8 +1,6 @@
 package es.uji.apps.cvn.services;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.util.List;
 
@@ -296,8 +294,7 @@ public class CVNService
                         && plantilla.getProyectos() != null)
                 {
                     persona.getParticipacionesProyectosCompetitivos().add(participacionProyecto);
-                }
-                else if (plantilla.getContratos() != null)
+                } else if (plantilla.getContratos() != null)
                 {
                     participacionProyecto.getProyectoInvestigacion()
                             .normalizaNombreProgramaFinanciacion();
@@ -348,14 +345,21 @@ public class CVNService
             persona.setParticipacionesCongresosDocentes(participacionCongresosDocentes);
         }
 
-        List<Tesis> listaTesis = tesisDAO.getTesisPersonaId(personaId);
-        persona.setTesis(listaTesis);
+        if (plantilla.getTesis() != null)
+        {
+            List<Tesis> listaTesis = tesisDAO.getTesisPersonaId(personaId);
+            persona.setTesis(listaTesis);
+        }
 
-        //List<SituacionProfesional> listaSituacionPersonalActual = situacionProfesionalDAO.getSituacionPersonalId(personaId, true);
-        //persona.setSituacionProfesionalActiva(listaSituacionPersonalActual);
+        if (plantilla.getSituacionProfesionalActiva() != null){
+            List<SituacionProfesional> listaSituacionPersonalActual = situacionProfesionalDAO.getSituacionPersonalId(personaId, true);
+            persona.setSituacionProfesionalActiva(listaSituacionPersonalActual);
+        }
 
-        //List<SituacionProfesional> listaSituacionPersonalAnterior = situacionProfesionalDAO.getSituacionPersonalId(personaId,false);
-        //persona.setSituacionProfesionalAnterior(listaSituacionPersonalAnterior);
+        if (plantilla.getSituacionProfesionalAnterior() != null){
+            List<SituacionProfesional> listaSituacionPersonalAnterior = situacionProfesionalDAO.getSituacionPersonalId(personaId, false);
+            persona.setSituacionProfesionalAnterior(listaSituacionPersonalAnterior);
+        }
 
         return persona;
     }
