@@ -112,7 +112,7 @@ public class CvnGeneradoDAO extends BaseDAODatabaseImpl
         QCvnGeneradoDTO qCvnGenerado = QCvnGeneradoDTO.cvnGeneradoDTO;
 
         List<CvnGeneradoDTO> listaCvnsGeneradosDTO = query.from(qCvnGenerado)
-                .where(qCvnGenerado.solicitante.eq(solicitante)).list(qCvnGenerado);
+                .where(qCvnGenerado.solicitante.eq(solicitante)).orderBy(qCvnGenerado.fechaUltimaActualizacion.desc()).list(qCvnGenerado);
 
         List<CvnGenerado> listaCvnsGenerados = new ArrayList<CvnGenerado>();
 
