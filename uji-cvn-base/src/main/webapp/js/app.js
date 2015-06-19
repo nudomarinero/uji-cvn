@@ -604,6 +604,68 @@ function crearPlantillaFromFormulario()
         plantilla.congresos = congresos;
     }
 
+    if ($('#tesis').prop('checked'))
+    {
+        var tesis = new Object();
+        var opcion = $('.form-opciones input:radio[name=radio-tesis][value!=all]:checked');
+        if ($(opcion).length != 0)
+        {
+            if ($(opcion).val() == 'years')
+            {
+                tesis.maxAnyos = $('.form-opciones input:text[name=input-tesis-years]').val().trim();
+            }
+            else
+            {
+                tesis.maxItems = $('.form-opciones input:text[name=input-tesis-items]').val().trim();
+            }
+
+        }
+
+        plantilla.tesis = tesis;
+    }
+
+    if ($('#situacionProfesionalActiva').prop('checked'))
+    {
+        var situacionProfesionalActiva = new Object();
+        var opcion = $('.form-opciones input:radio[name=radio-situacionProfesionalActiva][value!=all]:checked');
+        if ($(opcion).length != 0)
+        {
+            if ($(opcion).val() == 'years')
+            {
+                situacionProfesionalActiva.maxAnyos = $('.form-opciones input:text[name=input-situacionProfesionalActiva-years]').val().trim();
+            }
+            else
+            {
+                situacionProfesionalActiva.maxItems = $('.form-opciones input:text[name=input-situacionProfesionalActiva-items]').val().trim();
+            }
+
+        }
+
+        plantilla.situacionProfesionalActiva = situacionProfesionalActiva;
+    }
+
+    if ($('#situacionProfesionalAnterior').prop('checked'))
+    {
+        var situacionProfesionalAnterior = new Object();
+        var opcion = $('.form-opciones input:radio[name=radio-situacionProfesionalAnterior][value!=all]:checked');
+        if ($(opcion).length != 0)
+        {
+            if ($(opcion).val() == 'years')
+            {
+                situacionProfesionalAnterior.maxAnyos = $('.form-opciones input:text[name=input-situacionProfesionalAnterior-years]').val().trim();
+            }
+            else
+            {
+                situacionProfesionalAnterior.maxItems = $('.form-opciones input:text[name=input-situacionProfesionalAnterior-items]').val().trim();
+            }
+
+        }
+
+        plantilla.situacionProfesionalAnterior = situacionProfesionalAnterior;
+    }
+
+
+
     return plantilla;
 }
 
@@ -750,6 +812,65 @@ function rellenarFormularioPlantillas(plantilla)
         else
         {
             $('.form-opciones input:radio[name=radio-cientifico-congresos][value=all]').prop('checked', true);
+        }
+    }
+
+    if (plantilla.tesis != null)
+    {
+        $('#congresos-cientificos').prop('checked', true);
+
+        if (plantilla.tesis.maxAnyos != 0)
+        {
+            $('.form-opciones input:radio[name=radio-tesis][value=years]').prop('checked', true);
+            $('.form-opciones input:text[name=input-tesis-years]').val(plantilla.tesis.maxAnyos);
+        }
+        else if (plantilla.tesis.maxItems != 0)
+        {
+            $('.form-opciones input:radio[name=radio-tesis][value=items]').prop('checked', true);
+            $('.form-opciones input:text[name=input-tesis-items]').val(plantilla.tesis.maxItems);
+        }
+        else
+        {
+            $('.form-opciones input:radio[name=radio-tesis][value=all]').prop('checked', true);
+        }
+    }
+    if (plantilla.situacionProfesionalActiva != null)
+    {
+        $('#situacionProfesionalActiva').prop('checked', true);
+
+        if (plantilla.situacionProfesionalActiva.maxAnyos != 0)
+        {
+            $('.form-opciones input:radio[name=radio-situacionProfesionalActiva][value=years]').prop('checked', true);
+            $('.form-opciones input:text[name=input-situacionProfesionalActiva-years]').val(plantilla.situacionProfesionalActiva.maxAnyos);
+        }
+        else if (plantilla.situacionProfesionalActiva.maxItems != 0)
+        {
+            $('.form-opciones input:radio[name=radio-situacionProfesionalActiva][value=items]').prop('checked', true);
+            $('.form-opciones input:text[name=input-situacionProfesionalActiva-items]').val(plantilla.situacionProfesionalActiva.maxItems);
+        }
+        else
+        {
+            $('.form-opciones input:radio[name=radio-situacionProfesionalActiva][value=all]').prop('checked', true);
+        }
+    }
+
+    if (plantilla.situacionProfesionalAnterior != null)
+    {
+        $('#situacionProfesionalAnterior').prop('checked', true);
+
+        if (plantilla.situacionProfesionalAnterior.maxAnyos != 0)
+        {
+            $('.form-opciones input:radio[name=radio-situacionProfesionalAnterior][value=years]').prop('checked', true);
+            $('.form-opciones input:text[name=input-situacionProfesionalAnterior-years]').val(plantilla.situacionProfesionalAnterior.maxAnyos);
+        }
+        else if (plantilla.situacionProfesionalActiva.maxItems != 0)
+        {
+            $('.form-opciones input:radio[name=radio-situacionProfesionalAnterior][value=items]').prop('checked', true);
+            $('.form-opciones input:text[name=input-situacionProfesionalAnterior-items]').val(plantilla.situacionProfesionalAnterior.maxItems);
+        }
+        else
+        {
+            $('.form-opciones input:radio[name=radio-situacionProfesionalAnterior][value=all]').prop('checked', true);
         }
     }
 }
