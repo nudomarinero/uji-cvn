@@ -13,7 +13,7 @@ import javax.persistence.TemporalType;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "CVN_VIEW_DIRECCION_TESIS")
-public class TesisDTO implements Serializable
+public class DirrecionTesisDTO implements Serializable
 {
    @Id
    private String id;

@@ -7,7 +7,8 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-public class Tesis {
+public class DireccionTesis
+{
 
     private String id;
 

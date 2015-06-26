@@ -1,21 +1,21 @@
 package es.uji.apps.cvn.dao;
 
 
-import javax.xml.datatype.XMLGregorianCalendar;
-import org.apache.log4j.Logger;
-import org.springframework.stereotype.Repository;
-import es.uji.apps.cvn.db.ParticipacionPersonaEnCongresoDTO;
-import es.uji.apps.cvn.db.QParticipacionPersonaEnCongresoDTO;
-import es.uji.apps.cvn.db.QTesisDTO;
-import es.uji.apps.cvn.db.TesisDTO;
-import es.uji.apps.cvn.model.ParticipacionCongreso;
-import es.uji.apps.cvn.model.Tesis;
-import es.uji.commons.db.BaseDAODatabaseImpl;
-import es.uji.commons.rest.exceptions.RegistroNoEncontradoException;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.datatype.XMLGregorianCalendar;
+
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Repository;
+
 import com.mysema.query.jpa.impl.JPAQuery;
+
+import es.uji.apps.cvn.db.DirrecionTesisDTO;
+import es.uji.apps.cvn.db.QTesisDTO;
+import es.uji.apps.cvn.model.DireccionTesis;
+import es.uji.commons.db.BaseDAODatabaseImpl;
+import es.uji.commons.rest.exceptions.RegistroNoEncontradoException;
 
 @Repository
 public class TesisDAO extends BaseDAODatabaseImpl {
@@ -23,7 +23,7 @@ public class TesisDAO extends BaseDAODatabaseImpl {
 
     private static final Logger log = Logger.getLogger(TesisDAO.class);
 
-    public List<Tesis> getTesisPersonaId(Long personaId) throws RegistroNoEncontradoException{
+    public List<DireccionTesis> getTesisPersonaId(Long personaId) throws RegistroNoEncontradoException{
 
 
 
@@ -32,15 +32,15 @@ public class TesisDAO extends BaseDAODatabaseImpl {
         JPAQuery query = new JPAQuery(entityManager);
         QTesisDTO qTesis = QTesisDTO.tesisDTO;
 
-        List<TesisDTO> listaTesisDTO = query
+        List<DirrecionTesisDTO> listaDirrecionTesisDTO = query
                 .from(qTesis)
                 .where(qTesis.persona.eq(personaId)).list(qTesis);
 
-        List<Tesis> listaTesis = new ArrayList<Tesis>();
+        List<DireccionTesis> listaTesis = new ArrayList<DireccionTesis>();
 
-        for (TesisDTO tesisDTO : listaTesisDTO)
+        for (DirrecionTesisDTO dirrecionTesisDTO : listaDirrecionTesisDTO)
         {
-            listaTesis.add(creaTesisDesde(tesisDTO));
+            listaTesis.add(creaTesisDesde(dirrecionTesisDTO));
         }
 
         mili = System.currentTimeMillis()-mili;
@@ -50,36 +50,36 @@ public class TesisDAO extends BaseDAODatabaseImpl {
 
     }
 
-    private Tesis creaTesisDesde(TesisDTO tesisDTO) {
+    private DireccionTesis creaTesisDesde(DirrecionTesisDTO dirrecionTesisDTO) {
 
-        Tesis tesis = new Tesis();
-        tesis.setId(tesisDTO.getId());
-        tesis.setTipoId(tesisDTO.getTipoId());
-        tesis.setTipoTexto(tesisDTO.getTipoTexto());
-        tesis.setPersona(tesisDTO.getPersona());
-        tesis.setTitulo(tesisDTO.getTitulo());
-        tesis.setCodirectorNombre(tesisDTO.getCodirectorNombre());
-        tesis.setCodirectorApellido1(tesisDTO.getCodirectorApellido1());
-        tesis.setCodirectorApellido2(tesisDTO.getCodirectorApellido2());
-        tesis.setPais(tesisDTO.getPais());
-        tesis.setRegion(tesisDTO.getRegion());
-        tesis.setCiudad(tesisDTO.getCiudad());
-        tesis.setEntidad(tesisDTO.getEntidad());
-        tesis.setTipoEntidad(tesisDTO.getTipoEntidad());
-        tesis.setAlumnoNombre(tesisDTO.getAlumnoNombre());
-        tesis.setAlumnoApellido1(tesisDTO.getAlumnoApellido1());
-        tesis.setAlumnoApellido2(tesisDTO.getAlumnoApellido2());
-        tesis.setFechaLectura(tesisDTO.getFechaLectura());
-        tesis.setCalificacion(tesisDTO.getCalificacion());
-        tesis.setDoctorEuropeo(tesisDTO.getDoctorEuropeo().equals("S"));
-        tesis.setFechaDoctorEuropeo(tesisDTO.getFechaDoctorEuropeo());
+        DireccionTesis direccionTesis = new DireccionTesis();
+        direccionTesis.setId(dirrecionTesisDTO.getId());
+        direccionTesis.setTipoId(dirrecionTesisDTO.getTipoId());
+        direccionTesis.setTipoTexto(dirrecionTesisDTO.getTipoTexto());
+        direccionTesis.setPersona(dirrecionTesisDTO.getPersona());
+        direccionTesis.setTitulo(dirrecionTesisDTO.getTitulo());
+        direccionTesis.setCodirectorNombre(dirrecionTesisDTO.getCodirectorNombre());
+        direccionTesis.setCodirectorApellido1(dirrecionTesisDTO.getCodirectorApellido1());
+        direccionTesis.setCodirectorApellido2(dirrecionTesisDTO.getCodirectorApellido2());
+        direccionTesis.setPais(dirrecionTesisDTO.getPais());
+        direccionTesis.setRegion(dirrecionTesisDTO.getRegion());
+        direccionTesis.setCiudad(dirrecionTesisDTO.getCiudad());
+        direccionTesis.setEntidad(dirrecionTesisDTO.getEntidad());
+        direccionTesis.setTipoEntidad(dirrecionTesisDTO.getTipoEntidad());
+        direccionTesis.setAlumnoNombre(dirrecionTesisDTO.getAlumnoNombre());
+        direccionTesis.setAlumnoApellido1(dirrecionTesisDTO.getAlumnoApellido1());
+        direccionTesis.setAlumnoApellido2(dirrecionTesisDTO.getAlumnoApellido2());
+        direccionTesis.setFechaLectura(dirrecionTesisDTO.getFechaLectura());
+        direccionTesis.setCalificacion(dirrecionTesisDTO.getCalificacion());
+        direccionTesis.setDoctorEuropeo(dirrecionTesisDTO.getDoctorEuropeo().equals("S"));
+        direccionTesis.setFechaDoctorEuropeo(dirrecionTesisDTO.getFechaDoctorEuropeo());
 
-        String mc = tesisDTO.getMencionCalidad();
+        String mc = dirrecionTesisDTO.getMencionCalidad();
         if (mc!=null)
-           tesis.setMencionCalidad(mc.equals("S"));
+           direccionTesis.setMencionCalidad(mc.equals("S"));
 
 
-        return tesis;
+        return direccionTesis;
     }
 
 
