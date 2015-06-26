@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.Collections;
 
 import es.uji.apps.cvn.model.AutorPublicacion;
+import es.uji.apps.cvn.model.DireccionTesis;
+import es.uji.apps.cvn.model.DocenciaImpartida;
 import es.uji.apps.cvn.model.Domicilio;
 import es.uji.apps.cvn.model.Impacto;
 import es.uji.apps.cvn.model.ParticipacionCongreso;
@@ -13,11 +15,11 @@ import es.uji.apps.cvn.model.ParticipacionPublicacionCientificoTecnica;
 import es.uji.apps.cvn.model.ParticipacionPublicacionDocente;
 import es.uji.apps.cvn.model.Persona;
 import es.uji.apps.cvn.model.SituacionProfesional;
-import es.uji.apps.cvn.model.Tesis;
 import es.uji.apps.cvn.model.cvn.CVN;
 import es.uji.apps.cvn.model.cvn.Entidad;
 import es.uji.apps.cvn.model.cvn.datos.DatosCVN;
 import es.uji.apps.cvn.model.cvn.datos.Idioma;
+import es.uji.apps.cvn.model.cvn.docente.CvnDocencia;
 import es.uji.apps.cvn.model.cvn.docente.CvnTesis;
 import es.uji.apps.cvn.model.cvn.docente.ParticipacionEnTesis;
 import es.uji.apps.cvn.model.cvn.grupos.GrupoInvestigacion;
@@ -60,7 +62,7 @@ import es.uji.apps.cvn.model.plantilla.categorias.Publicaciones;
 import es.uji.apps.cvn.model.plantilla.categorias.PublicacionesDocentes;
 import es.uji.apps.cvn.model.plantilla.categorias.SituacionProfesionalActiva;
 import es.uji.apps.cvn.model.plantilla.categorias.SituacionProfesionalAnterior;
-import es.uji.apps.cvn.model.plantilla.categorias.Thesis;
+import es.uji.apps.cvn.model.plantilla.categorias.Tesis;
 import es.uji.apps.cvn.translators.TipoProduccion;
 import es.uji.apps.cvn.ui.beans.CvnItemBean;
 import es.uji.apps.cvn.ui.beans.CvnRootBean;
@@ -142,9 +144,9 @@ public class CvnRootBeanGenerator
             cvn.addCvnItemBean(generateDatosCongresoDocente(participacionCongreso));
         }
 
-        for (Tesis tesis : Thesis.aplicaFiltros(persona.getTesis(), plantilla))
+        for (DireccionTesis direccionTesis : Tesis.aplicaFiltros(persona.getTesis(), plantilla))
         {
-            cvn.addCvnItemBean(generateDatosTesis(tesis));
+            cvn.addCvnItemBean(generateDatosTesis(direccionTesis));
         }
         for (SituacionProfesional sp : SituacionProfesionalActiva.aplicaFiltros(persona.getSituacionProfesionalActiva(), plantilla))
         {
@@ -154,6 +156,11 @@ public class CvnRootBeanGenerator
         for (SituacionProfesional sp : SituacionProfesionalAnterior.aplicaFiltros(persona.getSituacionProfesionalAnterior(), plantilla))
         {
             cvn.addCvnItemBean(generateDatosSituacionProfesionalAntigua(sp));
+        }
+
+        for (DocenciaImpartida docenciaImpartida : es.uji.apps.cvn.model.plantilla.categorias.Docencia.aplicaFiltros(persona.getDocenciasImpartida(), plantilla))
+        {
+            cvn.addCvnItemBean(generateDocenciaImpartida(docenciaImpartida));
         }
 
         return this.cvn;
@@ -793,28 +800,28 @@ public class CvnRootBeanGenerator
         return participacionEnCongreso;
     }
 
-    private CvnItemBean generateDatosTesis(Tesis tesis)
+    private CvnItemBean generateDatosTesis(DireccionTesis direccionTesis)
     {
 
         ParticipacionEnTesis participacionEnTesis = new ParticipacionEnTesis();
         CvnTesis cvnTesis = participacionEnTesis.getCvnTesis();
 
-        cvnTesis.addTipo(tesis.getTipoId());
-        cvnTesis.addTitulo(tesis.getTitulo());
-        cvnTesis.addCodirector(tesis.getCodirectorNombre(), tesis.getCodirectorApellido1(),
-                tesis.getCodirectorApellido2());
-        cvnTesis.addPaisLectura(tesis.getPais());
-        cvnTesis.addCiudadDireccion(tesis.getCiudad());
-        cvnTesis.addEntidad(tesis.getEntidad());
-        cvnTesis.addTipoEntidad(tesis.getTipoEntidad());
-        cvnTesis.addAlumno(tesis.getAlumnoNombre(), tesis.getAlumnoApellido1(),
-                tesis.getAlumnoApellido2());
-        cvnTesis.addFechaLectura(tesis.getFechaLectura());
-        cvnTesis.addCalificacion(tesis.getCalificacion());
-        cvnTesis.addFechaDoctorEuropeo(tesis.getFechaDoctorEuropeo());
-        cvnTesis.addDoctorEuropeo(tesis.isDoctorEuropeo());
+        cvnTesis.addTipo(direccionTesis.getTipoId());
+        cvnTesis.addTitulo(direccionTesis.getTitulo());
+        cvnTesis.addCodirector(direccionTesis.getCodirectorNombre(), direccionTesis.getCodirectorApellido1(),
+                direccionTesis.getCodirectorApellido2());
+        cvnTesis.addPaisLectura(direccionTesis.getPais());
+        cvnTesis.addCiudadDireccion(direccionTesis.getCiudad());
+        cvnTesis.addEntidad(direccionTesis.getEntidad());
+        cvnTesis.addTipoEntidad(direccionTesis.getTipoEntidad());
+        cvnTesis.addAlumno(direccionTesis.getAlumnoNombre(), direccionTesis.getAlumnoApellido1(),
+                direccionTesis.getAlumnoApellido2());
+        cvnTesis.addFechaLectura(direccionTesis.getFechaLectura());
+        cvnTesis.addCalificacion(direccionTesis.getCalificacion());
+        cvnTesis.addFechaDoctorEuropeo(direccionTesis.getFechaDoctorEuropeo());
+        cvnTesis.addDoctorEuropeo(direccionTesis.isDoctorEuropeo());
        // cvnTesis.addMencionCalidad(tesis.isMencionCalidad());
-        cvnTesis.addComunidadAutonoma(tesis.getRegion());
+        cvnTesis.addComunidadAutonoma(direccionTesis.getRegion());
 
         return participacionEnTesis;
 
@@ -882,5 +889,35 @@ public class CvnRootBeanGenerator
 
         return spa;
     }
+
+
+    private CvnItemBean generateDocenciaImpartida(DocenciaImpartida docenciaImpartidaImpartida)
+    {
+
+        CvnDocencia docencia = new CvnDocencia();
+        es.uji.apps.cvn.model.cvn.docente.DocenciaImpartida di = docencia.getDocenciaImpartida();
+        di.addTipo(docenciaImpartidaImpartida.getTipo());
+        di.addTitulacion(docenciaImpartidaImpartida.getTitulacion(), docenciaImpartidaImpartida.getTitulacionTexto());
+        di.addPais(docenciaImpartidaImpartida.getPais());
+        di.addRegion(docenciaImpartidaImpartida.getRegion());
+        di.addCiudad(docenciaImpartidaImpartida.getCiudad());
+        di.addEntidad(docenciaImpartidaImpartida.getEntidad());
+        di.addTipoEntidad(docenciaImpartidaImpartida.getTipoEntidad());
+        di.addDepartamento(docenciaImpartidaImpartida.getDepartamento());
+        di.addNombreAsignatura(docenciaImpartidaImpartida.getNombreAsignatura());
+        di.addCreditos(docenciaImpartidaImpartida.getCreditos());
+        di.addTipoHorasCreditos(docenciaImpartidaImpartida.getTipoHorasCreditos());
+        di.addIdioma(docenciaImpartidaImpartida.getIdioma());
+        di.addNumeroVeces(docenciaImpartidaImpartida.getNumeroVeces());
+        di.addUltimaVez(docenciaImpartidaImpartida.getUltimaVez());
+
+
+        docencia.setDocenciaImpartida(di);
+
+
+        return docencia;
+
+    }
+
 
 }

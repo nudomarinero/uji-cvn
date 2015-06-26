@@ -72,11 +72,13 @@ public class Persona
     
     private List<ParticipacionCongreso> participacionesCongresosDocentes;
 
-    private List<Tesis> tesis;
+    private List<DireccionTesis> tesis;
 
     private List<SituacionProfesional> situacionProfesionalActiva;
 
     private List<SituacionProfesional> situacionProfesionalAnterior;
+
+    private List<DocenciaImpartida> docenciasImpartida;
 
     final private static String DATE_FORMATTER = "yyyy-MM-dd";
 
@@ -417,11 +419,11 @@ public class Persona
 		this.participacionesCongresosDocentes = participacionesCongresosDocentes;
 	}
 
-    public void setTesis(List<Tesis> listaTesis) {
+    public void setTesis(List<DireccionTesis> listaTesis) {
         this.tesis=listaTesis;
     }
 
-    public List<Tesis> getTesis() {
+    public List<DireccionTesis> getTesis() {
         return tesis;
     }
 
@@ -441,6 +443,13 @@ public class Persona
         return situacionProfesionalAnterior;
     }
 
+    public List<DocenciaImpartida> getDocenciasImpartida()
+    {
+        return docenciasImpartida;
+    }
 
-
+    public void setDocenciasImpartida(List<DocenciaImpartida> docenciasImpartida)
+    {
+        this.docenciasImpartida = docenciasImpartida;
+    }
 }

@@ -23,6 +23,7 @@ import es.uji.apps.cvn.client.exceptions.CvnNoGeneradoException;
 import es.uji.apps.cvn.client.exceptions.GeneradorPDFWSException;
 import es.uji.apps.cvn.dao.CongresoDAO;
 import es.uji.apps.cvn.dao.CvnGeneradoDAO;
+import es.uji.apps.cvn.dao.DocenciaDAO;
 import es.uji.apps.cvn.dao.GrupoDAO;
 import es.uji.apps.cvn.dao.LogDAO;
 import es.uji.apps.cvn.dao.PersonaDAO;
@@ -32,6 +33,7 @@ import es.uji.apps.cvn.dao.PublicacionDAO;
 import es.uji.apps.cvn.dao.SituacionProfesionalDAO;
 import es.uji.apps.cvn.dao.TesisDAO;
 import es.uji.apps.cvn.model.CvnGenerado;
+import es.uji.apps.cvn.model.DocenciaImpartida;
 import es.uji.apps.cvn.model.Domicilio;
 import es.uji.apps.cvn.model.Log;
 import es.uji.apps.cvn.model.ParticipacionCongreso;
@@ -42,7 +44,7 @@ import es.uji.apps.cvn.model.Persona;
 import es.uji.apps.cvn.model.PlantillaCvn;
 import es.uji.apps.cvn.model.ProyectoInvestigacion;
 import es.uji.apps.cvn.model.SituacionProfesional;
-import es.uji.apps.cvn.model.Tesis;
+import es.uji.apps.cvn.model.DireccionTesis;
 import es.uji.apps.cvn.model.plantilla.Plantilla;
 import es.uji.apps.cvn.ui.beans.CvnRootBean;
 import es.uji.commons.rest.Role;
@@ -96,6 +98,8 @@ public class CVNService
     private PlantillaDAO plantillaDAO;
     @Autowired
     private LogDAO logDAO;
+    @Autowired
+    private DocenciaDAO docenciaDAO;
 
     public String getCode(String code, boolean admin)
     {
@@ -347,7 +351,7 @@ public class CVNService
 
         if (plantilla.getTesis() != null)
         {
-            List<Tesis> listaTesis = tesisDAO.getTesisPersonaId(personaId);
+            List<DireccionTesis> listaTesis = tesisDAO.getTesisPersonaId(personaId);
             persona.setTesis(listaTesis);
         }
 
@@ -359,6 +363,11 @@ public class CVNService
         if (plantilla.getSituacionProfesionalAnterior() != null){
             List<SituacionProfesional> listaSituacionPersonalAnterior = situacionProfesionalDAO.getSituacionPersonalId(personaId, false);
             persona.setSituacionProfesionalAnterior(listaSituacionPersonalAnterior);
+        }
+
+        if (plantilla.getDocencia() != null){
+            List<DocenciaImpartida> listaDocenciaImpartida = docenciaDAO.getDocendiaImpartidaByID(personaId);
+            persona.setDocenciasImpartida(listaDocenciaImpartida);
         }
 
         return persona;
