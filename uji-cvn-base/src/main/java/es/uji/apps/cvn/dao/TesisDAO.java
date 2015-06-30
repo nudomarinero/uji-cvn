@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.mysema.query.jpa.impl.JPAQuery;
 
 import es.uji.apps.cvn.db.DirrecionTesisDTO;
-import es.uji.apps.cvn.db.QTesisDTO;
+import es.uji.apps.cvn.db.QDirrecionTesisDTO;
 import es.uji.apps.cvn.model.DireccionTesis;
 import es.uji.commons.db.BaseDAODatabaseImpl;
 import es.uji.commons.rest.exceptions.RegistroNoEncontradoException;
@@ -30,8 +30,7 @@ public class TesisDAO extends BaseDAODatabaseImpl {
         Long mili = System.currentTimeMillis();
 
         JPAQuery query = new JPAQuery(entityManager);
-        QTesisDTO qTesis = QTesisDTO.tesisDTO;
-
+        QDirrecionTesisDTO qTesis = QDirrecionTesisDTO.dirrecionTesisDTO;
         List<DirrecionTesisDTO> listaDirrecionTesisDTO = query
                 .from(qTesis)
                 .where(qTesis.persona.eq(personaId)).list(qTesis);
