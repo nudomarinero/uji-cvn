@@ -1,7 +1,5 @@
 package es.uji.apps.cvn.dao;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.util.List;
 
 import org.junit.After;
@@ -17,6 +15,8 @@ import es.uji.apps.cvn.builders.PersonaBuilder;
 import es.uji.apps.cvn.model.ParticipacionGrupo;
 import es.uji.commons.rest.exceptions.RegistroNoEncontradoException;
 
+import static org.junit.Assert.assertNotNull;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:applicationContext.xml" })
 public class GrupoDAOTest
@@ -29,7 +29,7 @@ public class GrupoDAOTest
 
     private boolean cambios = false;
 
-    final private static Long PERSONA_ID = 1334L; // 2 grupos
+    final private static Long PERSONA_ID = 11431L; // 2 grupos
 
     final private static Long RESPONSABLE_1_ID = 65148L;
 
