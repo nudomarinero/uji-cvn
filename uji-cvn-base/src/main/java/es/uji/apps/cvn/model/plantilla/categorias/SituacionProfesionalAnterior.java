@@ -17,19 +17,19 @@ public class SituacionProfesionalAnterior extends Categoria implements Serializa
     {
         List<SituacionProfesional> situacionProfesionalFiltrado = situacionProfesional;
 
-        if (plantilla.getPublicaciones() == null)
+        if (plantilla.getSituacionProfesionalAnterior() == null)
         {
             situacionProfesionalFiltrado = new ArrayList<SituacionProfesional>();
         }
-        else if (plantilla.getPublicaciones().getMaxAnyos() != 0)
+        else if (plantilla.getSituacionProfesionalAnterior().getMaxAnyos() != 0)
         {
             situacionProfesionalFiltrado = aplicaFiltroAnyos(situacionProfesional,
-                    plantilla.getPublicaciones().getMaxAnyos());
+                    plantilla.getSituacionProfesionalAnterior().getMaxAnyos());
         }
-        else if (plantilla.getPublicaciones().getMaxItems() != 0)
+        else if (plantilla.getSituacionProfesionalAnterior().getMaxItems() != 0)
         {
             situacionProfesionalFiltrado = aplicaFiltroItems(situacionProfesional,
-                    plantilla.getPublicaciones().getMaxItems());
+                    plantilla.getSituacionProfesionalAnterior().getMaxItems());
         }
 
         return situacionProfesionalFiltrado;

@@ -74,6 +74,8 @@ public class Persona
 
     private List<DireccionTesis> tesis;
 
+    private List<Doctorado> doctorados;
+
     private List<SituacionProfesional> situacionProfesionalActiva;
 
     private List<SituacionProfesional> situacionProfesionalAnterior;
@@ -425,6 +427,16 @@ public class Persona
 
     public List<DireccionTesis> getTesis() {
         return tesis;
+    }
+
+    public List<Doctorado> getDoctorados()
+    {
+        return doctorados;
+    }
+
+    public void setDoctorados(List<Doctorado> doctorados)
+    {
+        this.doctorados = doctorados;
     }
 
     public void setSituacionProfesionalActiva(List<SituacionProfesional> situacionProfesionalActiva) {

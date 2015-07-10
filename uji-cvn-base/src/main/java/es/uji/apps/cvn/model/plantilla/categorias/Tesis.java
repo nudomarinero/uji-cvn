@@ -17,16 +17,16 @@ public class Tesis extends Categoria implements Serializable
     {
         List<DireccionTesis> direccionTesisFiltrado = direccionTesis;
 
-        if (plantilla.getPublicaciones() == null)
+        if (plantilla.getTesis() == null)
         {
             direccionTesisFiltrado = new ArrayList<DireccionTesis>();
         }
-        else if (plantilla.getPublicaciones().getMaxAnyos() != 0)
+        else if (plantilla.getTesis().getMaxAnyos() != 0)
         {
             direccionTesisFiltrado = aplicaFiltroAnyos(direccionTesis,
-                    plantilla.getPublicaciones().getMaxAnyos());
+                    plantilla.getTesis().getMaxAnyos());
         }
-        else if (plantilla.getPublicaciones().getMaxItems() != 0)
+        else if (plantilla.getTesis().getMaxItems() != 0)
         {
             direccionTesisFiltrado = aplicaFiltroItems(direccionTesis,
                     plantilla.getPublicaciones().getMaxItems());

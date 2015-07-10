@@ -2,6 +2,7 @@ package es.uji.apps.cvn.services;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
@@ -33,7 +34,9 @@ import es.uji.apps.cvn.dao.PublicacionDAO;
 import es.uji.apps.cvn.dao.SituacionProfesionalDAO;
 import es.uji.apps.cvn.dao.TesisDAO;
 import es.uji.apps.cvn.model.CvnGenerado;
+import es.uji.apps.cvn.model.DireccionTesis;
 import es.uji.apps.cvn.model.DocenciaImpartida;
+import es.uji.apps.cvn.model.Doctorado;
 import es.uji.apps.cvn.model.Domicilio;
 import es.uji.apps.cvn.model.Log;
 import es.uji.apps.cvn.model.ParticipacionCongreso;
@@ -44,7 +47,6 @@ import es.uji.apps.cvn.model.Persona;
 import es.uji.apps.cvn.model.PlantillaCvn;
 import es.uji.apps.cvn.model.ProyectoInvestigacion;
 import es.uji.apps.cvn.model.SituacionProfesional;
-import es.uji.apps.cvn.model.DireccionTesis;
 import es.uji.apps.cvn.model.plantilla.Plantilla;
 import es.uji.apps.cvn.ui.beans.CvnRootBean;
 import es.uji.commons.rest.Role;
@@ -353,6 +355,12 @@ public class CVNService
         {
             List<DireccionTesis> listaTesis = tesisDAO.getTesisPersonaId(personaId);
             persona.setTesis(listaTesis);
+        }
+
+        if (plantilla.getDoctorados()!= null)
+        {
+            List<Doctorado> doctorados = new ArrayList<>();//tesisDAO.getTesisPersonaId(personaId);
+            persona.setDoctorados(doctorados);
         }
 
         if (plantilla.getSituacionProfesionalActiva() != null){

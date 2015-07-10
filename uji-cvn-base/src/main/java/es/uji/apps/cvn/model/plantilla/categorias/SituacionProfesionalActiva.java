@@ -17,19 +17,19 @@ public class SituacionProfesionalActiva extends Categoria implements Serializabl
     {
         List<SituacionProfesional> situacionProfesionalFiltrado = situacionProfesional;
 
-        if (plantilla.getPublicaciones() == null)
+        if (plantilla.getSituacionProfesionalActiva() == null)
         {
             situacionProfesionalFiltrado = new ArrayList<SituacionProfesional>();
         }
-        else if (plantilla.getPublicaciones().getMaxAnyos() != 0)
+        else if (plantilla.getSituacionProfesionalActiva().getMaxAnyos() != 0)
         {
             situacionProfesionalFiltrado = aplicaFiltroAnyos(situacionProfesional,
-                    plantilla.getPublicaciones().getMaxAnyos());
+                    plantilla.getSituacionProfesionalActiva().getMaxAnyos());
         }
-        else if (plantilla.getPublicaciones().getMaxItems() != 0)
+        else if (plantilla.getSituacionProfesionalActiva().getMaxItems() != 0)
         {
             situacionProfesionalFiltrado = aplicaFiltroItems(situacionProfesional,
-                    plantilla.getPublicaciones().getMaxItems());
+                    plantilla.getSituacionProfesionalActiva().getMaxItems());
         }
 
         return situacionProfesionalFiltrado;

@@ -6,6 +6,7 @@ import java.util.Collections;
 import es.uji.apps.cvn.model.AutorPublicacion;
 import es.uji.apps.cvn.model.DireccionTesis;
 import es.uji.apps.cvn.model.DocenciaImpartida;
+import es.uji.apps.cvn.model.Doctorado;
 import es.uji.apps.cvn.model.Domicilio;
 import es.uji.apps.cvn.model.Impacto;
 import es.uji.apps.cvn.model.ParticipacionCongreso;
@@ -22,6 +23,8 @@ import es.uji.apps.cvn.model.cvn.datos.Idioma;
 import es.uji.apps.cvn.model.cvn.docente.CvnDocencia;
 import es.uji.apps.cvn.model.cvn.docente.CvnTesis;
 import es.uji.apps.cvn.model.cvn.docente.ParticipacionEnTesis;
+import es.uji.apps.cvn.model.cvn.formacion.CvnDoctorado;
+import es.uji.apps.cvn.model.cvn.formacion.Formacion;
 import es.uji.apps.cvn.model.cvn.grupos.GrupoInvestigacion;
 import es.uji.apps.cvn.model.cvn.grupos.InvestigadorGrupo;
 import es.uji.apps.cvn.model.cvn.grupos.ParticipacionGrupoInvestigacion;
@@ -56,6 +59,7 @@ import es.uji.apps.cvn.model.plantilla.Plantilla;
 import es.uji.apps.cvn.model.plantilla.categorias.Congresos;
 import es.uji.apps.cvn.model.plantilla.categorias.CongresosDocentes;
 import es.uji.apps.cvn.model.plantilla.categorias.Contratos;
+import es.uji.apps.cvn.model.plantilla.categorias.Doctorados;
 import es.uji.apps.cvn.model.plantilla.categorias.GruposInvestigacion;
 import es.uji.apps.cvn.model.plantilla.categorias.Proyectos;
 import es.uji.apps.cvn.model.plantilla.categorias.Publicaciones;
@@ -147,6 +151,10 @@ public class CvnRootBeanGenerator
         for (DireccionTesis direccionTesis : Tesis.aplicaFiltros(persona.getTesis(), plantilla))
         {
             cvn.addCvnItemBean(generateDatosTesis(direccionTesis));
+        }
+        for (Doctorado doctorado : Doctorados.aplicaFiltros(persona.getDoctorados(), plantilla))
+        {
+            cvn.addCvnItemBean(generateDatosDoctorado(doctorado));
         }
         for (SituacionProfesional sp : SituacionProfesionalActiva.aplicaFiltros(persona.getSituacionProfesionalActiva(), plantilla))
         {
@@ -824,6 +832,16 @@ public class CvnRootBeanGenerator
         cvnTesis.addComunidadAutonoma(direccionTesis.getRegion());
 
         return participacionEnTesis;
+
+    }
+
+    private CvnItemBean generateDatosDoctorado(Doctorado doctorado)
+    {
+
+        Formacion formacion = new Formacion();
+        CvnDoctorado cvnDoctorado = formacion.getCvnDoctorado();
+
+        return formacion;
 
     }
 
