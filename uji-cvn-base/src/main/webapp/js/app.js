@@ -664,6 +664,27 @@ function crearPlantillaFromFormulario()
         plantilla.situacionProfesionalAnterior = situacionProfesionalAnterior;
     }
 
+    if ($('#doctorado').prop('checked'))
+    {
+        var doctorado = new Object();
+        var opcion = $('.form-opciones input:radio[name=radio-doctorado][value!=all]:checked');
+        if ($(opcion).length != 0)
+        {
+            if ($(opcion).val() == 'years')
+            {
+                doctorado.maxAnyos = $('.form-opciones input:text[name=input-doctorado-years]').val().trim();
+            }
+            else
+            {
+                doctorado.maxItems = $('.form-opciones input:text[name=input-doctorado-items]').val().trim();
+            }
+
+        }
+
+        plantilla.doctorados = doctorado;
+    }
+
+
 
 
     return plantilla;
@@ -817,7 +838,7 @@ function rellenarFormularioPlantillas(plantilla)
 
     if (plantilla.tesis != null)
     {
-        $('#congresos-cientificos').prop('checked', true);
+        $('#tesis').prop('checked', true);
 
         if (plantilla.tesis.maxAnyos != 0)
         {
@@ -871,6 +892,25 @@ function rellenarFormularioPlantillas(plantilla)
         else
         {
             $('.form-opciones input:radio[name=radio-situacionProfesionalAnterior][value=all]').prop('checked', true);
+        }
+    }
+    if (plantilla.doctorado != null)
+    {
+        $('#doctorado').prop('checked', true);
+
+        if (plantilla.doctorado.maxAnyos != 0)
+        {
+            $('.form-opciones input:radio[name=radio-doctorado][value=years]').prop('checked', true);
+            $('.form-opciones input:text[name=input-doctorado-years]').val(plantilla.doctorado.maxAnyos);
+        }
+        else if (plantilla.doctorado.maxItems != 0)
+        {
+            $('.form-opciones input:radio[name=radio-doctorado][value=items]').prop('checked', true);
+            $('.form-opciones input:text[name=input-doctorado-items]').val(plantilla.doctorado.maxItems);
+        }
+        else
+        {
+            $('.form-opciones input:radio[name=radio-doctorado][value=all]').prop('checked', true);
         }
     }
 }

@@ -1,20 +1,21 @@
 package es.uji.apps.cvn.model.plantilla;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Arrays;
 
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.codehaus.jackson.map.DeserializationConfig;
+import org.codehaus.jackson.map.ObjectMapper;
 
 import es.uji.apps.cvn.client.exceptions.PlantillaNoAutorizadaException;
 import es.uji.apps.cvn.model.plantilla.categorias.Congresos;
 import es.uji.apps.cvn.model.plantilla.categorias.CongresosDocentes;
 import es.uji.apps.cvn.model.plantilla.categorias.Contratos;
 import es.uji.apps.cvn.model.plantilla.categorias.Docencia;
+import es.uji.apps.cvn.model.plantilla.categorias.Doctorados;
 import es.uji.apps.cvn.model.plantilla.categorias.GruposInvestigacion;
 import es.uji.apps.cvn.model.plantilla.categorias.Proyectos;
 import es.uji.apps.cvn.model.plantilla.categorias.Publicaciones;
@@ -50,6 +51,8 @@ public class Plantilla implements Serializable
     private Congresos congresos;
 
     private Tesis tesis;
+
+    private Doctorados doctorados;
 
     private SituacionProfesionalActiva situacionProfesionalActiva;
 
@@ -167,6 +170,16 @@ public class Plantilla implements Serializable
         this.tesis = tesis;
     }
 
+    public Doctorados getDoctorados()
+    {
+        return doctorados;
+    }
+
+    public void setDoctorados(Doctorados doctorados)
+    {
+        this.doctorados = doctorados;
+    }
+
     public SituacionProfesionalActiva getSituacionProfesionalActiva()
     {
         return situacionProfesionalActiva;
@@ -199,21 +212,28 @@ public class Plantilla implements Serializable
 
     public static byte[] serialize(Plantilla plantilla) throws IOException
     {
-        ByteArrayOutputStream bs = new ByteArrayOutputStream();
-        ObjectOutputStream os = new ObjectOutputStream(bs);
-        os.writeObject(plantilla);
-        os.close();
+//        ByteArrayOutputStream bs = new ByteArrayOutputStream();
+//        ObjectOutputStream os = new ObjectOutputStream(bs);
+//        os.writeObject(plantilla);
+//        os.close();
+        ByteArrayOutputStream o = new ByteArrayOutputStream();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(o, plantilla);
 
-        return bs.toByteArray();
+        return o.toByteArray();
     }
 
     public static Plantilla unserialize(byte[] plantillaBytes) throws IOException,
             ClassNotFoundException
     {
-        ByteArrayInputStream bs = new ByteArrayInputStream(plantillaBytes);
-        ObjectInputStream is = new ObjectInputStream(bs);
-        Plantilla plantilla = (Plantilla) is.readObject();
-        is.close();
+//        ByteArrayInputStream bs = new ByteArrayInputStream(plantillaBytes);
+//        ObjectInputStream is = new ObjectInputStream(bs);
+//        Plantilla plantilla = (Plantilla) is.readObject();
+//        is.close();
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        Plantilla plantilla = mapper.readValue(plantillaBytes, Plantilla.class);
 
         return plantilla;
     }
@@ -232,7 +252,7 @@ public class Plantilla implements Serializable
         {
             idioma = "cat";
         }
-        
+
         Plantilla plantilla = new Plantilla();
         plantilla.setIdioma(idioma);
         plantilla.setPublicacionesDocentes(new PublicacionesDocentes());
@@ -243,6 +263,7 @@ public class Plantilla implements Serializable
         plantilla.setPublicaciones(new Publicaciones());
         plantilla.setCongresos(new Congresos());
         plantilla.setTesis(new Tesis());
+        plantilla.setDoctorados(new Doctorados());
         plantilla.setSituacionProfesionalActiva(new SituacionProfesionalActiva());
         plantilla.setSituacionProfesionalAnterior(new SituacionProfesionalAnterior());
         plantilla.setDocencia(new Docencia());
