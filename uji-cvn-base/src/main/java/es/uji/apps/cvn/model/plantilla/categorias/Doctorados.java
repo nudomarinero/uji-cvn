@@ -45,7 +45,7 @@ public class Doctorados extends Categoria implements Serializable
         for (Doctorado doctorado : doctorados)
         {
             if (anyoActual
-                    - doctorado.getFechaDoctorado().getYear() < maxAnyos)
+                    - doctorado.getTitulacionFecha().getYear() < maxAnyos)
             {
                 doctoradosFiltrado.add(doctorado);
             }

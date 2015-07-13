@@ -53,10 +53,10 @@ public class CvnDoctorado
         cvnItem.addCvnString(cvnItem.buildCvnString("020.010.020.120", tipo));
     }
 
-    public void addTipoEntidadOtros(String tipo)
-    {
-        cvnItem.addCvnString(cvnItem.buildCvnString("020.010.020.130", tipo));
-    }
+//    public void addTipoEntidadOtros(String tipo)
+//    {
+//        cvnItem.addCvnString(cvnItem.buildCvnString("020.010.020.130", tipo));
+//    }
 
     public void addTitulacionFecha(XMLGregorianCalendar titulacionFecha)
     {
@@ -68,7 +68,7 @@ public class CvnDoctorado
         cvnItem.addCvnDateDayMonthYear(cvnItem.buildCvnDateDayMonthYear("020.010.020.150", doctoradoFecha));
     }
 
-    public void addTituloTesis(String s)
+    public void addTitulo(String s)
     {
         cvnItem.addCvnString(cvnItem.buildCvnString("020.010.020.160", s));
     }
@@ -114,15 +114,15 @@ public class CvnDoctorado
         cvnItem.addCvnDateDayMonthYear(cvnItem.buildCvnDateDayMonthYear("020.010.020.230", premioFecha));
     }
 
-    public void addHomologado(Boolean b)
-    {
-
-        if (b != null)
-            cvnItem.addCvnBoolean(cvnItem.buildCvnBoolean("020.010.020.240", b));
-    }
-
-    public void addHomologadoFecha(XMLGregorianCalendar homologadoFecha)
-    {
-        cvnItem.addCvnDateDayMonthYear(cvnItem.buildCvnDateDayMonthYear("020.010.020.250", homologadoFecha));
-    }
+//    public void addHomologado(Boolean b)
+//    {
+//
+//        if (b != null)
+//            cvnItem.addCvnBoolean(cvnItem.buildCvnBoolean("020.010.020.240", b));
+//    }
+//
+//    public void addHomologadoFecha(XMLGregorianCalendar homologadoFecha)
+//    {
+//        cvnItem.addCvnDateDayMonthYear(cvnItem.buildCvnDateDayMonthYear("020.010.020.250", homologadoFecha));
+//    }
 }

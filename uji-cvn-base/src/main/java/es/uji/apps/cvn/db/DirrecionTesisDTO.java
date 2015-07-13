@@ -7,8 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @SuppressWarnings("serial")
 @Entity
@@ -24,7 +22,10 @@ public class DirrecionTesisDTO implements Serializable
     @Column(name = "TIPO_TXT")
     private String tipoTexto;
 
-    @Column(name = "Persona")
+    @Column(name = "TESIS_PROPIA")
+    private Integer tesisPropia;
+
+    @Column(name = "PERSONA")
     private Long persona;
 
     private String titulo;
@@ -49,13 +50,13 @@ public class DirrecionTesisDTO implements Serializable
     @Column(name = "ALUMNO_APELLIDO2")
     private String alumnoApellido2;
 
-    @Column(name = "CODIRECTOR_NOMBRE")
+    @Column(name = "OTRODIRECTOR_NOMBRE")
     private String codirectorNombre;
 
-    @Column(name = "CODIRECTOR_APELLIDO1")
+    @Column(name = "OTRODIRECTOR_APELLIDO1")
     private String codirectorApellido1;
 
-    @Column(name = "CODIRECTOR_APELLIDO2")
+    @Column(name = "OTRODIRECTOR_APELLIDO2")
     private String codirectorApellido2;
 
     @Column(name = "FECHA_LECTURA")
@@ -73,154 +74,223 @@ public class DirrecionTesisDTO implements Serializable
     private String mencionCalidad;
 
 
-
-    public String getId() {
+    public String getId()
+    {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(String id)
+    {
         this.id = id;
     }
 
-    public String getTipoId() {
+    public String getTipoId()
+    {
         return tipoId;
     }
 
-    public void setTipoId(String tipoId) {
+    public void setTipoId(String tipoId)
+    {
         this.tipoId = tipoId;
     }
 
-    public String getTipoTexto() {
+    public String getTipoTexto()
+    {
         return tipoTexto;
     }
 
-    public void setTipoTexto(String tipoTexto) {
+    public void setTipoTexto(String tipoTexto)
+    {
         this.tipoTexto = tipoTexto;
     }
 
-    public Long getPersona() {
+    public Integer getTesisPropia()
+    {
+        return tesisPropia;
+    }
+
+    public void setTesisPropia(Integer tesisPropia)
+    {
+        this.tesisPropia = tesisPropia;
+    }
+
+    public Long getPersona()
+    {
         return persona;
     }
 
-    public void setPersona(Long persona) {
+    public void setPersona(Long persona)
+    {
         this.persona = persona;
     }
 
-    public String getTitulo() {
+    public String getTitulo()
+    {
         return titulo;
     }
 
-    public void setTitulo(String titulo) {
+    public void setTitulo(String titulo)
+    {
         this.titulo = titulo;
     }
 
-
-    public String getPais() {
+    public String getPais()
+    {
         return pais;
     }
 
-    public void setPais(String pais) {
+    public void setPais(String pais)
+    {
         this.pais = pais;
     }
 
-    public String getRegion() {
+    public String getRegion()
+    {
         return region;
     }
 
-    public void setRegion(String region) {
+    public void setRegion(String region)
+    {
         this.region = region;
     }
 
-    public String getCiudad() {
+    public String getCiudad()
+    {
         return ciudad;
     }
 
-    public void setCiudad(String ciudad) {
+    public void setCiudad(String ciudad)
+    {
         this.ciudad = ciudad;
     }
 
-    public String getEntidad() {
+    public String getEntidad()
+    {
         return entidad;
     }
 
-    public void setEntidad(String entidad) {
+    public void setEntidad(String entidad)
+    {
         this.entidad = entidad;
     }
 
-    public String getTipoEntidad() {
+    public String getTipoEntidad()
+    {
         return tipoEntidad;
     }
 
-    public void setTipoEntidad(String tipoEntidad) {
+    public void setTipoEntidad(String tipoEntidad)
+    {
         this.tipoEntidad = tipoEntidad;
     }
 
-    public Date getFechaLectura() {
-        return fechaLectura;
-    }
-
-    public void setFechaLectura(Date fechaLectura) {
-        this.fechaLectura = fechaLectura;
-    }
-
-    public String getCalificacion() {
-        return calificacion;
-    }
-
-    public void setCalificacion(String calificacion) {
-        this.calificacion = calificacion;
-    }
-
-    public String getDoctorEuropeo() {
-        return doctorEuropeo;
-    }
-
-    public void setDoctorEuropeo(boolean doctorEuropeo) {
-        doctorEuropeo = doctorEuropeo;
-    }
-
-    public Date getFechaDoctorEuropeo() {
-        return fechaDoctorEuropeo;
-    }
-
-    public void setFechaDoctorEuropeo(Date fechaDoctorEuropeo) {
-        this.fechaDoctorEuropeo = fechaDoctorEuropeo;
-    }
-
-    public String getMencionCalidad() {
-        return mencionCalidad;
-    }
-
-    public void setMencionCalidad(boolean mencionCalidad) {
-        mencionCalidad = mencionCalidad;
-    }
-
-    public String getAlumnoNombre() {
+    public String getAlumnoNombre()
+    {
         return alumnoNombre;
     }
 
-    public void setAlumnoNombre(String alumnoNombre) {
+    public void setAlumnoNombre(String alumnoNombre)
+    {
         this.alumnoNombre = alumnoNombre;
     }
 
-    public String getCodirectorNombre() {
-        return codirectorNombre;
-    }
-
-    public String getCodirectorApellido1() {
-        return codirectorApellido1;
-    }
-
-    public String getCodirectorApellido2() {
-        return codirectorApellido2;
-    }
-
-
-    public String getAlumnoApellido1() {
+    public String getAlumnoApellido1()
+    {
         return alumnoApellido1;
     }
 
-    public String getAlumnoApellido2() {
+    public void setAlumnoApellido1(String alumnoApellido1)
+    {
+        this.alumnoApellido1 = alumnoApellido1;
+    }
+
+    public String getAlumnoApellido2()
+    {
         return alumnoApellido2;
+    }
+
+    public void setAlumnoApellido2(String alumnoApellido2)
+    {
+        this.alumnoApellido2 = alumnoApellido2;
+    }
+
+    public String getCodirectorNombre()
+    {
+        return codirectorNombre;
+    }
+
+    public void setCodirectorNombre(String codirectorNombre)
+    {
+        this.codirectorNombre = codirectorNombre;
+    }
+
+    public String getCodirectorApellido1()
+    {
+        return codirectorApellido1;
+    }
+
+    public void setCodirectorApellido1(String codirectorApellido1)
+    {
+        this.codirectorApellido1 = codirectorApellido1;
+    }
+
+    public String getCodirectorApellido2()
+    {
+        return codirectorApellido2;
+    }
+
+    public void setCodirectorApellido2(String codirectorApellido2)
+    {
+        this.codirectorApellido2 = codirectorApellido2;
+    }
+
+    public Date getFechaLectura()
+    {
+        return fechaLectura;
+    }
+
+    public void setFechaLectura(Date fechaLectura)
+    {
+        this.fechaLectura = fechaLectura;
+    }
+
+    public String getCalificacion()
+    {
+        return calificacion;
+    }
+
+    public void setCalificacion(String calificacion)
+    {
+        this.calificacion = calificacion;
+    }
+
+    public String getDoctorEuropeo()
+    {
+        return doctorEuropeo;
+    }
+
+    public void setDoctorEuropeo(String doctorEuropeo)
+    {
+        this.doctorEuropeo = doctorEuropeo;
+    }
+
+    public Date getFechaDoctorEuropeo()
+    {
+        return fechaDoctorEuropeo;
+    }
+
+    public void setFechaDoctorEuropeo(Date fechaDoctorEuropeo)
+    {
+        this.fechaDoctorEuropeo = fechaDoctorEuropeo;
+    }
+
+    public String getMencionCalidad()
+    {
+        return mencionCalidad;
+    }
+
+    public void setMencionCalidad(String mencionCalidad)
+    {
+        this.mencionCalidad = mencionCalidad;
     }
 }

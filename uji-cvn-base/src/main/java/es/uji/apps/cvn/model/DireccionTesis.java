@@ -22,8 +22,6 @@ public class DireccionTesis
 
     private String codirectorNombre;
 
-
-
     private String codirectorApellido1;
 
     private String codirectorApellido2;

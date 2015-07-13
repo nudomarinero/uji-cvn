@@ -8,7 +8,7 @@ public class Formacion extends CVNItem
 
     public Formacion()
     {
-        this.code = "020.000.000.000";
+        this.code = "020.010.020.000";
     }
 
     public CvnDoctorado getCvnDoctorado()

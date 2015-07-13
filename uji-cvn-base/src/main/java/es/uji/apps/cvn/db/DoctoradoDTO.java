@@ -1,40 +1,89 @@
-package es.uji.apps.cvn.model;
+package es.uji.apps.cvn.db;
 
-
+import java.io.Serializable;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-public class Doctorado
+@SuppressWarnings("serial")
+@Entity
+@Table(name = "CVN_VIEW_DIRECCION_TESIS")
+public class DoctoradoDTO implements Serializable
 {
-    private String id;
+   @Id
+   private String id;
+
+    @Column(name = "PROGRAMA")
     private String programa;
+
+    @Column(name = "ENTIDAD_DEA")
     private String suficiencia;
-    private XMLGregorianCalendar suficienciaFecha;
+
+    @Column(name = "F_OBTENCION_DEA")
+    private Date suficienciaFecha;
+
+    @Column(name = "TESIS_PROPIA")
     private Integer tesisPropia;
+
+    @Column(name = "PERSONA")
+    private Long persona;
+
     private String pais;
+
     private String region;
+
     private String ciudad;
+
     private String entidad;
+
+    @Column(name = "TIPO_ENTIDAD")
     private String tipoEntidad;
-    private XMLGregorianCalendar titulacionFecha;
-    private XMLGregorianCalendar fechaDoctorEuropeo;
+
+    @Column(name = "FECHA_LECTURA")
+    private Date titulacionFecha;
+
+    @Column(name = "F_DOCTOR_EUROPEO")
+    private Date fechaDoctorEuropeo;
+
     private String titulo;
+
+    @Column(name = "DIRECTOR_NOMBRE")
     private String directorNombre;
+
+    @Column(name = "DIRECTOR_APELLIDO1")
     private String directorApellido1;
+
+    @Column(name = "DIRECTOR_APELLIDO2")
     private String directorApellido2;
+
+    @Column(name = "CODIRECTOR_NOMBRE")
     private String codirectorNombre;
+
+    @Column(name = "CODIRECTOR_APELLIDO1")
     private String codirectorApellido1;
+
+    @Column(name = "CODIRECTOR_APELLIDO2")
     private String codirectorApellido2;
+
     private String calificacion;
-    private boolean isDoctorEuropeo;
-    private boolean isMencion;
-    private XMLGregorianCalendar mencionFecha;
-    private boolean isPremiado;
-    private XMLGregorianCalendar premioFecha;
+
+    @Column(name = "DOCTOR_EUROPEO")
+    private String doctorEuropeo;
+
+    @Column(name = "MENCION_CALIDAD")
+    private String mencionCalidad;
+
+    @Column(name = "F_MENCION_CALIDAD")
+    private Date fechaMencionCalidad;
+
+    @Column(name = "PREMIO_EXTRAORDINARIO")
+    private String premio;
+
+    @Column(name = "F_PREMIO_EXTRAORDINARIO")
+    private Date premioFecha;
 
     public String getId()
     {
@@ -66,24 +115,14 @@ public class Doctorado
         this.suficiencia = suficiencia;
     }
 
-    public XMLGregorianCalendar getSuficienciaFecha()
+    public Date getSuficienciaFecha()
     {
         return suficienciaFecha;
     }
 
     public void setSuficienciaFecha(Date suficienciaFecha)
     {
-        if (suficienciaFecha != null)
-        {
-            GregorianCalendar calendar = new GregorianCalendar();
-            calendar.setTime(suficienciaFecha);
-            try
-            {
-                this.suficienciaFecha = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
-            } catch (DatatypeConfigurationException e)
-            {
-            }
-        }
+        this.suficienciaFecha = suficienciaFecha;
     }
 
     public Integer getTesisPropia()
@@ -146,44 +185,24 @@ public class Doctorado
         this.tipoEntidad = tipoEntidad;
     }
 
-    public XMLGregorianCalendar getTitulacionFecha()
+    public Date getTitulacionFecha()
     {
         return titulacionFecha;
     }
 
     public void setTitulacionFecha(Date titulacionFecha)
     {
-        if (titulacionFecha != null)
-        {
-            GregorianCalendar calendar = new GregorianCalendar();
-            calendar.setTime(titulacionFecha);
-            try
-            {
-                this.titulacionFecha = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
-            } catch (DatatypeConfigurationException e)
-            {
-            }
-        }
+        this.titulacionFecha = titulacionFecha;
     }
 
-    public XMLGregorianCalendar getFechaDoctorEuropeo()
+    public Date getFechaDoctorEuropeo()
     {
         return fechaDoctorEuropeo;
     }
 
     public void setFechaDoctorEuropeo(Date fechaDoctorEuropeo)
     {
-        if (fechaDoctorEuropeo != null)
-        {
-            GregorianCalendar calendar = new GregorianCalendar();
-            calendar.setTime(fechaDoctorEuropeo);
-            try
-            {
-                this.fechaDoctorEuropeo = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
-            } catch (DatatypeConfigurationException e)
-            {
-            }
-        }
+        this.fechaDoctorEuropeo = fechaDoctorEuropeo;
     }
 
     public String getTitulo()
@@ -266,73 +285,53 @@ public class Doctorado
         this.calificacion = calificacion;
     }
 
-    public boolean isDoctorEuropeo()
+    public String getDoctorEuropeo()
     {
-        return isDoctorEuropeo;
+        return doctorEuropeo;
     }
 
-    public void setIsDoctorEuropeo(boolean isDoctorEuropeo)
+    public void setDoctorEuropeo(String doctorEuropeo)
     {
-        this.isDoctorEuropeo = isDoctorEuropeo;
+        this.doctorEuropeo = doctorEuropeo;
     }
 
-    public boolean isMencion()
+    public String getMencionCalidad()
     {
-        return isMencion;
+        return mencionCalidad;
     }
 
-    public void setIsMencion(boolean isMencion)
+    public void setMencionCalidad(String mencionCalidad)
     {
-        this.isMencion = isMencion;
+        this.mencionCalidad = mencionCalidad;
     }
 
-    public boolean isPremiado()
+    public Date getFechaMencionCalidad()
     {
-        return isPremiado;
+        return fechaMencionCalidad;
     }
 
-    public void setIsPremiado(boolean isPremiado)
+    public void setFechaMencionCalidad(Date fechaMencionCalidad)
     {
-        this.isPremiado = isPremiado;
+        this.fechaMencionCalidad = fechaMencionCalidad;
     }
 
-    public XMLGregorianCalendar getPremioFecha()
+    public String getPremio()
+    {
+        return premio;
+    }
+
+    public void setPremio(String premio)
+    {
+        this.premio = premio;
+    }
+
+    public Date getPremioFecha()
     {
         return premioFecha;
     }
 
-    public XMLGregorianCalendar getMencionFecha()
-    {
-        return mencionFecha;
-    }
-
-    public void setMencionFecha(Date mencionFecha)
-    {
-        if (mencionFecha != null)
-        {
-            GregorianCalendar calendar = new GregorianCalendar();
-            calendar.setTime(mencionFecha);
-            try
-            {
-                this.mencionFecha = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
-            } catch (DatatypeConfigurationException e)
-            {
-            }
-        }
-    }
-
     public void setPremioFecha(Date premioFecha)
     {
-        if (premioFecha != null)
-        {
-            GregorianCalendar calendar = new GregorianCalendar();
-            calendar.setTime(premioFecha);
-            try
-            {
-                this.premioFecha = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
-            } catch (DatatypeConfigurationException e)
-            {
-            }
-        }
+        this.premioFecha = premioFecha;
     }
 }

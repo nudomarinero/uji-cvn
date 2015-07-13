@@ -31,7 +31,7 @@ public class TesisDAO extends BaseDAODatabaseImpl {
         QDirrecionTesisDTO qTesis = QDirrecionTesisDTO.dirrecionTesisDTO;
         List<DirrecionTesisDTO> listaDirrecionTesisDTO = query
                 .from(qTesis)
-                .where(qTesis.persona.eq(personaId)).list(qTesis);
+                .where(qTesis.persona.eq(personaId).and(qTesis.tesisPropia.eq(0))).list(qTesis);
 
         List<DireccionTesis> listaTesis = new ArrayList<DireccionTesis>();
 
@@ -41,7 +41,7 @@ public class TesisDAO extends BaseDAODatabaseImpl {
         }
 
         mili = System.currentTimeMillis()-mili;
-        log.info("TesisDAO.getTesisPersonaId " + mili);
+        log.info("TesisDAO.getDoctoradoPersonaId " + mili);
 
         return listaTesis;
 

@@ -1,8 +1,9 @@
 package es.uji.apps.cvn.services;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
@@ -25,6 +26,7 @@ import es.uji.apps.cvn.client.exceptions.GeneradorPDFWSException;
 import es.uji.apps.cvn.dao.CongresoDAO;
 import es.uji.apps.cvn.dao.CvnGeneradoDAO;
 import es.uji.apps.cvn.dao.DocenciaDAO;
+import es.uji.apps.cvn.dao.DoctoradoDAO;
 import es.uji.apps.cvn.dao.GrupoDAO;
 import es.uji.apps.cvn.dao.LogDAO;
 import es.uji.apps.cvn.dao.PersonaDAO;
@@ -102,6 +104,8 @@ public class CVNService
     private LogDAO logDAO;
     @Autowired
     private DocenciaDAO docenciaDAO;
+    @Autowired
+    private DoctoradoDAO doctoradoDAO;
 
     public String getCode(String code, boolean admin)
     {
@@ -144,7 +148,6 @@ public class CVNService
 
             cvnGeneradoDAO.actualizaCvn(cvnGenerado);
             log.info("CVN de " + personaId + " generado");
-
 
             DocumentoCVN documentoCVN = getDocumentoCvnFromWSDL(cvnRootBean, template,
                     plantilla.getIdioma());
@@ -359,7 +362,7 @@ public class CVNService
 
         if (plantilla.getDoctorados()!= null)
         {
-            List<Doctorado> doctorados = new ArrayList<>();//tesisDAO.getTesisPersonaId(personaId);
+            List<Doctorado> doctorados = doctoradoDAO.getDoctoradoPersonaId(personaId);
             persona.setDoctorados(doctorados);
         }
 

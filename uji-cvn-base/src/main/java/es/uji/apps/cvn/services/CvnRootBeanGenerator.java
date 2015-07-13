@@ -840,6 +840,26 @@ public class CvnRootBeanGenerator
 
         Formacion formacion = new Formacion();
         CvnDoctorado cvnDoctorado = formacion.getCvnDoctorado();
+        cvnDoctorado.addPrograma(null, doctorado.getPrograma());
+        cvnDoctorado.addSuficiencia(doctorado.getSuficiencia());
+        cvnDoctorado.addSuficienciaFecha(doctorado.getSuficienciaFecha());
+        cvnDoctorado.addPais(doctorado.getPais());
+        cvnDoctorado.addRegion(doctorado.getRegion());
+        cvnDoctorado.addCiudad(doctorado.getCiudad());
+        cvnDoctorado.addEntidad(doctorado.getEntidad());
+        cvnDoctorado.addTipoEntidad(doctorado.getTipoEntidad());
+        cvnDoctorado.addTitulacionFecha(doctorado.getTitulacionFecha());
+        cvnDoctorado.addDoctoradoFecha(doctorado.getFechaDoctorEuropeo());
+        cvnDoctorado.addTitulo(doctorado.getTitulo());
+        cvnDoctorado.addDirector(doctorado.getDirectorNombre(), doctorado.getDirectorApellido1(), doctorado.getDirectorApellido2());
+        cvnDoctorado.addCoDirector(doctorado.getCodirectorNombre(), doctorado.getCodirectorApellido1(), doctorado.getCodirectorApellido2());
+        cvnDoctorado.addCalificacion(doctorado.getCalificacion());
+        cvnDoctorado.addMencionCalidad(doctorado.isMencion());
+        cvnDoctorado.addDoctorEuropeo(doctorado.isDoctorEuropeo());
+        cvnDoctorado.addDoctoradoFecha(doctorado.getPremioFecha());
+        cvnDoctorado.addPremio(doctorado.isPremiado());
+        cvnDoctorado.addPremioFecha(doctorado.getPremioFecha());
+
 
         return formacion;
 
