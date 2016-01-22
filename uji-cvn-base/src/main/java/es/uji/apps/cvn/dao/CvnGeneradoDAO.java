@@ -57,6 +57,25 @@ public class CvnGeneradoDAO extends BaseDAODatabaseImpl
         cvnGenerado.setId(generado.getId());
     }
 
+    public CvnGeneradoDTO getCvnGeneradoDTOByPersonaId(Long personaId, Long solicitante)
+            throws RegistroNoEncontradoException
+    {
+        JPAQuery query = new JPAQuery(entityManager);
+        QCvnGeneradoDTO qCvnGenerado = QCvnGeneradoDTO.cvnGeneradoDTO;
+
+        CvnGeneradoDTO cvnGeneradoDTO = query
+                .from(qCvnGenerado)
+                .where(qCvnGenerado.personaId.eq(personaId).and(
+                        qCvnGenerado.solicitante.eq(solicitante))).singleResult(qCvnGenerado);
+
+        if (cvnGeneradoDTO == null)
+        {
+            throw new RegistroNoEncontradoException();
+        }
+
+        return cvnGeneradoDTO;
+    }
+
     public CvnGenerado getCvnGeneradoByPersonaId(Long personaId, Long solicitante)
             throws RegistroNoEncontradoException
     {

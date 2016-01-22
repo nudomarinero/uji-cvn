@@ -46,7 +46,7 @@ public class CVNResource extends CoreBaseService
     @Path("generate")
     public void generateCVNEnFormatoPDF(@QueryParam("template") String template,
             @QueryParam("lang") String idioma, @QueryParam("plantilla") String plantilla)
-            throws IOException
+            throws IOException, RegistroNoEncontradoException
     {
         Long connectedUserId = AccessManager.getConnectedUserId(request);
         Long plantillaId = ParamUtils.parseLong(plantilla);
@@ -59,7 +59,7 @@ public class CVNResource extends CoreBaseService
     @Produces(MediaType.TEXT_PLAIN)
     public void generateCVNEnFormatoPDF(@PathParam("personaId") String persona,
             @QueryParam("template") String template, @QueryParam("lang") String idioma,
-            @QueryParam("plantilla") String plantilla) throws IOException
+            @QueryParam("plantilla") String plantilla) throws IOException, RegistroNoEncontradoException
     {
         ParamUtils.checkNotNull(persona);
         Long personaId = ParamUtils.parseLong(persona);

@@ -33,6 +33,7 @@ import es.uji.apps.cvn.dao.ProyectoDAO;
 import es.uji.apps.cvn.dao.PublicacionDAO;
 import es.uji.apps.cvn.dao.SituacionProfesionalDAO;
 import es.uji.apps.cvn.dao.TesisDAO;
+import es.uji.apps.cvn.db.CvnGeneradoDTO;
 import es.uji.apps.cvn.model.CvnGenerado;
 import es.uji.apps.cvn.model.DireccionTesis;
 import es.uji.apps.cvn.model.DocenciaImpartida;
@@ -452,14 +453,15 @@ public class CVNService
         return DocumentoCVN.unserialize(cvnGenerado.getCvn());
     }
 
-    public CvnGenerado solicitudGeneracionDocumentoCVN(Long personaId)
+    public CvnGenerado solicitudGeneracionDocumentoCVN(Long personaId, Long solicitanteId) throws RegistroNoEncontradoException
     {
-        return solicitudGeneracionDocumentoCVN(personaId, personaId);
+        CvnGeneradoDTO peticion= cvnGeneradoDAO.getCvnGeneradoDTOByPersonaId(personaId,solicitanteId);
+        return solicitudGeneracionDocumentoCVN(peticion);
     }
 
-    public CvnGenerado solicitudGeneracionDocumentoCVN(Long personaId, Long solicitante)
+    public CvnGenerado solicitudGeneracionDocumentoCVN(CvnGeneradoDTO peticion)
     {
-        CvnGenerado cvnGenerado = CvnGenerado.iniciaSolicitud(personaId, solicitante,
+        CvnGenerado cvnGenerado = CvnGenerado.iniciaSolicitud(peticion,
                 EstadoCvn.SOLICITADO.getEstado(), InfoEstadoCVN.SOLICITADO.getEstado());
         cvnGeneradoDAO.resetCvnGenerado(cvnGenerado);
 
@@ -524,7 +526,7 @@ public class CVNService
 
     @Transactional
     public void registraSolicitudGeneracionUsuario(Long userId, String idioma, String template,
-            Long plantillaId)
+            Long plantillaId) throws RegistroNoEncontradoException
     {
         registraSolicitudGeneracion(userId, userId, idioma, template, plantillaId,
                 InfoEstadoCVN.PENDIENTE_DATOS_USER.getEstado());
@@ -532,15 +534,16 @@ public class CVNService
 
     @Transactional
     public void registraSolicitudGeneracionAdmin(Long connectedUserId, Long userId, String idioma,
-            String template, Long plantillaId)
+            String template, Long plantillaId) throws RegistroNoEncontradoException
     {
         registraSolicitudGeneracion(connectedUserId, userId, idioma, template, plantillaId,
                 InfoEstadoCVN.PENDIENTE_DATOS_ADMIN.getEstado());
     }
 
     private void registraSolicitudGeneracion(Long connectedUserId, Long userId, String idioma,
-            String template, Long plantillaId, String estado)
+            String template, Long plantillaId, String estado) throws RegistroNoEncontradoException
     {
+
         CvnGenerado cvnGenerado = solicitudGeneracionDocumentoCVN(userId, connectedUserId);
         cvnGenerado.setIdioma(idioma);
         cvnGenerado.setTemplate(template);

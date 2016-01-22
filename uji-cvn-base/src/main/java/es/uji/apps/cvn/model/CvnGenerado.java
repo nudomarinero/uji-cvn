@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import es.uji.apps.cvn.db.CvnGeneradoDTO;
 import es.uji.apps.cvn.model.comparators.CvnGeneradoComparator;
 
 public class CvnGenerado
@@ -141,15 +142,18 @@ public class CvnGenerado
         this.fechaUltimaActualizacion = new Date();
     }
 
-    public static CvnGenerado iniciaSolicitud(Long personaId, Long solicitante, String estado,
+    public static CvnGenerado iniciaSolicitud(CvnGeneradoDTO peticion, String estado,
             String mensaje)
     {
         CvnGenerado cvnGenerado = new CvnGenerado();
-        cvnGenerado.setPersonaId(personaId);
-        cvnGenerado.setSolicitante(solicitante);
+        cvnGenerado.setPersonaId(peticion.getPersonaId());
+        cvnGenerado.setSolicitante(peticion.getSolicitante());
         cvnGenerado.setEstado(estado);
         cvnGenerado.setFechaUltimaActualizacion(new Date());
         cvnGenerado.setMensaje(mensaje);
+        cvnGenerado.setTemplate(peticion.getTemplate());
+        cvnGenerado.setIdioma(peticion.getIdioma());
+        cvnGenerado.setPlantillaId(peticion.getPlantillaId());
 
         return cvnGenerado;
     }

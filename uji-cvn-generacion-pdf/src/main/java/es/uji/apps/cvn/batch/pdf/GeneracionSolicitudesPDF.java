@@ -60,7 +60,7 @@ public class GeneracionSolicitudesPDF implements Runnable
 
                     try
                     {
-                        CvnGenerado cvnGenerado = cvnService.solicitudGeneracionDocumentoCVN(peticion.getPersonaId(), peticion.getSolicitante());
+                        CvnGenerado cvnGenerado = cvnService.solicitudGeneracionDocumentoCVN(peticion);
 
                         Long personaId = peticion.getPersonaId();
                         String template = peticion.getTemplate();
