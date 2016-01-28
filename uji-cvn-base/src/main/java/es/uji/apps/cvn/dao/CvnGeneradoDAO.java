@@ -70,7 +70,10 @@ public class CvnGeneradoDAO extends BaseDAODatabaseImpl
 
         if (cvnGeneradoDTO == null)
         {
-            throw new RegistroNoEncontradoException();
+            cvnGeneradoDTO= new CvnGeneradoDTO();
+            cvnGeneradoDTO.setPersonaId(personaId);
+            cvnGeneradoDTO.setSolicitante(solicitante);
+            return cvnGeneradoDTO;
         }
 
         return cvnGeneradoDTO;
