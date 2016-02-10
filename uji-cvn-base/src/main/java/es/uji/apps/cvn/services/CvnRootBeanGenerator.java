@@ -856,7 +856,6 @@ public class CvnRootBeanGenerator
         cvnDoctorado.addCalificacion(doctorado.getCalificacion());
         cvnDoctorado.addMencionCalidad(doctorado.isMencion());
         cvnDoctorado.addDoctorEuropeo(doctorado.isDoctorEuropeo());
-        cvnDoctorado.addDoctoradoFecha(doctorado.getPremioFecha());
         cvnDoctorado.addPremio(doctorado.isPremiado());
         cvnDoctorado.addPremioFecha(doctorado.getPremioFecha());
 
