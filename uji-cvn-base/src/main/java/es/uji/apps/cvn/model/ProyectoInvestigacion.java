@@ -1,6 +1,8 @@
 package es.uji.apps.cvn.model;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -178,7 +180,7 @@ public class ProyectoInvestigacion
                 this.duracion = "P" + duracion.intValue() + "D";
             }
         }
-        this.duracion="P01Y03M03D";
+        //this.duracion="P01Y03M03D";
     }
 
     public void setDuracion(Date ini, Date fin){
