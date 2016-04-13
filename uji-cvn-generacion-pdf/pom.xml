@@ -39,6 +39,7 @@
   </dependencies>
 
   <build>
+    <finalName>uji-cvn-generacion-pdf</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
