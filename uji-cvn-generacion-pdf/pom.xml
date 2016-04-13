@@ -6,6 +6,13 @@
   <groupId>es.uji.apps.cvn</groupId>
   <artifactId>uji-cvn-generacion-pdf</artifactId>
 
+  <properties>
+    <uji.tipo>servicio</uji.tipo>
+    <aspectj.version>1.8.5</aspectj.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <uji.deploy.type>service</uji.deploy.type>
+  </properties>
+
   <parent>
     <groupId>es.uji.apps.cvn</groupId>
     <artifactId>uji-cvn</artifactId>
