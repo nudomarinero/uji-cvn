@@ -8,7 +8,8 @@ select p.id id,
    p.tipo_id soporte,
   (select nvl(r.nombre_extendido, r.nombre) from pci_producciones_detalle d join pci_revistas r on r.id = to_number(d.valor) where d.produccion_id = p.id and atributo_tipo_id = 92) nombre_pub,
   (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 167) volumen,
-  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 87) paginas,  -- Páginas inicio y fin???
+  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 165) pagina_inicio,
+  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 166) pagina_fin,
   (select to_date(valor) from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 175) fecha_pub, -- Ano???
   (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 91) web_pub,
   (select r.issn from pci_producciones_detalle d join pci_revistas r on r.id = to_number(d.valor) where d.produccion_id = p.id and atributo_tipo_id = 92) isbn_pub,
@@ -39,7 +40,8 @@ select p.id id,
   p.tipo_id soporte,
   null nombre_pub,
   null volumen_pub,
-  null paginas_pub,
+  null pagina_inicio,
+  null pagina_fin,
   (select l.fecha_publicacion from pci_producciones_detalle d join pci_libros l on l.id = to_number(d.valor) where d.produccion_id = p.id and atributo_tipo_id = 93) fecha_pub,
   (select l.doi from pci_producciones_detalle d join pci_libros l on l.id = to_number(d.valor) where d.produccion_id = p.id and atributo_tipo_id = 93) web_pub,
   (select l.isbn from pci_producciones_detalle d join pci_libros l on l.id = to_number(d.valor) where d.produccion_id = p.id and atributo_tipo_id = 93) isbn,
@@ -72,7 +74,8 @@ select p.id id,
   p.tipo_id soporte,
   (select l.titulo from pci_producciones_detalle d join pci_libros l on l.id = to_number(d.valor) where d.produccion_id = p.id and atributo_tipo_id = 97) nombre_pub,
   null volumen_pub,
-  null paginas_pub, -- Páginas totales? Separa inicio y fin?
+  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 178) pagina_inicio,
+  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 179) pagina_fin,
   (select l.fecha_publicacion from pci_producciones_detalle d join pci_libros l on l.id = to_number(d.valor) where d.produccion_id = p.id and atributo_tipo_id = 97) fecha_pub,
   (select l.doi from pci_producciones_detalle d join pci_libros l on l.id = to_number(d.valor) where d.produccion_id = p.id and atributo_tipo_id = 97) web_pub,
   (select l.isbn from pci_producciones_detalle d join pci_libros l on l.id = to_number(d.valor) where d.produccion_id = p.id and atributo_tipo_id = 97) isbn,
@@ -91,4 +94,4 @@ select p.id id,
   
 from  pci_producciones p
   join pci_producciones_estados e on e.produccion_id = p.id
-where tipo_id = 3 and e.estado_id = 'J';  -- Falta la edición? Squí no hay participación
+where tipo_id = 3 and e.estado_id = 'J';  -- Falta la edición? Aquí no hay participación
