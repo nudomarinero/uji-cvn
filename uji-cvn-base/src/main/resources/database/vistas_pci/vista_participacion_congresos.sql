@@ -6,7 +6,8 @@ select a.persona_id persona,
   '730' calidad_participacion,
   '' calidad_participacion_str,
   (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 90) caracter,
-  a.orden orden
+  a.orden orden,
+  decode(a.role_destacado,1,1,0) corresponding_author
 
 from pci_producciones p
     join pci_producciones_autores a on a.produccion_id = p.id
@@ -22,7 +23,8 @@ select a.persona_id persona,
   '960' calidad_participacion,
   '' calidad_participacion_str,
   (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 90) caracter,
-  a.orden orden
+  a.orden orden,
+  decode(a.role_destacado,1,1,0) corresponding_author
 
 from pci_producciones p
     join pci_producciones_autores a on a.produccion_id = p.id
@@ -38,7 +40,8 @@ select a.persona_id persona,
   '970' calidad_participacion,
   '' calidad_participacion_str,
   (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 90) caracter,
-  a.orden orden
+  a.orden orden,
+  decode(a.role_destacado,1,1,0) corresponding_author
 
 from pci_producciones p
     join pci_producciones_autores a on a.produccion_id = p.id
@@ -54,7 +57,8 @@ select a.persona_id persona,
   '980' calidad_participacion,
   '' calidad_participacion_str,
   (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 90) caracter,
-  a.orden orden
+  a.orden orden,
+  decode(a.role_destacado,1,1,0) corresponding_author
 
 from pci_producciones p
     join pci_producciones_autores a on a.produccion_id = p.id
@@ -70,7 +74,8 @@ select a.persona_id persona,
   '990' calidad_participacion,
   '' calidad_participacion_str,
   (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 90) caracter,
-  a.orden orden
+  a.orden orden,
+  decode(a.role_destacado,1,1,0) corresponding_author
 
 from pci_producciones p
     join pci_producciones_autores a on a.produccion_id = p.id

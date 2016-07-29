@@ -9,7 +9,8 @@ select trim(a.nombre||' '||a.apellidos) persona,
   a.orden orden,
   null pos_sobre_total,
   '' resultados_destacados,
-  null is_relevante_pub
+  null is_relevante_pub,
+  decode(a.role_destacado,1,1,0) corresponding_author
 
 from pci_producciones p
     join pci_producciones_autores a on a.produccion_id = p.id
@@ -27,7 +28,8 @@ select trim(a.nombre||' '||a.apellidos) persona,
   a.orden orden,
   null pos_sobre_total,
   '' resultados_destacados,
-  null is_relevante_pub
+  null is_relevante_pub,
+  decode(a.role_destacado,1,1,0) corresponding_author
    
 from pci_producciones p
     join pci_producciones_autores a on a.produccion_id = p.id
@@ -47,7 +49,8 @@ select trim(a.nombre||' '||a.apellidos) persona,
   a.orden orden,
   null pos_sobre_total,
   '' resultados_destacados,
-  null is_relevante_pub
+  null is_relevante_pub,
+  decode(a.role_destacado,1,1,0) corresponding_author
 
 from pci_producciones p
     join pci_producciones_autores a on a.produccion_id = p.id
@@ -66,7 +69,8 @@ select trim(a.nombre||' '||a.apellidos) persona,
   a.orden orden,
   null pos_sobre_total,
   '' resultados_destacados,
-  null is_relevante_pub
+  null is_relevante_pub,
+  decode(a.role_destacado,1,1,0) corresponding_author
 
 from pci_producciones p
     join pci_producciones_autores a on a.produccion_id = p.id
@@ -87,7 +91,8 @@ select trim(a.nombre||' '||a.apellidos) persona,
   a.orden orden,
   null pos_sobre_total,
   '' resultados_destacados,
-  null is_relevante_pub
+  null is_relevante_pub,
+  decode(a.role_destacado,1,1,0) corresponding_author
    
 from pci_producciones p
     join pci_producciones_autores a on a.produccion_id = p.id
@@ -106,7 +111,8 @@ select trim(a.nombre||' '||a.apellidos) persona,
   a.orden orden,
   null pos_sobre_total,
   '' resultados_destacados,
-  null is_relevante_pub
+  null is_relevante_pub,
+  decode(a.role_destacado,1,1,0) corresponding_author
 
 from pci_producciones p
     join pci_producciones_autores a on a.produccion_id = p.id
@@ -124,7 +130,8 @@ select trim(a.nombre||' '||a.apellidos) persona,
   a.orden orden,
   null pos_sobre_total,
   '' resultados_destacados,
-  null is_relevante_pub
+  null is_relevante_pub,
+  decode(a.role_destacado,1,1,0) corresponding_author
 
 from pci_producciones p
     join pci_producciones_autores a on a.produccion_id = p.id

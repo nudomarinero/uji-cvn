@@ -6,7 +6,8 @@ select a.persona_id persona,
   (CASE a.orden WHEN 0 THEN 'S' ELSE 'N' END) responsable,
   '' tipo_participacion,
   '' aportaciones,
-  NULL dedicacion
+  NULL dedicacion,
+  decode(a.role_destacado,1,1,0) corresponding_author
 
 from pci_producciones p
     join pci_producciones_autores a on a.produccion_id = p.id
