@@ -10,13 +10,13 @@ select p.id id,
   (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 167) volumen,
   (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 165) pagina_inicio,
   (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 166) pagina_fin,
-  (select to_date(valor) from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 175) fecha_pub, -- Ano???
-  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 91) web_pub,
+  nvl((select to_date(valor) from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 175),
+    (select to_date(valor) from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 176)) fecha_pub, -- Normal o online
   (select r.issn from pci_producciones_detalle d join pci_revistas r on r.id = to_number(d.valor) where d.produccion_id = p.id and atributo_tipo_id = 92) isbn_pub,
   '' editorial_pub,
   (select pai.codigo_mec from pci_producciones_detalle d join pci_revistas r on r.id = to_number(d.valor) join per_paises pai on pai.id = r.pais_id where d.produccion_id = p.id and atributo_tipo_id = 92) pais_pub,
   '' region_pub,
-  '' ciudad_pub, -- Se podría sacar algo
+  '' ciudad_pub,
   '' dep_legal_pub,
   '' coleccion,
   null num_rese,
@@ -24,7 +24,11 @@ select p.id id,
   '' denominacion,
   '' destinatarios,
   null fecha_creacion,
-    '' justificacion
+    '' justificacion,
+  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 169) tipo_documento,
+  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 91) doi,
+  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 171) url_documento,
+  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 172 ) handle
   
 from pci_producciones p
     join pci_producciones_estados e on e.produccion_id = p.id
@@ -43,7 +47,6 @@ select p.id id,
   null pagina_inicio,
   null pagina_fin,
   (select l.fecha_publicacion from pci_producciones_detalle d join pci_libros l on l.id = to_number(d.valor) where d.produccion_id = p.id and atributo_tipo_id = 93) fecha_pub,
-  (select l.doi from pci_producciones_detalle d join pci_libros l on l.id = to_number(d.valor) where d.produccion_id = p.id and atributo_tipo_id = 93) web_pub,
   (select l.isbn from pci_producciones_detalle d join pci_libros l on l.id = to_number(d.valor) where d.produccion_id = p.id and atributo_tipo_id = 93) isbn,
   (select e.nombre from pci_producciones_detalle d join pci_libros l on l.id = to_number(d.valor) join pci_editoriales e on e.id = l.editorial_id where d.produccion_id = p.id and atributo_tipo_id = 93) editorial,
   (select pai.codigo_mec from pci_producciones_detalle d join pci_libros l on l.id = to_number(d.valor) join per_paises pai on pai.id = l.pais_publicacion_id where d.produccion_id = p.id and atributo_tipo_id = 93) pais_pub,
@@ -56,7 +59,11 @@ select p.id id,
   '' denominacion,
   '' destinatarios,
   null fecha_creacion,
-  '' justificacion
+  '' justificacion,
+  null tipo_documento,
+  (select l.doi from pci_producciones_detalle d join pci_libros l on l.id = to_number(d.valor) where d.produccion_id = p.id and atributo_tipo_id = 93) doi,
+  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 183) url_documento,
+  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 184) handle
 
 from pci_producciones p
   join pci_producciones_estados e on e.produccion_id = p.id
@@ -77,7 +84,6 @@ select p.id id,
   (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 178) pagina_inicio,
   (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 179) pagina_fin,
   (select l.fecha_publicacion from pci_producciones_detalle d join pci_libros l on l.id = to_number(d.valor) where d.produccion_id = p.id and atributo_tipo_id = 97) fecha_pub,
-  (select l.doi from pci_producciones_detalle d join pci_libros l on l.id = to_number(d.valor) where d.produccion_id = p.id and atributo_tipo_id = 97) web_pub,
   (select l.isbn from pci_producciones_detalle d join pci_libros l on l.id = to_number(d.valor) where d.produccion_id = p.id and atributo_tipo_id = 97) isbn,
   (select e.nombre from pci_producciones_detalle d join pci_libros l on l.id = to_number(d.valor) join pci_editoriales e on e.id = l.editorial_id where d.produccion_id = p.id and atributo_tipo_id = 97) editorial,
   (select pai.codigo_mec from pci_producciones_detalle d join pci_libros l on l.id = to_number(d.valor) join per_paises pai on pai.id = l.pais_publicacion_id where d.produccion_id = p.id and atributo_tipo_id = 97) pais_pub,
@@ -90,8 +96,84 @@ select p.id id,
   '' denominacion,
   '' destinatarios,
   null fecha_creacion,
-  '' justificacion
+  '' justificacion,
+  null tipo_documento,
+  nvl((select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 100), (select l.doi from pci_producciones_detalle d join pci_libros l on l.id = to_number(d.valor) where d.produccion_id = p.id and atributo_tipo_id = 97)) doi,
+  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 182) url_documento,
+  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 181) handle
   
 from  pci_producciones p
   join pci_producciones_estados e on e.produccion_id = p.id
-where tipo_id = 3 and e.estado_id = 'J';  -- Falta la edición? Aquí no hay participación
+where tipo_id = 3 and e.estado_id = 'J'
+
+UNION ALL
+
+-- Edición de monográficos
+select p.id id,
+  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 249) titulo,
+  p.tipo_id tipo,
+  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 251) caracter,
+  p.tipo_id soporte,
+  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 244) nombre_pub,
+  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 246) volumen,
+  null pagina_inicio,
+  null pagina_fin,
+  decode((select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 248),
+        null, null,
+        (select to_date('01/01/'||valor, 'DD/MM/YYYY') from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 248)) fecha_pub,
+  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 245) isbn_pub,
+  '' editorial_pub,
+  '' pais,
+  '' region_pub,
+  '' ciudad_pub,
+  '' dep_legal_pub,
+  '' coleccion,
+  null num_rese,
+  '' traducciones,
+  '' denominacion,
+  '' destinatarios,
+  null fecha_creacion,
+    '' justificacion,
+  '' tipo_documento,
+  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 255) doi,
+  null url_documento,
+  null handle_repositorio
+
+from  pci_producciones p
+  join pci_producciones_estados e on e.produccion_id = p.id
+where tipo_id = 17 and e.estado_id = 'J'
+
+UNION ALL
+
+-- Apuntes docentes
+select p.id,
+  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 163) titulo,
+  p.tipo_id tipo,
+  '286' caracter, --Docente
+  p.tipo_id soporte,
+  null nombre_pub,
+  null volumen,
+  null pagina_inicio,
+  null pagina_fin,
+  (select to_date(valor) from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 164) fecha_pub,
+  null isbn_pub,
+  (select e.nombre from pci_producciones_detalle d join pci_editoriales e on e.id = to_number(d.valor) where d.produccion_id = p.id and atributo_tipo_id = 261) editorial_pub,
+  '' pais,
+  '' region_pub,
+  '' ciudad_pub,
+  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 253) dep_legal_pub,
+  '' coleccion,
+  null num_rese,
+  '' traducciones,
+  '' denominacion,
+  '' destinatarios,
+  null fecha_creacion,
+    '' justificacion,
+  '' tipo_documento,
+  null doi,
+  null url_documento,
+  null handle_repositorio
+
+from  pci_producciones p
+  join pci_producciones_estados e on e.produccion_id = p.id
+where tipo_id = 18 and e.estado_id = 'J';

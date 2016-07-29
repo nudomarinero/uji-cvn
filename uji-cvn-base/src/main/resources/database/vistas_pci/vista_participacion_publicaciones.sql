@@ -93,7 +93,40 @@ from pci_producciones p
     join pci_producciones_autores a on a.produccion_id = p.id
     join pci_producciones_estados e on e.produccion_id = p.id
 where tipo_id = 2 and e.estado_id = 'J' and a.persona_id is not null
-  and (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 177) = '272'; -- Es editor
-  
-  
--- Edición de monográficos??? Y material docente???
+  and (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 177) = '272' -- Es editor
+
+UNION ALL
+
+-- Editor de monográficos
+select a.persona_id persona,
+   p.id produccion,
+  '390' calidad_participacion,
+  '' calidad_participacion_str,
+  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 251) caracter,
+  a.orden orden,
+  null pos_sobre_total,
+  '' resultados_destacados,
+  null is_relevante_pub
+
+from pci_producciones p
+    join pci_producciones_autores a on a.produccion_id = p.id
+    join pci_producciones_estados e on e.produccion_id = p.id
+where tipo_id = 17 and e.estado_id = 'J' and a.persona_id is not null
+
+UNION ALL
+
+-- Apuntes docentes
+select a.persona_id persona,
+   p.id produccion,
+  '120' calidad_participacion, -- Habrá que cambiarlo?
+  '' calidad_participacion_str,
+  '286' caracter,
+  a.orden orden,
+  null pos_sobre_total,
+  '' resultados_destacados,
+  null is_relevante_pub
+
+from pci_producciones p
+    join pci_producciones_autores a on a.produccion_id = p.id
+    join pci_producciones_estados e on e.produccion_id = p.id
+where tipo_id = 18 and e.estado_id = 'J' and a.persona_id is not null;
