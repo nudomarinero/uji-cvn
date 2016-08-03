@@ -1,4 +1,5 @@
-CREATE OR REPLACE FORCE EDITIONABLE VIEW "UJI_CVN"."CVN_VIEW_PROD_PUBLICACIONES_PCI" ("ID", "TITULO", "TIPO", "CARACTER", "SOPORTE", "NOMBRE_PUB", "VOLUMEN_PUB", "PAGINAS_PUB", "FECHA_PUB", "WEB_PUB", "ISBN_PUB", "EDITORIAL_PUB", "PAIS_PUB", "REGION_PUB", "CIUDAD_PUB", "DEP_LEGAL_PUB", "COLECCION", "NUM_RESE", "TRADUCCIONES", "DENOMINACION", "DESTINATARIOS", "FECHA_CREACION", "JUSTIFICACION") AS
+CREATE OR REPLACE VIEW "UJI_CVN"."CVN_VIEW_PROD_PUBLI_PCI" ("ID", "TITULO", "TIPO", "CARACTER", "SOPORTE", "NOMBRE_PUB", "VOLUMEN_PUB", "PAGINA_INICIO", "PAGINA_FIN", "FECHA_PUB", "ISBN_PUB", "EDITORIAL_PUB", "PAIS_PUB", "REGION_PUB", "CIUDAD_PUB", "DEP_LEGAL_PUB", "COLECCION", "NUM_RESE", "TRADUCCIONES", "DENOMINACION", "DESTINATARIOS", "FECHA_CREACION", "JUSTIFICACION",
+  "TIPO_DOCUMENTO", "DOI", "URL_DOCUMENTO", "HANDLE") AS
 
 -- Artículos
 select p.id id,
@@ -29,7 +30,7 @@ select p.id id,
   (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 91) doi,
   (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 171) url_documento,
   (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 172 ) handle
-  
+
 from pci_producciones p
     join pci_producciones_estados e on e.produccion_id = p.id
 where tipo_id = 1 and e.estado_id = 'J'
@@ -70,9 +71,9 @@ from pci_producciones p
   join pci_producciones_detalle d on d.produccion_id = p.id
 where tipo_id = 2 and e.estado_id = 'J'
   and d.atributo_tipo_id = 177 and d.valor in (271, 272) -- Autor o Editor;
-  
+
 UNION ALL
-  
+
 -- Capítulos de libro
 select p.id id,
   (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 96) titulo,
@@ -101,7 +102,7 @@ select p.id id,
   nvl((select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 100), (select l.doi from pci_producciones_detalle d join pci_libros l on l.id = to_number(d.valor) where d.produccion_id = p.id and atributo_tipo_id = 97)) doi,
   (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 182) url_documento,
   (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 181) handle
-  
+
 from  pci_producciones p
   join pci_producciones_estados e on e.produccion_id = p.id
 where tipo_id = 3 and e.estado_id = 'J'
@@ -118,9 +119,9 @@ select p.id id,
   (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 246) volumen,
   null pagina_inicio,
   null pagina_fin,
-  decode((select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 248),
+  to_date(decode((select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 248),
         null, null,
-        (select to_date('01/01/'||valor, 'DD/MM/YYYY') from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 248)) fecha_pub,
+        (select to_char(to_date('01/01/'||valor, 'DD/MM/YYYY')) from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 248))) fecha_pub,
   (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 245) isbn_pub,
   '' editorial_pub,
   '' pais,
