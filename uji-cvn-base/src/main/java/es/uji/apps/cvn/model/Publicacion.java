@@ -1,6 +1,7 @@
 package es.uji.apps.cvn.model;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -191,12 +192,12 @@ public class Publicacion
         return fecha;
     }
 
-    public void setFecha(Long fecha)
+    public void setFecha(Date fecha)
     {
         if (fecha != null)
         {
             GregorianCalendar calendar = new GregorianCalendar();
-            calendar.set(GregorianCalendar.YEAR, fecha.intValue());
+            calendar.setTime(fecha);
             try
             {
                 this.fecha = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
@@ -275,21 +276,5 @@ public class Publicacion
         return DOI_URL;
     }
 
-    public void setPaginasInicioFin(String paginas)
-    {
-        if (paginas != null)
-        {
-            Pattern pattern = Pattern.compile("^[^0-9]*([0-9]+)\\s*[-aA]*\\s*([0-9]+)?");
-            Matcher matcher = pattern.matcher(paginas);
 
-            if (matcher.find())
-            {
-                this.paginaInicio = matcher.group(1);
-                if (matcher.groupCount() > 1)
-                {
-                    this.paginaFin = matcher.group(2);
-                }
-            }
-        }
-    }
 }

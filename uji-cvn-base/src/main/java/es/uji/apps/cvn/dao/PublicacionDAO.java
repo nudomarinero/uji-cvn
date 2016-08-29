@@ -11,21 +11,8 @@ import org.springframework.stereotype.Repository;
 
 import com.mysema.query.jpa.impl.JPAQuery;
 
-import es.uji.apps.cvn.db.ImpactoPublicacionDTO;
-import es.uji.apps.cvn.db.ParticipacionPersonaEnPublicacionDTO;
-import es.uji.apps.cvn.db.ParticipacionPersonaExternaEnPublicacionDTO;
-import es.uji.apps.cvn.db.PersonaDTO;
-import es.uji.apps.cvn.db.PublicacionDTO;
-import es.uji.apps.cvn.db.QImpactoPublicacionDTO;
-import es.uji.apps.cvn.db.QParticipacionPersonaEnPublicacionDTO;
-import es.uji.apps.cvn.db.QParticipacionPersonaExternaEnPublicacionDTO;
-import es.uji.apps.cvn.model.AutorPublicacion;
-import es.uji.apps.cvn.model.Impacto;
-import es.uji.apps.cvn.model.ParticipacionPublicacionCientificoTecnica;
-import es.uji.apps.cvn.model.ParticipacionPublicacionDocente;
-import es.uji.apps.cvn.model.Publicacion;
-import es.uji.apps.cvn.model.PublicacionCientificoTecnica;
-import es.uji.apps.cvn.model.PublicacionDocente;
+import es.uji.apps.cvn.db.*;
+import es.uji.apps.cvn.model.*;
 import es.uji.apps.cvn.translators.TipoProduccion;
 import es.uji.apps.cvn.translators.TipoSoporteDocente;
 import es.uji.commons.db.BaseDAODatabaseImpl;
@@ -43,47 +30,43 @@ public class PublicacionDAO extends BaseDAODatabaseImpl
 
         Long mili = System.currentTimeMillis();
 
-
         JPAQuery query = new JPAQuery(entityManager);
         QParticipacionPersonaEnPublicacionDTO qParticipacionPublicacion = QParticipacionPersonaEnPublicacionDTO.participacionPersonaEnPublicacionDTO;
 
         List<ParticipacionPersonaEnPublicacionDTO> participacionPublicacionesDTO = query
                 .from(qParticipacionPublicacion)
-                .where(qParticipacionPublicacion.persona.eq(personaId).and(
-                        qParticipacionPublicacion.caracterPublicacion.ne(CARACTER_DOCENTE)))
+                .where(qParticipacionPublicacion.persona.eq(personaId)
+                        .and(qParticipacionPublicacion.caracterPublicacion.ne(CARACTER_DOCENTE)))
                 .list(qParticipacionPublicacion);
 
         List<ParticipacionPublicacionCientificoTecnica> participacionPublicaciones = new ArrayList<ParticipacionPublicacionCientificoTecnica>();
 
         for (ParticipacionPersonaEnPublicacionDTO participacionPublicacionDTO : participacionPublicacionesDTO)
         {
-            participacionPublicaciones
-                    .add(creaParticipacionPublicacionCientificoTecnicaDesde(participacionPublicacionDTO));
+            participacionPublicaciones.add(creaParticipacionPublicacionCientificoTecnicaDesde(
+                    participacionPublicacionDTO));
         }
 
-        mili = System.currentTimeMillis()-mili;
-        log.info("PublicacionDAO.getParticipacionesEnPublicacionesCientificoTecnicasByPersonaId " + mili);
-
+        mili = System.currentTimeMillis() - mili;
+        log.info("PublicacionDAO.getParticipacionesEnPublicacionesCientificoTecnicasByPersonaId "
+                + mili);
 
         return participacionPublicaciones;
     }
-    
-    
-    
+
     public List<ParticipacionPublicacionDocente> getParticipacionesEnPublicacionesDocentesByPersonaId(
             Long personaId) throws RegistroNoEncontradoException
     {
 
         Long mili = System.currentTimeMillis();
 
-
         JPAQuery query = new JPAQuery(entityManager);
         QParticipacionPersonaEnPublicacionDTO qParticipacionPublicacion = QParticipacionPersonaEnPublicacionDTO.participacionPersonaEnPublicacionDTO;
 
         List<ParticipacionPersonaEnPublicacionDTO> participacionPublicacionesDTO = query
                 .from(qParticipacionPublicacion)
-                .where(qParticipacionPublicacion.persona.eq(personaId).and(
-                        qParticipacionPublicacion.caracterPublicacion.eq(CARACTER_DOCENTE)))
+                .where(qParticipacionPublicacion.persona.eq(personaId)
+                        .and(qParticipacionPublicacion.caracterPublicacion.eq(CARACTER_DOCENTE)))
                 .list(qParticipacionPublicacion);
 
         List<ParticipacionPublicacionDocente> participacionPublicaciones = new ArrayList<ParticipacionPublicacionDocente>();
@@ -93,21 +76,16 @@ public class PublicacionDAO extends BaseDAODatabaseImpl
             participacionPublicaciones
                     .add(creaParticipacionPublicacionDocenteDesde(participacionPublicacionDTO));
         }
-        mili = System.currentTimeMillis()-mili;
+        mili = System.currentTimeMillis() - mili;
         log.info("PublicacionDAO.getParticipacionesEnPublicacionesDocentesByPersonaId " + mili);
 
         return participacionPublicaciones;
     }
-    
-    
-    
-    
 
     private PublicacionCientificoTecnica getPublicacionCientificoTecnicaById(Long publicacionId)
             throws RegistroNoEncontradoException
     {
         Long mili = System.currentTimeMillis();
-
 
         PublicacionDTO publicacion = null;
 
@@ -119,12 +97,12 @@ public class PublicacionDAO extends BaseDAODatabaseImpl
         {
             throw new RegistroNoEncontradoException();
         }
-        
+
         if (publicacion.getCaracter().equals(CARACTER_DOCENTE))
         {
-            throw new RegistroNoEncontradoException();	
+            throw new RegistroNoEncontradoException();
         }
-       
+
         if (publicacion.getTipo().equals(TipoProduccion.ARTICULO.getTipoId()))
         {
             publicacion.setListaImpactoPublicacion(getListaImpactoByPublicacionId(publicacionId));
@@ -133,43 +111,39 @@ public class PublicacionDAO extends BaseDAODatabaseImpl
         {
             publicacion.setListaImpactoPublicacion(new ArrayList<ImpactoPublicacionDTO>());
         }
-        mili = System.currentTimeMillis()-mili;
+        mili = System.currentTimeMillis() - mili;
         log.info("PublicacionDAO.getPublicacionCientificoTecnicaById " + mili);
 
         return creaPublicacionCientificoTecnicaDesde(publicacion);
     }
-    
-    
-    
+
     private PublicacionDocente getPublicacionDocenteById(Long publicacionId)
-    throws RegistroNoEncontradoException
+            throws RegistroNoEncontradoException
     {
         Long mili = System.currentTimeMillis();
 
-
         PublicacionDTO publicacion = null;
 
-    	try
-    	{
-    		publicacion = get(PublicacionDTO.class, publicacionId).get(0);
-    	}
-    	catch (Exception e)
-    	{
-    		throw new RegistroNoEncontradoException();
-    	}
-
-    	if (!publicacion.getCaracter().equals(CARACTER_DOCENTE))
-    	{
-    		throw new RegistroNoEncontradoException();	
+        try
+        {
+            publicacion = get(PublicacionDTO.class, publicacionId).get(0);
         }
-        mili = System.currentTimeMillis()-mili;
+        catch (Exception e)
+        {
+            throw new RegistroNoEncontradoException();
+        }
+
+        if (!publicacion.getCaracter().equals(CARACTER_DOCENTE))
+        {
+            throw new RegistroNoEncontradoException();
+        }
+        mili = System.currentTimeMillis() - mili;
         log.info("PublicacionDAO.getPublicacionDocenteById " + mili);
 
         return creaPublicacionDocenteDesde(publicacion);
     }
 
-
-	private List<ImpactoPublicacionDTO> getListaImpactoByPublicacionId(Long publicacionId)
+    private List<ImpactoPublicacionDTO> getListaImpactoByPublicacionId(Long publicacionId)
     {
         Long mili = System.currentTimeMillis();
 
@@ -206,7 +180,7 @@ public class PublicacionDAO extends BaseDAODatabaseImpl
                 throw new RegistroNoEncontradoException();
             }
         }
-        mili = System.currentTimeMillis()-mili;
+        mili = System.currentTimeMillis() - mili;
         log.info("PublicacionDAO.QParticipacionPersonaEnPublicacionDTO " + mili);
 
         return autores;
@@ -215,7 +189,6 @@ public class PublicacionDAO extends BaseDAODatabaseImpl
     private List<AutorPublicacion> getAutoresExternosPublicacion(Long publicacionId)
     {
         Long mili = System.currentTimeMillis();
-
 
         JPAQuery query = new JPAQuery(entityManager);
         QParticipacionPersonaExternaEnPublicacionDTO qParticipacion = QParticipacionPersonaExternaEnPublicacionDTO.participacionPersonaExternaEnPublicacionDTO;
@@ -229,7 +202,7 @@ public class PublicacionDAO extends BaseDAODatabaseImpl
         {
             autores.add(creaAutorPublicacionDesde(participacionDTO));
         }
-        mili = System.currentTimeMillis()-mili;
+        mili = System.currentTimeMillis() - mili;
         log.info("PublicacionDAO.getAutoresExternosPublicacion " + mili);
 
         return autores;
@@ -237,14 +210,14 @@ public class PublicacionDAO extends BaseDAODatabaseImpl
 
     private ParticipacionPublicacionCientificoTecnica creaParticipacionPublicacionCientificoTecnicaDesde(
             ParticipacionPersonaEnPublicacionDTO participacionPersonaEnPublicacionDTO)
-            throws RegistroNoEncontradoException
+                    throws RegistroNoEncontradoException
     {
         ParticipacionPublicacionCientificoTecnica participacionPublicacion = new ParticipacionPublicacionCientificoTecnica();
         participacionPublicacion
-                .setPublicacionCientificoTecnica(getPublicacionCientificoTecnicaById(participacionPersonaEnPublicacionDTO
-                        .getProduccion()));
-        participacionPublicacion.setCalidad(participacionPersonaEnPublicacionDTO
-                .getCalidadParticipacion());
+                .setPublicacionCientificoTecnica(getPublicacionCientificoTecnicaById(
+                        participacionPersonaEnPublicacionDTO.getProduccion()));
+        participacionPublicacion
+                .setCalidad(participacionPersonaEnPublicacionDTO.getCalidadParticipacion());
 
         if (participacionPersonaEnPublicacionDTO.getPosSobreTotal() != null)
         {
@@ -255,21 +228,21 @@ public class PublicacionDAO extends BaseDAODatabaseImpl
         else
         {
             participacionPublicacion.setPosicionAutor(
-                    participacionPersonaEnPublicacionDTO.getOrden(),
-                    participacionPublicacion.getPublicacionCientificoTecnica().getPublicacion()
-                            .getAutores().size(), participacionPublicacion.getCalidad());
+                    participacionPersonaEnPublicacionDTO.getOrden(), participacionPublicacion
+                            .getPublicacionCientificoTecnica().getPublicacion().getAutores().size(),
+                    participacionPublicacion.getCalidad());
         }
 
-        participacionPublicacion.setResultadosDestacados(participacionPersonaEnPublicacionDTO
-                .getResultadosDestacados());
-        participacionPublicacion.setIsPublicacionRelevante(participacionPersonaEnPublicacionDTO
-                .getIsPublicacionRelevante());
+        participacionPublicacion.setResultadosDestacados(
+                participacionPersonaEnPublicacionDTO.getResultadosDestacados());
+        participacionPublicacion.setIsPublicacionRelevante(
+                participacionPersonaEnPublicacionDTO.getIsPublicacionRelevante());
 
         return participacionPublicacion;
     }
 
-    private PublicacionCientificoTecnica creaPublicacionCientificoTecnicaDesde(PublicacionDTO publicacionDTO)
-            throws RegistroNoEncontradoException
+    private PublicacionCientificoTecnica creaPublicacionCientificoTecnicaDesde(
+            PublicacionDTO publicacionDTO) throws RegistroNoEncontradoException
     {
         PublicacionCientificoTecnica publicacionCientificoTecnica = new PublicacionCientificoTecnica();
         publicacionCientificoTecnica.setId(publicacionDTO.getId());
@@ -280,13 +253,20 @@ public class PublicacionDAO extends BaseDAODatabaseImpl
         publicacion.setTitulo(publicacionDTO.getTitulo());
         publicacion.setNombre(publicacionDTO.getNombrePublicacion());
         publicacion.setVolumen(publicacionDTO.getVolumenPublicacion());
-        publicacion.setPaginasInicioFin(publicacionDTO.getPaginasPublicacion());
+        if (publicacionDTO.getPaginaInicio() != null)
+        {
+            publicacion.setPaginaInicio(String.valueOf(publicacionDTO.getPaginaInicio()));
+        }
+        if (publicacionDTO.getPaginaFin() != null)
+        {
+            publicacion.setPaginaFin(String.valueOf(publicacionDTO.getPaginaFin()));
+        }
         publicacion.setEditorial(publicacionDTO.getEditorialPublicacion());
         publicacion.setPais(publicacionDTO.getPaisPublicacion());
         publicacion.setRegion(publicacionDTO.getRegionPublicacion());
         publicacion.setCiudad(publicacionDTO.getCiudadPublicacion());
         publicacion.setFecha(publicacionDTO.getFechaPublicacion());
-        publicacion.setUrl(publicacionDTO.getWebPublicacion());
+        publicacion.setUrl(publicacionDTO.getDoi());
         publicacion.setIsbns(Arrays.asList(publicacionDTO.getIsbnPublicacion()));
 
         publicacion.setDepositoLegal(publicacionDTO.getDepositoLegalPublicacion());
@@ -327,40 +307,41 @@ public class PublicacionDAO extends BaseDAODatabaseImpl
     private AutorPublicacion creaAutorPublicacionDesde(
             ParticipacionPersonaExternaEnPublicacionDTO participacionPersonaExternaEnPublicacionDTO)
     {
-    	   AutorPublicacion autorPublicacion = new AutorPublicacion();
-           
-           String fullname = participacionPersonaExternaEnPublicacionDTO.getPersona();
-           
-           Pattern formattedName = Pattern.compile("^\\s*([^ ]+)(\\s+([^ ]+))?\\s*,\\s*(.+)$");
-           Matcher formattedNameMatcher = formattedName.matcher(fullname);
+        AutorPublicacion autorPublicacion = new AutorPublicacion();
 
-           if (formattedNameMatcher.matches())
-           {       	   
-        	   autorPublicacion.setNombre(formattedNameMatcher.group(4));
-        	   autorPublicacion.setApellido1(formattedNameMatcher.group(1));
-        	   if (formattedNameMatcher.group(3) != null)
-        	   {
-        		   autorPublicacion.setApellido2(formattedNameMatcher.group(3));
-        	   }
-        	           	   
-           }else
-           {
-        	   String [] splitname = fullname.replaceAll("\\s+", " ").trim().split(" ",3);
-           
-        	   autorPublicacion.setNombre(splitname[0]);
-        	   if(splitname.length > 1)
-        	   {
-        		   autorPublicacion.setApellido1(splitname[1]);
-        	   }
-        	   if(splitname.length > 2)
-        	   {
-        		   autorPublicacion.setApellido2(splitname[2]);
-        	   }
-           }	   
+        String fullname = participacionPersonaExternaEnPublicacionDTO.getPersona();
 
-           autorPublicacion.setOrden(participacionPersonaExternaEnPublicacionDTO.getOrden());
+        Pattern formattedName = Pattern.compile("^\\s*([^ ]+)(\\s+([^ ]+))?\\s*,\\s*(.+)$");
+        Matcher formattedNameMatcher = formattedName.matcher(fullname);
 
-           return autorPublicacion;
+        if (formattedNameMatcher.matches())
+        {
+            autorPublicacion.setNombre(formattedNameMatcher.group(4));
+            autorPublicacion.setApellido1(formattedNameMatcher.group(1));
+            if (formattedNameMatcher.group(3) != null)
+            {
+                autorPublicacion.setApellido2(formattedNameMatcher.group(3));
+            }
+
+        }
+        else
+        {
+            String[] splitname = fullname.replaceAll("\\s+", " ").trim().split(" ", 3);
+
+            autorPublicacion.setNombre(splitname[0]);
+            if (splitname.length > 1)
+            {
+                autorPublicacion.setApellido1(splitname[1]);
+            }
+            if (splitname.length > 2)
+            {
+                autorPublicacion.setApellido2(splitname[2]);
+            }
+        }
+
+        autorPublicacion.setOrden(participacionPersonaExternaEnPublicacionDTO.getOrden());
+
+        return autorPublicacion;
     }
 
     private Impacto creaImpactoDesde(ImpactoPublicacionDTO impactoPublicacionDTO)
@@ -376,55 +357,60 @@ public class PublicacionDAO extends BaseDAODatabaseImpl
 
         return impacto;
     }
-    
 
-    private PublicacionDocente creaPublicacionDocenteDesde(
-			PublicacionDTO publicacionDTO) throws RegistroNoEncontradoException {
-    	  PublicacionDocente publicacionDocente = new PublicacionDocente();
-    	  publicacionDocente.setId(publicacionDTO.getId());
-
-          Publicacion publicacion = new Publicacion();
-          publicacion.setTitulo(publicacionDTO.getTitulo());
-          publicacion.setTipo(publicacionDTO.getTipo());
-          publicacion.setSoporte(TipoSoporteDocente.getTipo(publicacionDTO.getSoporte()));          
-          publicacion.setNombre(publicacionDTO.getNombrePublicacion());
-          publicacion.setVolumen(publicacionDTO.getVolumenPublicacion());
-          publicacion.setPaginasInicioFin(publicacionDTO.getPaginasPublicacion());
-          publicacion.setEditorial(publicacionDTO.getEditorialPublicacion());
-          publicacion.setPais(publicacionDTO.getPaisPublicacion());
-          publicacion.setRegion(publicacionDTO.getRegionPublicacion());
-          //publicacion.setCiudad(publicacionDTO.getCiudadPublicacion()); //No existe para pub docentes
-          publicacion.setFecha(publicacionDTO.getFechaPublicacion());
-          publicacion.setUrl(publicacionDTO.getWebPublicacion());
-          publicacion.setIsbns(Arrays.asList(publicacionDTO.getIsbnPublicacion()));
-          publicacion.setDepositoLegal(publicacionDTO.getDepositoLegalPublicacion());
-
-
-          List<AutorPublicacion> autores = getAutoresPublicacion(publicacionDTO.getId());
-          autores.addAll(getAutoresExternosPublicacion(publicacionDTO.getId()));
-          publicacion.setAutores(autores);
-
-          publicacionDocente.setPublicacion(publicacion);
-          
-          publicacionDocente.setDenominacion(publicacionDTO.getDenominacion());
-          publicacionDocente.setDestinatarios(publicacionDTO.getDestinatarios());
-          publicacionDocente.setFechaCreacion(publicacionDTO.getFechaCreacion());
-          publicacionDocente.setJustificacion(publicacionDTO.getJustificacion());
-          
-          return publicacionDocente;
-	}
-    
-    
-    private ParticipacionPublicacionDocente creaParticipacionPublicacionDocenteDesde(
-            ParticipacionPersonaEnPublicacionDTO participacionPersonaEnPublicacionDTO)
+    private PublicacionDocente creaPublicacionDocenteDesde(PublicacionDTO publicacionDTO)
             throws RegistroNoEncontradoException
     {
-    	ParticipacionPublicacionDocente participacionPublicacion = new ParticipacionPublicacionDocente();
+        PublicacionDocente publicacionDocente = new PublicacionDocente();
+        publicacionDocente.setId(publicacionDTO.getId());
+
+        Publicacion publicacion = new Publicacion();
+        publicacion.setTitulo(publicacionDTO.getTitulo());
+        publicacion.setTipo(publicacionDTO.getTipo());
+        publicacion.setSoporte(TipoSoporteDocente.getTipo(publicacionDTO.getSoporte()));
+        publicacion.setNombre(publicacionDTO.getNombrePublicacion());
+        publicacion.setVolumen(publicacionDTO.getVolumenPublicacion());
+        if (publicacionDTO.getPaginaInicio() != null)
+        {
+            publicacion.setPaginaInicio(String.valueOf(publicacionDTO.getPaginaInicio()));
+        }
+        if (publicacionDTO.getPaginaFin() != null)
+        {
+            publicacion.setPaginaFin(String.valueOf(publicacionDTO.getPaginaFin()));
+        }
+        publicacion.setEditorial(publicacionDTO.getEditorialPublicacion());
+        publicacion.setPais(publicacionDTO.getPaisPublicacion());
+        publicacion.setRegion(publicacionDTO.getRegionPublicacion());
+        // publicacion.setCiudad(publicacionDTO.getCiudadPublicacion()); //No existe para pub
+        // docentes
+        publicacion.setFecha(publicacionDTO.getFechaPublicacion());
+        publicacion.setUrl(publicacionDTO.getDoi());
+        publicacion.setIsbns(Arrays.asList(publicacionDTO.getIsbnPublicacion()));
+        publicacion.setDepositoLegal(publicacionDTO.getDepositoLegalPublicacion());
+
+        List<AutorPublicacion> autores = getAutoresPublicacion(publicacionDTO.getId());
+        autores.addAll(getAutoresExternosPublicacion(publicacionDTO.getId()));
+        publicacion.setAutores(autores);
+
+        publicacionDocente.setPublicacion(publicacion);
+
+        publicacionDocente.setDenominacion(publicacionDTO.getDenominacion());
+        publicacionDocente.setDestinatarios(publicacionDTO.getDestinatarios());
+        publicacionDocente.setFechaCreacion(publicacionDTO.getFechaCreacion());
+        publicacionDocente.setJustificacion(publicacionDTO.getJustificacion());
+
+        return publicacionDocente;
+    }
+
+    private ParticipacionPublicacionDocente creaParticipacionPublicacionDocenteDesde(
+            ParticipacionPersonaEnPublicacionDTO participacionPersonaEnPublicacionDTO)
+                    throws RegistroNoEncontradoException
+    {
+        ParticipacionPublicacionDocente participacionPublicacion = new ParticipacionPublicacionDocente();
+        participacionPublicacion.setPublicacionDocente(
+                getPublicacionDocenteById(participacionPersonaEnPublicacionDTO.getProduccion()));
         participacionPublicacion
-                .setPublicacionDocente(getPublicacionDocenteById(participacionPersonaEnPublicacionDTO
-                        .getProduccion()));
-        participacionPublicacion.setCalidad(participacionPersonaEnPublicacionDTO
-                .getCalidadParticipacion());
+                .setCalidad(participacionPersonaEnPublicacionDTO.getCalidadParticipacion());
 
         if (participacionPersonaEnPublicacionDTO.getPosSobreTotal() != null)
         {
@@ -435,9 +421,9 @@ public class PublicacionDAO extends BaseDAODatabaseImpl
         else
         {
             participacionPublicacion.setPosicionAutor(
-                    participacionPersonaEnPublicacionDTO.getOrden(),
-                    participacionPublicacion.getPublicacionDocente().getPublicacion()
-                            .getAutores().size(), participacionPublicacion.getCalidad());
+                    participacionPersonaEnPublicacionDTO.getOrden(), participacionPublicacion
+                            .getPublicacionDocente().getPublicacion().getAutores().size(),
+                    participacionPublicacion.getCalidad());
         }
 
         return participacionPublicacion;

@@ -3,19 +3,8 @@ package es.uji.apps.cvn.services;
 import java.util.Calendar;
 import java.util.Collections;
 
-import es.uji.apps.cvn.model.AutorPublicacion;
-import es.uji.apps.cvn.model.DireccionTesis;
-import es.uji.apps.cvn.model.DocenciaImpartida;
-import es.uji.apps.cvn.model.Doctorado;
-import es.uji.apps.cvn.model.Domicilio;
+import es.uji.apps.cvn.model.*;
 import es.uji.apps.cvn.model.Impacto;
-import es.uji.apps.cvn.model.ParticipacionCongreso;
-import es.uji.apps.cvn.model.ParticipacionGrupo;
-import es.uji.apps.cvn.model.ParticipacionProyecto;
-import es.uji.apps.cvn.model.ParticipacionPublicacionCientificoTecnica;
-import es.uji.apps.cvn.model.ParticipacionPublicacionDocente;
-import es.uji.apps.cvn.model.Persona;
-import es.uji.apps.cvn.model.SituacionProfesional;
 import es.uji.apps.cvn.model.cvn.CVN;
 import es.uji.apps.cvn.model.cvn.Entidad;
 import es.uji.apps.cvn.model.cvn.datos.DatosCVN;
@@ -35,38 +24,15 @@ import es.uji.apps.cvn.model.cvn.laboral.CvnDetalleSituacionProfesionalActual;
 import es.uji.apps.cvn.model.cvn.laboral.CvnDetalleSituacionProfesionalAntigua;
 import es.uji.apps.cvn.model.cvn.laboral.SituacionProfesionalActual;
 import es.uji.apps.cvn.model.cvn.laboral.SituacionProfesionalAntigua;
-import es.uji.apps.cvn.model.cvn.proyectos.FinanciacionProyecto;
-import es.uji.apps.cvn.model.cvn.proyectos.InvestigadorProyecto;
-import es.uji.apps.cvn.model.cvn.proyectos.InvestigadorProyectoCompetitivo;
-import es.uji.apps.cvn.model.cvn.proyectos.ParticipacionProyectoInvestigacionCompetitivo;
-import es.uji.apps.cvn.model.cvn.proyectos.ParticipacionProyectoInvestigacionNoCompetitivo;
+import es.uji.apps.cvn.model.cvn.proyectos.*;
 import es.uji.apps.cvn.model.cvn.proyectos.ProyectoInvestigacion;
-import es.uji.apps.cvn.model.cvn.proyectos.ProyectoInvestigacionCompetitivo;
-import es.uji.apps.cvn.model.cvn.proyectos.ProyectoInvestigacionNoCompetitivo;
+import es.uji.apps.cvn.model.cvn.publicaciones.*;
 import es.uji.apps.cvn.model.cvn.publicaciones.Congreso;
-import es.uji.apps.cvn.model.cvn.publicaciones.CongresoDocente;
-import es.uji.apps.cvn.model.cvn.publicaciones.Localizacion;
-import es.uji.apps.cvn.model.cvn.publicaciones.LocalizacionCongreso;
-import es.uji.apps.cvn.model.cvn.publicaciones.LocalizacionCongresoDocente;
-import es.uji.apps.cvn.model.cvn.publicaciones.ParticipacionEnCongreso;
-import es.uji.apps.cvn.model.cvn.publicaciones.ParticipacionEnCongresoDocente;
-import es.uji.apps.cvn.model.cvn.publicaciones.ParticipacionEnPublicacion;
-import es.uji.apps.cvn.model.cvn.publicaciones.ParticipacionEnPublicacionDocente;
 import es.uji.apps.cvn.model.cvn.publicaciones.Publicacion;
 import es.uji.apps.cvn.model.cvn.publicaciones.PublicacionCientificoTecnica;
 import es.uji.apps.cvn.model.cvn.publicaciones.PublicacionDocente;
 import es.uji.apps.cvn.model.plantilla.Plantilla;
-import es.uji.apps.cvn.model.plantilla.categorias.Congresos;
-import es.uji.apps.cvn.model.plantilla.categorias.CongresosDocentes;
-import es.uji.apps.cvn.model.plantilla.categorias.Contratos;
-import es.uji.apps.cvn.model.plantilla.categorias.Doctorados;
-import es.uji.apps.cvn.model.plantilla.categorias.GruposInvestigacion;
-import es.uji.apps.cvn.model.plantilla.categorias.Proyectos;
-import es.uji.apps.cvn.model.plantilla.categorias.Publicaciones;
-import es.uji.apps.cvn.model.plantilla.categorias.PublicacionesDocentes;
-import es.uji.apps.cvn.model.plantilla.categorias.SituacionProfesionalActiva;
-import es.uji.apps.cvn.model.plantilla.categorias.SituacionProfesionalAnterior;
-import es.uji.apps.cvn.model.plantilla.categorias.Tesis;
+import es.uji.apps.cvn.model.plantilla.categorias.*;
 import es.uji.apps.cvn.translators.TipoProduccion;
 import es.uji.apps.cvn.ui.beans.CvnItemBean;
 import es.uji.apps.cvn.ui.beans.CvnRootBean;
@@ -93,7 +59,7 @@ public class CvnRootBeanGenerator
 
         cvn.addCvnItemBean(generateDatosPersonaBean());
 
-        //cvn.addCvnItemBean(generaDatosCVN(plantilla));
+        // cvn.addCvnItemBean(generaDatosCVN(plantilla));
 
         CvnString idioma = new CvnString();
         idioma.setCode("000.020.000.070");
@@ -105,23 +71,24 @@ public class CvnRootBeanGenerator
 
         cvn.addCvnItemBean(identificacionCV);
 
-
-        for (ParticipacionGrupo participacionGrupo : GruposInvestigacion.aplicaFiltros(
-                persona.getParticipacionesGrupos(), plantilla))
+        for (ParticipacionGrupo participacionGrupo : GruposInvestigacion
+                .aplicaFiltros(persona.getParticipacionesGrupos(), plantilla))
         {
             cvn.addCvnItemBean(generateDatosGrupoInvestigacionBean(participacionGrupo));
         }
 
-        for (ParticipacionProyecto participacionProyectoCompetitivo : Proyectos.aplicaFiltros(
-                persona.getParticipacionesProyectosCompetitivos(), plantilla))
+        for (ParticipacionProyecto participacionProyectoCompetitivo : Proyectos
+                .aplicaFiltros(persona.getParticipacionesProyectosCompetitivos(), plantilla))
         {
-            cvn.addCvnItemBean(generateDatosProyectoInvestigacionCompetitivo(participacionProyectoCompetitivo));
+            cvn.addCvnItemBean(generateDatosProyectoInvestigacionCompetitivo(
+                    participacionProyectoCompetitivo));
         }
 
-        for (ParticipacionProyecto participacionProyectoNoCompetitivo : Contratos.aplicaFiltros(
-                persona.getParticipacionesProyectosNoCompetitivos(), plantilla))
+        for (ParticipacionProyecto participacionProyectoNoCompetitivo : Contratos
+                .aplicaFiltros(persona.getParticipacionesProyectosNoCompetitivos(), plantilla))
         {
-            cvn.addCvnItemBean(generateDatosProyectoInvestigacionNoCompetitivo(participacionProyectoNoCompetitivo));
+            cvn.addCvnItemBean(generateDatosProyectoInvestigacionNoCompetitivo(
+                    participacionProyectoNoCompetitivo));
         }
 
         for (ParticipacionPublicacionCientificoTecnica participacionPublicacion : Publicaciones
@@ -130,8 +97,8 @@ public class CvnRootBeanGenerator
             cvn.addCvnItemBean(generateDatosPublicacion(participacionPublicacion));
         }
 
-        for (ParticipacionCongreso participacionCongreso : Congresos.aplicaFiltros(
-                persona.getParticipacionesCongresos(), plantilla))
+        for (ParticipacionCongreso participacionCongreso : Congresos
+                .aplicaFiltros(persona.getParticipacionesCongresos(), plantilla))
         {
             cvn.addCvnItemBean(generateDatosCongreso(participacionCongreso));
         }
@@ -142,8 +109,8 @@ public class CvnRootBeanGenerator
             cvn.addCvnItemBean(generateDatosPublicacionDocente(participacionPublicacion));
         }
 
-        for (ParticipacionCongreso participacionCongreso : CongresosDocentes.aplicaFiltros(
-                persona.getParticipacionesCongresosDocentes(), plantilla))
+        for (ParticipacionCongreso participacionCongreso : CongresosDocentes
+                .aplicaFiltros(persona.getParticipacionesCongresosDocentes(), plantilla))
         {
             cvn.addCvnItemBean(generateDatosCongresoDocente(participacionCongreso));
         }
@@ -156,17 +123,20 @@ public class CvnRootBeanGenerator
         {
             cvn.addCvnItemBean(generateDatosDoctorado(doctorado));
         }
-        for (SituacionProfesional sp : SituacionProfesionalActiva.aplicaFiltros(persona.getSituacionProfesionalActiva(), plantilla))
+        for (SituacionProfesional sp : SituacionProfesionalActiva
+                .aplicaFiltros(persona.getSituacionProfesionalActiva(), plantilla))
         {
             cvn.addCvnItemBean(generateDatosSituacionProfesionalActiva(sp));
         }
 
-        for (SituacionProfesional sp : SituacionProfesionalAnterior.aplicaFiltros(persona.getSituacionProfesionalAnterior(), plantilla))
+        for (SituacionProfesional sp : SituacionProfesionalAnterior
+                .aplicaFiltros(persona.getSituacionProfesionalAnterior(), plantilla))
         {
             cvn.addCvnItemBean(generateDatosSituacionProfesionalAntigua(sp));
         }
 
-        for (DocenciaImpartida docenciaImpartida : es.uji.apps.cvn.model.plantilla.categorias.Docencia.aplicaFiltros(persona.getDocenciasImpartida(), plantilla))
+        for (DocenciaImpartida docenciaImpartida : es.uji.apps.cvn.model.plantilla.categorias.Docencia
+                .aplicaFiltros(persona.getDocenciasImpartida(), plantilla))
         {
             cvn.addCvnItemBean(generateDocenciaImpartida(docenciaImpartida));
         }
@@ -174,19 +144,27 @@ public class CvnRootBeanGenerator
         return this.cvn;
     }
 
-    private CvnItemBean generaDatosCVN(Plantilla plantilla) {
+    private CvnItemBean generaDatosCVN(Plantilla plantilla)
+    {
         DatosCVN cvnItemBean = new DatosCVN();
 
         Idioma idioma = cvnItemBean.getIdioma();
-        if (plantilla.getIdioma().equals("spa")) {
-          idioma.addIdioma("Español", "spa");}
-        if (plantilla.getIdioma().equals("cat")) {
-            idioma.addIdioma("Catalan","cat");}
-        if (plantilla.getIdioma().equals("eus")) {
-            idioma.addIdioma("Vasco","eus");}
-        if (plantilla.getIdioma().equals("glg")) {
-            idioma.addIdioma("Gallego","glg");}
-
+        if (plantilla.getIdioma().equals("spa"))
+        {
+            idioma.addIdioma("Español", "spa");
+        }
+        if (plantilla.getIdioma().equals("cat"))
+        {
+            idioma.addIdioma("Catalan", "cat");
+        }
+        if (plantilla.getIdioma().equals("eus"))
+        {
+            idioma.addIdioma("Vasco", "eus");
+        }
+        if (plantilla.getIdioma().equals("glg"))
+        {
+            idioma.addIdioma("Gallego", "glg");
+        }
 
         return cvnItemBean;
 
@@ -260,20 +238,20 @@ public class CvnRootBeanGenerator
         GrupoInvestigacion grupoInvestigacion = cvnItemBean.getGrupoInvestigacion();
         grupoInvestigacion.addObjetivo(participacionGrupo.getGrupoInvestigacion().getObjetivo());
         grupoInvestigacion.addNombre(participacionGrupo.getGrupoInvestigacion().getNombre());
-        grupoInvestigacion.addCodigoNormalizado(participacionGrupo.getGrupoInvestigacion()
-                .getCodigoNormalizado());
+        grupoInvestigacion.addCodigoNormalizado(
+                participacionGrupo.getGrupoInvestigacion().getCodigoNormalizado());
         Persona responsable = participacionGrupo.getGrupoInvestigacion().getResponsable();
         if (responsable != null)
         {
             grupoInvestigacion.addResponsable(responsable.getNombre(), responsable.getApellido1(),
                     responsable.getApellido2());
         }
-        grupoInvestigacion.addNumeroComponentes(participacionGrupo.getGrupoInvestigacion()
-                .getNComponentes());
-        grupoInvestigacion.addNumeroTesisDirigidas(participacionGrupo.getGrupoInvestigacion()
-                .getNTesis());
-        grupoInvestigacion.addNumeroPostDocDirigidas(participacionGrupo.getGrupoInvestigacion()
-                .getNPostDoc());
+        grupoInvestigacion
+                .addNumeroComponentes(participacionGrupo.getGrupoInvestigacion().getNComponentes());
+        grupoInvestigacion
+                .addNumeroTesisDirigidas(participacionGrupo.getGrupoInvestigacion().getNTesis());
+        grupoInvestigacion.addNumeroPostDocDirigidas(
+                participacionGrupo.getGrupoInvestigacion().getNPostDoc());
 
         Entidad entidad = grupoInvestigacion.getEntidad();
         entidad.addNombre(participacionGrupo.getGrupoInvestigacion().getNombreEntidad());
@@ -298,16 +276,16 @@ public class CvnRootBeanGenerator
         ParticipacionProyectoInvestigacionCompetitivo cvnItemBean = new ParticipacionProyectoInvestigacionCompetitivo();
 
         ProyectoInvestigacion proyectoInvestigacion = cvnItemBean.getProyectoInvestigacion();
-        proyectoInvestigacion.addTitulo(participacionProyecto.getProyectoInvestigacion()
-                .getTitulo());
-        proyectoInvestigacion.addIdentificacionPalabrasClave(participacionProyecto
-                .getProyectoInvestigacion().getTituloKeywords());
-        proyectoInvestigacion.addModalidad(participacionProyecto.getProyectoInvestigacion()
-                .getModalidad());
-        proyectoInvestigacion.addAmbito(participacionProyecto.getProyectoInvestigacion()
-                .getAmbito());
-        proyectoInvestigacion.addAmbitoOtros(participacionProyecto.getProyectoInvestigacion()
-                .getAmbitoStr());
+        proyectoInvestigacion
+                .addTitulo(participacionProyecto.getProyectoInvestigacion().getTitulo());
+        proyectoInvestigacion.addIdentificacionPalabrasClave(
+                participacionProyecto.getProyectoInvestigacion().getTituloKeywords());
+        proyectoInvestigacion
+                .addModalidad(participacionProyecto.getProyectoInvestigacion().getModalidad());
+        proyectoInvestigacion
+                .addAmbito(participacionProyecto.getProyectoInvestigacion().getAmbito());
+        proyectoInvestigacion
+                .addAmbitoOtros(participacionProyecto.getProyectoInvestigacion().getAmbitoStr());
 
         for (Persona responsable : participacionProyecto.getProyectoInvestigacion()
                 .getResponsables())
@@ -316,18 +294,18 @@ public class CvnRootBeanGenerator
                     responsable.getApellido1(), responsable.getApellido2());
         }
 
-        proyectoInvestigacion.addNumeroInvestigadoresParticipantes(participacionProyecto
-                .getProyectoInvestigacion().getNInvestigadores());
-        proyectoInvestigacion.addNumeroPersonasAnyo(participacionProyecto
-                .getProyectoInvestigacion().getNPersonasAnyo());
-        proyectoInvestigacion.addFechaInicio(participacionProyecto.getProyectoInvestigacion()
-                .getFechaInicio());
-        proyectoInvestigacion.addDuracion(participacionProyecto.getProyectoInvestigacion()
-                .getDuracion());
-        proyectoInvestigacion.addResultadosRelevantes(participacionProyecto
-                .getProyectoInvestigacion().getResultadosRelevantes());
-        proyectoInvestigacion.addResultadosPalabrasClave(participacionProyecto
-                .getProyectoInvestigacion().getResultadosKeywords());
+        proyectoInvestigacion.addNumeroInvestigadoresParticipantes(
+                participacionProyecto.getProyectoInvestigacion().getNInvestigadores());
+        proyectoInvestigacion.addNumeroPersonasAnyo(
+                participacionProyecto.getProyectoInvestigacion().getNPersonasAnyo());
+        proyectoInvestigacion
+                .addFechaInicio(participacionProyecto.getProyectoInvestigacion().getFechaInicio());
+        proyectoInvestigacion
+                .addDuracion(participacionProyecto.getProyectoInvestigacion().getDuracion());
+        proyectoInvestigacion.addResultadosRelevantes(
+                participacionProyecto.getProyectoInvestigacion().getResultadosRelevantes());
+        proyectoInvestigacion.addResultadosPalabrasClave(
+                participacionProyecto.getProyectoInvestigacion().getResultadosKeywords());
         ((ProyectoInvestigacionCompetitivo) proyectoInvestigacion)
                 .addFechaFin(participacionProyecto.getProyectoInvestigacion().getFechaFin());
 
@@ -346,20 +324,20 @@ public class CvnRootBeanGenerator
 
         FinanciacionProyecto financiacionProyecto = ((ProyectoInvestigacionCompetitivo) proyectoInvestigacion)
                 .getFinanciacionProyecto();
-        financiacionProyecto.addNombrePrograma(participacionProyecto.getProyectoInvestigacion()
-                .getNombreProgramaFinanciacion());
-        financiacionProyecto.addCodigoProyecto(participacionProyecto.getProyectoInvestigacion()
-                .getCodigoExterno());
-        financiacionProyecto.addFinanciacionTotal(participacionProyecto.getProyectoInvestigacion()
-                .getDotacionTotal());
-        financiacionProyecto.addFinanciacionSubproyecto(participacionProyecto
-                .getProyectoInvestigacion().getDotacionSubproyecto());
-        financiacionProyecto.addFinanciacionPorcentaje(participacionProyecto
-                .getProyectoInvestigacion().getPorcentajeSubvencion());
-        financiacionProyecto.addFinanciacionCredito(participacionProyecto
-                .getProyectoInvestigacion().getPorcentajeCredito());
-        financiacionProyecto.addFinanciacionMixto(participacionProyecto.getProyectoInvestigacion()
-                .getPorcentajeMixto());
+        financiacionProyecto.addNombrePrograma(
+                participacionProyecto.getProyectoInvestigacion().getNombreProgramaFinanciacion());
+        financiacionProyecto.addCodigoProyecto(
+                participacionProyecto.getProyectoInvestigacion().getCodigoExterno());
+        financiacionProyecto.addFinanciacionTotal(
+                participacionProyecto.getProyectoInvestigacion().getDotacionTotal());
+        financiacionProyecto.addFinanciacionSubproyecto(
+                participacionProyecto.getProyectoInvestigacion().getDotacionSubproyecto());
+        financiacionProyecto.addFinanciacionPorcentaje(
+                participacionProyecto.getProyectoInvestigacion().getPorcentajeSubvencion());
+        financiacionProyecto.addFinanciacionCredito(
+                participacionProyecto.getProyectoInvestigacion().getPorcentajeCredito());
+        financiacionProyecto.addFinanciacionMixto(
+                participacionProyecto.getProyectoInvestigacion().getPorcentajeMixto());
 
         for (es.uji.apps.cvn.model.Entidad entidadFinanciadora : participacionProyecto
                 .getProyectoInvestigacion().getEntidadesFinanciadoras())
@@ -374,8 +352,8 @@ public class CvnRootBeanGenerator
         }
 
         InvestigadorProyecto investigadorProyecto = cvnItemBean.getInvestigadorProyecto();
-        investigadorProyecto.addCalidadParticipacion(participacionProyecto
-                .getCalidadParticipacion());
+        investigadorProyecto
+                .addCalidadParticipacion(participacionProyecto.getCalidadParticipacion());
         ((InvestigadorProyectoCompetitivo) investigadorProyecto)
                 .addTipoParticipacion(participacionProyecto.getTipoParticipacion());
         ((InvestigadorProyectoCompetitivo) investigadorProyecto)
@@ -392,16 +370,16 @@ public class CvnRootBeanGenerator
         ParticipacionProyectoInvestigacionNoCompetitivo cvnItemBean = new ParticipacionProyectoInvestigacionNoCompetitivo();
 
         ProyectoInvestigacion proyectoInvestigacion = cvnItemBean.getProyectoInvestigacion();
-        proyectoInvestigacion.addTitulo(participacionProyecto.getProyectoInvestigacion()
-                .getTitulo());
-        proyectoInvestigacion.addIdentificacionPalabrasClave(participacionProyecto
-                .getProyectoInvestigacion().getTituloKeywords());
-        proyectoInvestigacion.addModalidad(participacionProyecto.getProyectoInvestigacion()
-                .getModalidad());
-        proyectoInvestigacion.addAmbito(participacionProyecto.getProyectoInvestigacion()
-                .getAmbito());
-        proyectoInvestigacion.addAmbitoOtros(participacionProyecto.getProyectoInvestigacion()
-                .getAmbitoStr());
+        proyectoInvestigacion
+                .addTitulo(participacionProyecto.getProyectoInvestigacion().getTitulo());
+        proyectoInvestigacion.addIdentificacionPalabrasClave(
+                participacionProyecto.getProyectoInvestigacion().getTituloKeywords());
+        proyectoInvestigacion
+                .addModalidad(participacionProyecto.getProyectoInvestigacion().getModalidad());
+        proyectoInvestigacion
+                .addAmbito(participacionProyecto.getProyectoInvestigacion().getAmbito());
+        proyectoInvestigacion
+                .addAmbitoOtros(participacionProyecto.getProyectoInvestigacion().getAmbitoStr());
 
         for (Persona responsable : participacionProyecto.getProyectoInvestigacion()
                 .getResponsables())
@@ -410,18 +388,18 @@ public class CvnRootBeanGenerator
                     responsable.getApellido1(), responsable.getApellido2());
         }
 
-        proyectoInvestigacion.addNumeroInvestigadoresParticipantes(participacionProyecto
-                .getProyectoInvestigacion().getNInvestigadores());
-        proyectoInvestigacion.addNumeroPersonasAnyo(participacionProyecto
-                .getProyectoInvestigacion().getNPersonasAnyo());
-        proyectoInvestigacion.addFechaInicio(participacionProyecto.getProyectoInvestigacion()
-                .getFechaInicio());
-        proyectoInvestigacion.addDuracion(participacionProyecto.getProyectoInvestigacion()
-                .getDuracion());
-        proyectoInvestigacion.addResultadosRelevantes(participacionProyecto
-                .getProyectoInvestigacion().getResultadosRelevantes());
-        proyectoInvestigacion.addResultadosPalabrasClave(participacionProyecto
-                .getProyectoInvestigacion().getResultadosKeywords());
+        proyectoInvestigacion.addNumeroInvestigadoresParticipantes(
+                participacionProyecto.getProyectoInvestigacion().getNInvestigadores());
+        proyectoInvestigacion.addNumeroPersonasAnyo(
+                participacionProyecto.getProyectoInvestigacion().getNPersonasAnyo());
+        proyectoInvestigacion
+                .addFechaInicio(participacionProyecto.getProyectoInvestigacion().getFechaInicio());
+        proyectoInvestigacion
+                .addDuracion(participacionProyecto.getProyectoInvestigacion().getDuracion());
+        proyectoInvestigacion.addResultadosRelevantes(
+                participacionProyecto.getProyectoInvestigacion().getResultadosRelevantes());
+        proyectoInvestigacion.addResultadosPalabrasClave(
+                participacionProyecto.getProyectoInvestigacion().getResultadosKeywords());
 
         for (es.uji.apps.cvn.model.Entidad entidadParticipante : participacionProyecto
                 .getProyectoInvestigacion().getEntidadesParticipantes())
@@ -438,20 +416,20 @@ public class CvnRootBeanGenerator
 
         FinanciacionProyecto financiacionProyecto = ((ProyectoInvestigacionNoCompetitivo) proyectoInvestigacion)
                 .getFinanciacionProyecto();
-        financiacionProyecto.addNombrePrograma(participacionProyecto.getProyectoInvestigacion()
-                .getNombreProgramaFinanciacion());
-        financiacionProyecto.addCodigoProyecto(participacionProyecto.getProyectoInvestigacion()
-                .getCodigoExterno());
-        financiacionProyecto.addFinanciacionTotal(participacionProyecto.getProyectoInvestigacion()
-                .getDotacionTotal());
-        financiacionProyecto.addFinanciacionSubproyecto(participacionProyecto
-                .getProyectoInvestigacion().getDotacionSubproyecto());
-        financiacionProyecto.addFinanciacionPorcentaje(participacionProyecto
-                .getProyectoInvestigacion().getPorcentajeSubvencion());
-        financiacionProyecto.addFinanciacionCredito(participacionProyecto
-                .getProyectoInvestigacion().getPorcentajeCredito());
-        financiacionProyecto.addFinanciacionMixto(participacionProyecto.getProyectoInvestigacion()
-                .getPorcentajeMixto());
+        financiacionProyecto.addNombrePrograma(
+                participacionProyecto.getProyectoInvestigacion().getNombreProgramaFinanciacion());
+        financiacionProyecto.addCodigoProyecto(
+                participacionProyecto.getProyectoInvestigacion().getCodigoExterno());
+        financiacionProyecto.addFinanciacionTotal(
+                participacionProyecto.getProyectoInvestigacion().getDotacionTotal());
+        financiacionProyecto.addFinanciacionSubproyecto(
+                participacionProyecto.getProyectoInvestigacion().getDotacionSubproyecto());
+        financiacionProyecto.addFinanciacionPorcentaje(
+                participacionProyecto.getProyectoInvestigacion().getPorcentajeSubvencion());
+        financiacionProyecto.addFinanciacionCredito(
+                participacionProyecto.getProyectoInvestigacion().getPorcentajeCredito());
+        financiacionProyecto.addFinanciacionMixto(
+                participacionProyecto.getProyectoInvestigacion().getPorcentajeMixto());
 
         for (es.uji.apps.cvn.model.Entidad entidadFinanciadora : participacionProyecto
                 .getProyectoInvestigacion().getEntidadesFinanciadoras())
@@ -466,8 +444,8 @@ public class CvnRootBeanGenerator
         }
 
         InvestigadorProyecto investigadorProyecto = cvnItemBean.getInvestigadorProyecto();
-        investigadorProyecto.addCalidadParticipacion(participacionProyecto
-                .getCalidadParticipacion());
+        investigadorProyecto
+                .addCalidadParticipacion(participacionProyecto.getCalidadParticipacion());
 
         return cvnItemBean;
     }
@@ -478,10 +456,10 @@ public class CvnRootBeanGenerator
         ParticipacionEnPublicacion participacionEnPublicacion = new ParticipacionEnPublicacion();
         participacionEnPublicacion.addPosicionAutor(participacionPublicacion.getPosicionAutor());
         participacionEnPublicacion.addCalidad(participacionPublicacion.getCalidad());
-        participacionEnPublicacion.addResultadosDestacados(participacionPublicacion
-                .getResultadosDestacados());
-        participacionEnPublicacion.addPublicacionRelevante(participacionPublicacion
-                .getIsPublicacionRelevante());
+        participacionEnPublicacion
+                .addResultadosDestacados(participacionPublicacion.getResultadosDestacados());
+        participacionEnPublicacion
+                .addPublicacionRelevante(participacionPublicacion.getIsPublicacionRelevante());
         participacionEnPublicacion.addResenyasEnRevistas(participacionPublicacion
                 .getPublicacionCientificoTecnica().getNResenyasEnRevistas());
 
@@ -499,9 +477,17 @@ public class CvnRootBeanGenerator
                 .getPublicacion().getNombre());
         publicacion.addVolumen(participacionPublicacion.getPublicacionCientificoTecnica()
                 .getPublicacion().getVolumen());
-        publicacion.addPaginasInicioFin(participacionPublicacion.getPublicacionCientificoTecnica()
-                .getPublicacion().getPaginaInicio(), participacionPublicacion
-                .getPublicacionCientificoTecnica().getPublicacion().getPaginaFin());
+
+        String paginaInicio = participacionPublicacion.getPublicacionCientificoTecnica()
+                .getPublicacion().getPaginaInicio();
+        String paginaFin = participacionPublicacion.getPublicacionCientificoTecnica()
+                .getPublicacion().getPaginaFin();
+        if (paginaInicio != null || paginaFin != null)
+        {
+            publicacion.addPaginasInicioFin((paginaInicio != null) ? paginaInicio : "",
+                    (paginaFin != null) ? paginaFin : "");
+        }
+
         publicacion.addEditorial(participacionPublicacion.getPublicacionCientificoTecnica()
                 .getPublicacion().getEditorial());
         publicacion.addPais(participacionPublicacion.getPublicacionCientificoTecnica()
@@ -521,7 +507,8 @@ public class CvnRootBeanGenerator
                 .getPublicacionCientificoTecnica().getPublicacion().getAutores())
         {
             publicacion.addAutorPorOrdenFirma(autorPublicacion.getNombre(),
-                    autorPublicacion.getApellido1(), autorPublicacion.getApellido2(), autorPublicacion.getOrden());
+                    autorPublicacion.getApellido1(), autorPublicacion.getApellido2(),
+                    autorPublicacion.getOrden());
         }
 
         publicacion.addSoporte(participacionPublicacion.getPublicacionCientificoTecnica()
@@ -551,8 +538,8 @@ public class CvnRootBeanGenerator
         ((PublicacionCientificoTecnica) publicacion).addCiudad(participacionPublicacion
                 .getPublicacionCientificoTecnica().getPublicacion().getCiudad());
 
-        for (Impacto impactoPublicacion : participacionPublicacion
-                .getPublicacionCientificoTecnica().getListaImpacto())
+        for (Impacto impactoPublicacion : participacionPublicacion.getPublicacionCientificoTecnica()
+                .getListaImpacto())
         {
             es.uji.apps.cvn.model.cvn.publicaciones.Impacto impacto = participacionEnPublicacion
                     .addNewImpacto();
@@ -586,22 +573,22 @@ public class CvnRootBeanGenerator
         congreso.addComiteExterno(participacionCongreso.getCongreso().getHasComiteExterno());
 
         Entidad entidadOrganizadora = congreso.getEntidadOrganizadora();
-        entidadOrganizadora.addNombre(participacionCongreso.getCongreso().getEntidadOrganizadora()
-                .getNombre());
-        entidadOrganizadora.addTipo(participacionCongreso.getCongreso().getEntidadOrganizadora()
-                .getTipo());
-        entidadOrganizadora.addTipoOtros(participacionCongreso.getCongreso()
-                .getEntidadOrganizadora().getTipoDescr());
-        entidadOrganizadora.addPais(participacionCongreso.getCongreso().getEntidadOrganizadora()
-                .getPais());
-        entidadOrganizadora.addRegion(participacionCongreso.getCongreso().getEntidadOrganizadora()
-                .getRegionStr());
-        entidadOrganizadora.addCiudad(participacionCongreso.getCongreso().getEntidadOrganizadora()
-                .getCiudad());
+        entidadOrganizadora.addNombre(
+                participacionCongreso.getCongreso().getEntidadOrganizadora().getNombre());
+        entidadOrganizadora
+                .addTipo(participacionCongreso.getCongreso().getEntidadOrganizadora().getTipo());
+        entidadOrganizadora.addTipoOtros(
+                participacionCongreso.getCongreso().getEntidadOrganizadora().getTipoDescr());
+        entidadOrganizadora
+                .addPais(participacionCongreso.getCongreso().getEntidadOrganizadora().getPais());
+        entidadOrganizadora.addRegion(
+                participacionCongreso.getCongreso().getEntidadOrganizadora().getRegionStr());
+        entidadOrganizadora.addCiudad(
+                participacionCongreso.getCongreso().getEntidadOrganizadora().getCiudad());
 
         Localizacion localizacion = congreso.getLocalizacion();
-        ((LocalizacionCongreso) localizacion).addNombreCongreso(participacionCongreso.getCongreso()
-                .getNombre());
+        ((LocalizacionCongreso) localizacion)
+                .addNombreCongreso(participacionCongreso.getCongreso().getNombre());
         localizacion.addPais(participacionCongreso.getCongreso().getPais());
         localizacion.addRegion(participacionCongreso.getCongreso().getRegion());
         localizacion.addCiudad(participacionCongreso.getCongreso().getCiudad());
@@ -612,19 +599,19 @@ public class CvnRootBeanGenerator
         }
         else
         {
-            ((LocalizacionCongreso) localizacion).addAno(participacionCongreso.getCongreso()
-                    .getAno());
+            ((LocalizacionCongreso) localizacion)
+                    .addAno(participacionCongreso.getCongreso().getAno());
         }
 
         Publicacion publicacion = participacionEnCongreso.getPublicacion();
         publicacion.addTipo(participacionCongreso.getCongreso().getPublicacion().getTipo());
         publicacion.addNombre(participacionCongreso.getCongreso().getPublicacion().getNombre());
         publicacion.addVolumen(participacionCongreso.getCongreso().getPublicacion().getVolumen());
-        publicacion.addPaginasInicioFin(participacionCongreso.getCongreso().getPublicacion()
-                .getPaginaInicio(), participacionCongreso.getCongreso().getPublicacion()
-                .getPaginaFin());
-        publicacion.addEditorial(participacionCongreso.getCongreso().getPublicacion()
-                .getEditorial());
+        publicacion.addPaginasInicioFin(
+                participacionCongreso.getCongreso().getPublicacion().getPaginaInicio(),
+                participacionCongreso.getCongreso().getPublicacion().getPaginaFin());
+        publicacion
+                .addEditorial(participacionCongreso.getCongreso().getPublicacion().getEditorial());
         publicacion.addPais(participacionCongreso.getCongreso().getPublicacion().getPais());
         publicacion.addRegion(participacionCongreso.getCongreso().getPublicacion().getRegion());
         publicacion.addFecha(participacionCongreso.getCongreso().getPublicacion().getFecha());
@@ -644,14 +631,15 @@ public class CvnRootBeanGenerator
             }
         }
 
-        publicacion.addDepositoLegal(participacionCongreso.getCongreso().getPublicacion()
-                .getDepositoLegal());
+        publicacion.addDepositoLegal(
+                participacionCongreso.getCongreso().getPublicacion().getDepositoLegal());
 
         for (AutorPublicacion autorPublicacion : participacionCongreso.getCongreso()
                 .getPublicacion().getAutores())
         {
             publicacion.addAutorPorOrdenFirma(autorPublicacion.getNombre(),
-                    autorPublicacion.getApellido1(), autorPublicacion.getApellido2(), autorPublicacion.getOrden());
+                    autorPublicacion.getApellido1(), autorPublicacion.getApellido2(),
+                    autorPublicacion.getOrden());
         }
 
         return participacionEnCongreso;
@@ -663,46 +651,47 @@ public class CvnRootBeanGenerator
         ParticipacionEnPublicacionDocente participacionEnPublicacion = new ParticipacionEnPublicacionDocente();
         participacionEnPublicacion.addPosicionAutor(participacionPublicacion.getPosicionAutor());
         participacionEnPublicacion.addCalidad(participacionPublicacion.getCalidad());
-        participacionEnPublicacion.addDenominacion(participacionPublicacion.getPublicacionDocente()
-                .getDenominacion());
-        participacionEnPublicacion.addDestinatarios(participacionPublicacion
-                .getPublicacionDocente().getDestinatarios());
-        participacionEnPublicacion.addFechaCreacion(participacionPublicacion
-                .getPublicacionDocente().getFechaCreacion());
-        participacionEnPublicacion.addJustificacion(participacionPublicacion
-                .getPublicacionDocente().getJustificacion());
+        participacionEnPublicacion.addDenominacion(
+                participacionPublicacion.getPublicacionDocente().getDenominacion());
+        participacionEnPublicacion.addDestinatarios(
+                participacionPublicacion.getPublicacionDocente().getDestinatarios());
+        participacionEnPublicacion.addFechaCreacion(
+                participacionPublicacion.getPublicacionDocente().getFechaCreacion());
+        participacionEnPublicacion.addJustificacion(
+                participacionPublicacion.getPublicacionDocente().getJustificacion());
 
         PublicacionDocente publicacion = (PublicacionDocente) participacionEnPublicacion
                 .getPublicacion();
-        publicacion.addTitulo(participacionPublicacion.getPublicacionDocente().getPublicacion()
-                .getTitulo());
-        publicacion.addNombre(participacionPublicacion.getPublicacionDocente().getPublicacion()
-                .getNombre());
-        publicacion.addVolumen(participacionPublicacion.getPublicacionDocente().getPublicacion()
-                .getVolumen());
-        publicacion.addPaginasInicioFin(participacionPublicacion.getPublicacionDocente()
-                .getPublicacion().getPaginaInicio(), participacionPublicacion
-                .getPublicacionDocente().getPublicacion().getPaginaFin());
-        publicacion.addEditorial(participacionPublicacion.getPublicacionDocente().getPublicacion()
-                .getEditorial());
-        publicacion.addPais(participacionPublicacion.getPublicacionDocente().getPublicacion()
-                .getPais());
-        publicacion.addRegion(participacionPublicacion.getPublicacionDocente().getPublicacion()
-                .getRegion());
-        publicacion.addFecha(participacionPublicacion.getPublicacionDocente().getPublicacion()
-                .getFecha());
-        publicacion.addURL(participacionPublicacion.getPublicacionDocente().getPublicacion()
-                .getUrl());
+        publicacion.addTitulo(
+                participacionPublicacion.getPublicacionDocente().getPublicacion().getTitulo());
+        publicacion.addNombre(
+                participacionPublicacion.getPublicacionDocente().getPublicacion().getNombre());
+        publicacion.addVolumen(
+                participacionPublicacion.getPublicacionDocente().getPublicacion().getVolumen());
+        publicacion.addPaginasInicioFin(
+                participacionPublicacion.getPublicacionDocente().getPublicacion().getPaginaInicio(),
+                participacionPublicacion.getPublicacionDocente().getPublicacion().getPaginaFin());
+        publicacion.addEditorial(
+                participacionPublicacion.getPublicacionDocente().getPublicacion().getEditorial());
+        publicacion.addPais(
+                participacionPublicacion.getPublicacionDocente().getPublicacion().getPais());
+        publicacion.addRegion(
+                participacionPublicacion.getPublicacionDocente().getPublicacion().getRegion());
+        publicacion.addFecha(
+                participacionPublicacion.getPublicacionDocente().getPublicacion().getFecha());
+        publicacion
+                .addURL(participacionPublicacion.getPublicacionDocente().getPublicacion().getUrl());
 
         for (AutorPublicacion autorPublicacion : participacionPublicacion.getPublicacionDocente()
                 .getPublicacion().getAutores())
         {
             publicacion.addAutorPorOrdenFirma(autorPublicacion.getNombre(),
-                    autorPublicacion.getApellido1(), autorPublicacion.getApellido2(), autorPublicacion.getOrden());
+                    autorPublicacion.getApellido1(), autorPublicacion.getApellido2(),
+                    autorPublicacion.getOrden());
         }
 
-        publicacion.addSoporte(participacionPublicacion.getPublicacionDocente().getPublicacion()
-                .getSoporte());
+        publicacion.addSoporte(
+                participacionPublicacion.getPublicacionDocente().getPublicacion().getSoporte());
 
         for (String isbn : participacionPublicacion.getPublicacionDocente().getPublicacion()
                 .getIsbns())
@@ -744,18 +733,18 @@ public class CvnRootBeanGenerator
         congreso.addHoras(participacionCongreso.getCongreso().getHoras());
 
         Entidad entidadOrganizadora = congreso.getEntidadOrganizadora();
-        entidadOrganizadora.addNombre(participacionCongreso.getCongreso().getEntidadOrganizadora()
-                .getNombre());
-        entidadOrganizadora.addTipo(participacionCongreso.getCongreso().getEntidadOrganizadora()
-                .getTipo());
-        entidadOrganizadora.addTipoOtros(participacionCongreso.getCongreso()
-                .getEntidadOrganizadora().getTipoDescr());
-        entidadOrganizadora.addPais(participacionCongreso.getCongreso().getEntidadOrganizadora()
-                .getPais());
-        entidadOrganizadora.addRegion(participacionCongreso.getCongreso().getEntidadOrganizadora()
-                .getRegionStr());
-        entidadOrganizadora.addCiudad(participacionCongreso.getCongreso().getEntidadOrganizadora()
-                .getCiudad());
+        entidadOrganizadora.addNombre(
+                participacionCongreso.getCongreso().getEntidadOrganizadora().getNombre());
+        entidadOrganizadora
+                .addTipo(participacionCongreso.getCongreso().getEntidadOrganizadora().getTipo());
+        entidadOrganizadora.addTipoOtros(
+                participacionCongreso.getCongreso().getEntidadOrganizadora().getTipoDescr());
+        entidadOrganizadora
+                .addPais(participacionCongreso.getCongreso().getEntidadOrganizadora().getPais());
+        entidadOrganizadora.addRegion(
+                participacionCongreso.getCongreso().getEntidadOrganizadora().getRegionStr());
+        entidadOrganizadora.addCiudad(
+                participacionCongreso.getCongreso().getEntidadOrganizadora().getCiudad());
 
         LocalizacionCongresoDocente localizacion = (LocalizacionCongresoDocente) congreso
                 .getLocalizacion();
@@ -778,11 +767,11 @@ public class CvnRootBeanGenerator
         publicacion.addTitulo(participacionCongreso.getCongreso().getPublicacion().getTitulo());
         publicacion.addNombre(participacionCongreso.getCongreso().getPublicacion().getNombre());
         publicacion.addVolumen(participacionCongreso.getCongreso().getPublicacion().getVolumen());
-        publicacion.addPaginasInicioFin(participacionCongreso.getCongreso().getPublicacion()
-                .getPaginaInicio(), participacionCongreso.getCongreso().getPublicacion()
-                .getPaginaFin());
-        publicacion.addEditorial(participacionCongreso.getCongreso().getPublicacion()
-                .getEditorial());
+        publicacion.addPaginasInicioFin(
+                participacionCongreso.getCongreso().getPublicacion().getPaginaInicio(),
+                participacionCongreso.getCongreso().getPublicacion().getPaginaFin());
+        publicacion
+                .addEditorial(participacionCongreso.getCongreso().getPublicacion().getEditorial());
         publicacion.addPais(participacionCongreso.getCongreso().getPublicacion().getPais());
         publicacion.addRegion(participacionCongreso.getCongreso().getPublicacion().getRegion());
         publicacion.addFecha(participacionCongreso.getCongreso().getPublicacion().getFecha());
@@ -802,8 +791,8 @@ public class CvnRootBeanGenerator
             }
         }
 
-        publicacion.addDepositoLegal(participacionCongreso.getCongreso().getPublicacion()
-                .getDepositoLegal());
+        publicacion.addDepositoLegal(
+                participacionCongreso.getCongreso().getPublicacion().getDepositoLegal());
 
         return participacionEnCongreso;
     }
@@ -816,8 +805,8 @@ public class CvnRootBeanGenerator
 
         cvnTesis.addTipo(direccionTesis.getTipoId());
         cvnTesis.addTitulo(direccionTesis.getTitulo());
-        cvnTesis.addCodirector(direccionTesis.getCodirectorNombre(), direccionTesis.getCodirectorApellido1(),
-                direccionTesis.getCodirectorApellido2());
+        cvnTesis.addCodirector(direccionTesis.getCodirectorNombre(),
+                direccionTesis.getCodirectorApellido1(), direccionTesis.getCodirectorApellido2());
         cvnTesis.addPaisLectura(direccionTesis.getPais());
         cvnTesis.addCiudadDireccion(direccionTesis.getCiudad());
         cvnTesis.addEntidad(direccionTesis.getEntidad());
@@ -828,7 +817,7 @@ public class CvnRootBeanGenerator
         cvnTesis.addCalificacion(direccionTesis.getCalificacion());
         cvnTesis.addFechaDoctorEuropeo(direccionTesis.getFechaDoctorEuropeo());
         cvnTesis.addDoctorEuropeo(direccionTesis.isDoctorEuropeo());
-       // cvnTesis.addMencionCalidad(tesis.isMencionCalidad());
+        // cvnTesis.addMencionCalidad(tesis.isMencionCalidad());
         cvnTesis.addComunidadAutonoma(direccionTesis.getRegion());
 
         return participacionEnTesis;
@@ -851,14 +840,15 @@ public class CvnRootBeanGenerator
         cvnDoctorado.addTitulacionFecha(doctorado.getTitulacionFecha());
         cvnDoctorado.addDoctoradoFecha(doctorado.getFechaDoctorEuropeo());
         cvnDoctorado.addTitulo(doctorado.getTitulo());
-        cvnDoctorado.addDirector(doctorado.getDirectorNombre(), doctorado.getDirectorApellido1(), doctorado.getDirectorApellido2());
-        cvnDoctorado.addCoDirector(doctorado.getCodirectorNombre(), doctorado.getCodirectorApellido1(), doctorado.getCodirectorApellido2());
+        cvnDoctorado.addDirector(doctorado.getDirectorNombre(), doctorado.getDirectorApellido1(),
+                doctorado.getDirectorApellido2());
+        cvnDoctorado.addCoDirector(doctorado.getCodirectorNombre(),
+                doctorado.getCodirectorApellido1(), doctorado.getCodirectorApellido2());
         cvnDoctorado.addCalificacion(doctorado.getCalificacion());
         cvnDoctorado.addMencionCalidad(doctorado.isMencion());
         cvnDoctorado.addDoctorEuropeo(doctorado.isDoctorEuropeo());
         cvnDoctorado.addPremio(doctorado.isPremiado());
         cvnDoctorado.addPremioFecha(doctorado.getPremioFecha());
-
 
         return formacion;
 
@@ -898,7 +888,8 @@ public class CvnRootBeanGenerator
     private CvnItemBean generateDatosSituacionProfesionalAntigua(SituacionProfesional sp)
     {
         SituacionProfesionalAntigua spa = new SituacionProfesionalAntigua();
-        CvnDetalleSituacionProfesionalAntigua antigua = spa.getCvnDetalleSituacionProfesionalAntigua();
+        CvnDetalleSituacionProfesionalAntigua antigua = spa
+                .getCvnDetalleSituacionProfesionalAntigua();
 
         antigua.addGestionDocente(sp.getGestionDocente());
         antigua.addEntidad(sp.getNombreEntidad());
@@ -914,9 +905,9 @@ public class CvnRootBeanGenerator
         antigua.addCategoria(sp.getCategoria());
         antigua.addFechaInicio(sp.getFechaInicio());
         antigua.addDuracion(sp.getDuracion());
-      //  antigua.addSituacionActual(sp.getSituacion().toString());
-      //  if (sp.getSituacion().toString() == "030") // 030 es otros
-      //      antigua.addSituacionActualOtros(sp.getSituacionOtros());
+        // antigua.addSituacionActual(sp.getSituacion().toString());
+        // if (sp.getSituacion().toString() == "030") // 030 es otros
+        // antigua.addSituacionActualOtros(sp.getSituacionOtros());
         antigua.addDedicacion(sp.getDedicacion());
         antigua.addUNESCO1(sp.getUnesco1());
         antigua.addUNESCO2(sp.getUnesco2());
@@ -927,14 +918,14 @@ public class CvnRootBeanGenerator
         return spa;
     }
 
-
     private CvnItemBean generateDocenciaImpartida(DocenciaImpartida docenciaImpartidaImpartida)
     {
 
         CvnDocencia docencia = new CvnDocencia();
         es.uji.apps.cvn.model.cvn.docente.DocenciaImpartida di = docencia.getDocenciaImpartida();
         di.addTipo(docenciaImpartidaImpartida.getTipo());
-        di.addTitulacion(docenciaImpartidaImpartida.getTitulacion(), docenciaImpartidaImpartida.getTitulacionTexto());
+        di.addTitulacion(docenciaImpartidaImpartida.getTitulacion(),
+                docenciaImpartidaImpartida.getTitulacionTexto());
         di.addPais(docenciaImpartidaImpartida.getPais());
         di.addRegion(docenciaImpartidaImpartida.getRegion());
         di.addCiudad(docenciaImpartidaImpartida.getCiudad());
@@ -948,13 +939,10 @@ public class CvnRootBeanGenerator
         di.addNumeroVeces(docenciaImpartidaImpartida.getNumeroVeces());
         di.addUltimaVez(docenciaImpartidaImpartida.getUltimaVez());
 
-
         docencia.setDocenciaImpartida(di);
-
 
         return docencia;
 
     }
-
 
 }

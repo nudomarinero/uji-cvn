@@ -4,13 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * The persistent class for the CVN_VIEW_PROD_PUBLICACIONES database table.
@@ -18,7 +12,8 @@ import javax.persistence.Table;
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "CVN_VIEW_PROD_PUBLICACIONES")
+// @Table(name = "CVN_VIEW_PROD_PUBLICACIONES")
+@Table(name = "CVN_VIEW_PROD_PUBLI_PCI")
 public class PublicacionDTO implements Serializable
 {
     @Column(name = "CIUDAD_PUB")
@@ -33,7 +28,7 @@ public class PublicacionDTO implements Serializable
     private String editorialPublicacion;
 
     @Column(name = "FECHA_PUB")
-    private Long fechaPublicacion;
+    private Date fechaPublicacion;
 
     @Id
     private Long id;
@@ -47,8 +42,11 @@ public class PublicacionDTO implements Serializable
     @Column(name = "NUM_RESE")
     private Long nResenyasEnRevistas;
 
-    @Column(name = "PAGINAS_PUB")
-    private String paginasPublicacion;
+    @Column(name = "PAGINA_INICIO")
+    private Integer paginaInicio;
+
+    @Column(name = "PAGINA_FIN")
+    private Integer paginaFin;
 
     @Column(name = "PAIS_PUB")
     private String paisPublicacion;
@@ -67,67 +65,77 @@ public class PublicacionDTO implements Serializable
     @Column(name = "VOLUMEN_PUB")
     private String volumenPublicacion;
 
-    @Column(name = "WEB_PUB")
-    private String webPublicacion;
+    @Column(name = "DOI")
+    private String doi;
 
     private Long caracter;
-        
+
     @OneToMany
     @JoinColumn(name = "PRODUCCION", referencedColumnName = "ID")
     private List<ImpactoPublicacionDTO> listaImpactoPublicacion;
 
-    //ESpecíficos de publicación de caracter docente
-    
+    // ESpecíficos de publicación de caracter docente
+
     private String denominacion;
-    
+
     private String destinatarios;
 
-    @Column(name="FECHA_CREACION")
+    @Column(name = "FECHA_CREACION")
     private Date fechaCreacion;
-    
+
     private String justificacion;
 
-    public Long getnResenyasEnRevistas() {
-		return nResenyasEnRevistas;
-	}
+    public Long getnResenyasEnRevistas()
+    {
+        return nResenyasEnRevistas;
+    }
 
-	public void setnResenyasEnRevistas(Long nResenyasEnRevistas) {
-		this.nResenyasEnRevistas = nResenyasEnRevistas;
-	}
+    public void setnResenyasEnRevistas(Long nResenyasEnRevistas)
+    {
+        this.nResenyasEnRevistas = nResenyasEnRevistas;
+    }
 
-	public String getDenominacion() {
-		return denominacion;
-	}
+    public String getDenominacion()
+    {
+        return denominacion;
+    }
 
-	public void setDenominacion(String denominacion) {
-		this.denominacion = denominacion;
-	}
+    public void setDenominacion(String denominacion)
+    {
+        this.denominacion = denominacion;
+    }
 
-	public String getDestinatarios() {
-		return destinatarios;
-	}
+    public String getDestinatarios()
+    {
+        return destinatarios;
+    }
 
-	public void setDestinatarios(String destinatarios) {
-		this.destinatarios = destinatarios;
-	}
+    public void setDestinatarios(String destinatarios)
+    {
+        this.destinatarios = destinatarios;
+    }
 
-	public Date getFechaCreacion() {
-		return fechaCreacion;
-	}
+    public Date getFechaCreacion()
+    {
+        return fechaCreacion;
+    }
 
-	public void setFechaCreacion(Date fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
-	}
+    public void setFechaCreacion(Date fechaCreacion)
+    {
+        this.fechaCreacion = fechaCreacion;
+    }
 
-	public String getJustificacion() {
-		return justificacion;
-	}
+    public String getJustificacion()
+    {
+        return justificacion;
+    }
 
-	public void setJustificacion(String justificacion) {
-		this.justificacion = justificacion;
-	}
+    public void setJustificacion(String justificacion)
+    {
+        this.justificacion = justificacion;
+    }
 
-	public PublicacionDTO()
+    public PublicacionDTO()
     {
     }
 
@@ -171,12 +179,12 @@ public class PublicacionDTO implements Serializable
         this.editorialPublicacion = editorialPublicacion;
     }
 
-    public Long getFechaPublicacion()
+    public Date getFechaPublicacion()
     {
         return this.fechaPublicacion;
     }
 
-    public void setFechaPublicacion(Long fechaPublicacion)
+    public void setFechaPublicacion(Date fechaPublicacion)
     {
         this.fechaPublicacion = fechaPublicacion;
     }
@@ -221,14 +229,24 @@ public class PublicacionDTO implements Serializable
         this.nResenyasEnRevistas = nResenyasEnRevistas;
     }
 
-    public String getPaginasPublicacion()
+    public Integer getPaginaInicio()
     {
-        return this.paginasPublicacion;
+        return paginaInicio;
     }
 
-    public void setPaginasPublicacion(String paginasPublicacion)
+    public void setPaginaInicio(Integer paginaInicio)
     {
-        this.paginasPublicacion = paginasPublicacion;
+        this.paginaInicio = paginaInicio;
+    }
+
+    public Integer getPaginaFin()
+    {
+        return paginaFin;
+    }
+
+    public void setPaginaFin(Integer paginaFin)
+    {
+        this.paginaFin = paginaFin;
     }
 
     public String getPaisPublicacion()
@@ -301,14 +319,14 @@ public class PublicacionDTO implements Serializable
         this.volumenPublicacion = volumenPublicacion;
     }
 
-    public String getWebPublicacion()
+    public String getDoi()
     {
-        return this.webPublicacion;
+        return this.doi;
     }
 
-    public void setWebPublicacion(String webPublicacion)
+    public void setDoi(String doi)
     {
-        this.webPublicacion = webPublicacion;
+        this.doi = doi;
     }
 
     public List<ImpactoPublicacionDTO> getListaImpactoPublicacion()

@@ -1,6 +1,7 @@
 package es.uji.apps.cvn.dao;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -203,14 +204,17 @@ public class CongresoDAO extends BaseDAODatabaseImpl
 
         Publicacion publicacion = new Publicacion();
         publicacion.setDepositoLegal(congresoDTO.getDepLegalPub());
-        publicacion.setFecha(congresoDTO.getFechaPublicacion());
+        // TODO: Arreglar con la nueva vista
+        //publicacion.setFecha(congresoDTO.getFechaPublicacion());
+        publicacion.setFecha(new Date(congresoDTO.getFechaPublicacion()*1000));
 
         List<String> isbns = new ArrayList<String>();
         isbns.add(Congreso.getIsbnOrIssnFrom(congresoDTO.getIsbnPub()));
         publicacion.setIsbns(isbns);
 
         publicacion.setNombre(congresoDTO.getNombreCongreso());
-        publicacion.setPaginasInicioFin(congresoDTO.getPaginasPub());
+        // TODO: Arreglar con la nueva vista
+        //publicacion.setPaginasInicioFin(congresoDTO.getPaginasPub());
         publicacion.setPais(congresoDTO.getPaisPub());
         publicacion.setRegion(congresoDTO.getRegionPub());
         publicacion.setTipo(Congreso.getTipoPublicacionFrom(congresoDTO.getTipoPublicacion()));
