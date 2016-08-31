@@ -26,7 +26,7 @@ import es.uji.commons.rest.exceptions.RegistroNoEncontradoException;
 @Repository
 public class CongresoDAO extends BaseDAODatabaseImpl
 {
-    final private static Long CARACTER_DOCENTE = 20L;
+    final private static Long CARACTER_DOCENTE = 286L;
     private static final Logger log = Logger.getLogger(CongresoDAO.class);
 
     public List<ParticipacionCongreso> getParticipacionesEnCongresosByPersonaId(Long personaId)
@@ -102,6 +102,7 @@ public class CongresoDAO extends BaseDAODatabaseImpl
         }
         catch (Exception e)
         {
+            e.printStackTrace();
             throw new RegistroNoEncontradoException();
         }
 
@@ -204,17 +205,21 @@ public class CongresoDAO extends BaseDAODatabaseImpl
 
         Publicacion publicacion = new Publicacion();
         publicacion.setDepositoLegal(congresoDTO.getDepLegalPub());
-        // TODO: Arreglar con la nueva vista
-        //publicacion.setFecha(congresoDTO.getFechaPublicacion());
-        publicacion.setFecha(new Date(congresoDTO.getFechaPublicacion()*1000));
+        publicacion.setFecha(congresoDTO.getFechaPublicacion());
 
         List<String> isbns = new ArrayList<String>();
         isbns.add(Congreso.getIsbnOrIssnFrom(congresoDTO.getIsbnPub()));
         publicacion.setIsbns(isbns);
 
         publicacion.setNombre(congresoDTO.getNombreCongreso());
-        // TODO: Arreglar con la nueva vista
-        //publicacion.setPaginasInicioFin(congresoDTO.getPaginasPub());
+        if (congresoDTO.getPaginaInicio() != null)
+        {
+            publicacion.setPaginaInicio(String.valueOf(congresoDTO.getPaginaInicio()));
+        }
+        if (congresoDTO.getPaginaFin() != null)
+        {
+            publicacion.setPaginaFin(String.valueOf(congresoDTO.getPaginaFin()));
+        }
         publicacion.setPais(congresoDTO.getPaisPub());
         publicacion.setRegion(congresoDTO.getRegionPub());
         publicacion.setTipo(Congreso.getTipoPublicacionFrom(congresoDTO.getTipoPublicacion()));

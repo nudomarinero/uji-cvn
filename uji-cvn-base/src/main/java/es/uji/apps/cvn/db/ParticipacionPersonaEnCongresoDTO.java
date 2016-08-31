@@ -1,6 +1,7 @@
 package es.uji.apps.cvn.db;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 /**
@@ -9,7 +10,7 @@ import javax.persistence.*;
  */
 @Entity
 @IdClass(ParticipacionPersonaEnCongresoDTOId.class)
-@Table(name = "CVN_VIEW_PER_PART_PROD_CONG")
+@Table(name = "CVN_VIEW_PER_PART_CONG_PCI")
 public class ParticipacionPersonaEnCongresoDTO implements Serializable
 {
     private static final long serialVersionUID = 1L;
@@ -27,6 +28,9 @@ public class ParticipacionPersonaEnCongresoDTO implements Serializable
 
     @Column(name = "CARACTER")
     private Long caracterPublicacion;
+
+    @Column(name = "CORRESPONDING_AUTHOR")
+    private Boolean correspondingAuthor;
 
     public ParticipacionPersonaEnCongresoDTO()
     {
@@ -82,4 +86,13 @@ public class ParticipacionPersonaEnCongresoDTO implements Serializable
         this.caracterPublicacion = caracterPublicacion;
     }
 
+    public Boolean getCorrespondingAuthor()
+    {
+        return correspondingAuthor;
+    }
+
+    public void setCorrespondingAuthor(Boolean correspondingAuthor)
+    {
+        this.correspondingAuthor = correspondingAuthor;
+    }
 }

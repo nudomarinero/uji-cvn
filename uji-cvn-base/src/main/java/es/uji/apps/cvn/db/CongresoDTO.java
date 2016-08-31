@@ -3,12 +3,7 @@ package es.uji.apps.cvn.db;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 /**
  * The persistent class for the CVN_VIEW_PROD_CONGRESOS database table.
@@ -16,7 +11,7 @@ import javax.persistence.TemporalType;
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "CVN_VIEW_PROD_CONGRESOS")
+@Table(name = "CVN_VIEW_PROD_CONGRESOS_PCI")
 public class CongresoDTO implements Serializable
 {
     private String ambito;
@@ -46,14 +41,15 @@ public class CongresoDTO implements Serializable
     @Column(name = "FECHA_FIN")
     private Date fechaFin;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "FECHA_PUB")
-    // Representa anyo
-    private Long fechaPublicacion;
+    private Date fechaPublicacion;
 
     @Id
     private Long id;
 
-    @Column(name = "IS_ACTA")
+    @Transient
+    //@Column(name = "IS_ACTA")
     private Boolean isActa;
 
     @Column(name = "IS_PUB_EVALUADA")
@@ -68,8 +64,11 @@ public class CongresoDTO implements Serializable
     @Column(name = "NOMBRE_PUBLICACION")
     private String nombrePublicacion;
 
-    @Column(name = "PAGINAS_PUB")
-    private String paginasPub;
+    @Column(name = "PAGINA_INICIO")
+    private Integer paginaInicio;
+
+    @Column(name = "PAGINA_FIN")
+    private Integer paginaFin;
 
     @Column(name = "PAIS_CONGRESO")
     private String paisCongreso;
@@ -111,6 +110,7 @@ public class CongresoDTO implements Serializable
 
     private String idioma;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "FECHA_PRESENTACION")
     private Date fechaPresentacion;
 
@@ -210,12 +210,12 @@ public class CongresoDTO implements Serializable
         this.fechaFin = fechaFin;
     }
 
-    public Long getFechaPublicacion()
+    public Date getFechaPublicacion()
     {
         return this.fechaPublicacion;
     }
 
-    public void setFechaPublicacion(Long fechaPublicacion)
+    public void setFechaPublicacion(Date fechaPublicacion)
     {
         this.fechaPublicacion = fechaPublicacion;
     }
@@ -280,14 +280,24 @@ public class CongresoDTO implements Serializable
         this.nombrePublicacion = nombrePublicacion;
     }
 
-    public String getPaginasPub()
+    public Integer getPaginaInicio()
     {
-        return this.paginasPub;
+        return paginaInicio;
     }
 
-    public void setPaginasPub(String paginasPub)
+    public void setPaginaInicio(Integer paginaInicio)
     {
-        this.paginasPub = paginasPub;
+        this.paginaInicio = paginaInicio;
+    }
+
+    public Integer getPaginaFin()
+    {
+        return paginaFin;
+    }
+
+    public void setPaginaFin(Integer paginaFin)
+    {
+        this.paginaFin = paginaFin;
     }
 
     public String getPaisCongreso()

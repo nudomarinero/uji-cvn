@@ -607,9 +607,16 @@ public class CvnRootBeanGenerator
         publicacion.addTipo(participacionCongreso.getCongreso().getPublicacion().getTipo());
         publicacion.addNombre(participacionCongreso.getCongreso().getPublicacion().getNombre());
         publicacion.addVolumen(participacionCongreso.getCongreso().getPublicacion().getVolumen());
-        publicacion.addPaginasInicioFin(
-                participacionCongreso.getCongreso().getPublicacion().getPaginaInicio(),
-                participacionCongreso.getCongreso().getPublicacion().getPaginaFin());
+
+        String paginaInicio = participacionCongreso.getCongreso().getPublicacion()
+                .getPaginaInicio();
+        String paginaFin = participacionCongreso.getCongreso().getPublicacion().getPaginaFin();
+        if (paginaInicio != null || paginaFin != null)
+        {
+            publicacion.addPaginasInicioFin((paginaInicio != null) ? paginaInicio : "",
+                    (paginaFin != null) ? paginaFin : "");
+        }
+
         publicacion
                 .addEditorial(participacionCongreso.getCongreso().getPublicacion().getEditorial());
         publicacion.addPais(participacionCongreso.getCongreso().getPublicacion().getPais());

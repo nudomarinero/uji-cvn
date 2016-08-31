@@ -10,6 +10,7 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import es.uji.apps.cvn.Utils;
+import es.uji.apps.cvn.translators.AmbitoDifusion;
 import es.uji.apps.cvn.translators.TipoProduccion;
 
 public class Congreso
@@ -49,15 +50,15 @@ public class Congreso
     private XMLGregorianCalendar fechaFinalizacion;
 
     private Publicacion publicacion;
-    
+
     private String objetivos;
-    
+
     private String destinatarios;
-    
+
     private String idioma;
 
     private XMLGregorianCalendar fechaPresentacion;
-    
+
     private String horas;
 
     public Congreso()
@@ -121,7 +122,7 @@ public class Congreso
 
     public void setAmbito(String ambito)
     {
-        this.ambito = ambito;
+        this.ambito = AmbitoDifusion.getCodigoTipo(ambito);
     }
 
     public String getAmbitoOtros()
@@ -261,8 +262,8 @@ public class Congreso
             calendar.setTime(fechaFinalizacion);
             try
             {
-                this.fechaFinalizacion = DatatypeFactory.newInstance().newXMLGregorianCalendar(
-                        calendar);
+                this.fechaFinalizacion = DatatypeFactory.newInstance()
+                        .newXMLGregorianCalendar(calendar);
             }
             catch (DatatypeConfigurationException e)
             {
@@ -344,57 +345,67 @@ public class Congreso
         return null;
     }
 
-	public String getObjetivos() {
-		return objetivos;
-	}
+    public String getObjetivos()
+    {
+        return objetivos;
+    }
 
-	public void setObjetivos(String objetivos) {
-		this.objetivos = objetivos;
-	}
+    public void setObjetivos(String objetivos)
+    {
+        this.objetivos = objetivos;
+    }
 
-	public String getDestinatarios() {
-		return destinatarios;
-	}
+    public String getDestinatarios()
+    {
+        return destinatarios;
+    }
 
-	public void setDestinatarios(String destinatarios) {
-		this.destinatarios = destinatarios;
-	}
+    public void setDestinatarios(String destinatarios)
+    {
+        this.destinatarios = destinatarios;
+    }
 
-	public String getIdioma() {
-		return idioma;
-	}
+    public String getIdioma()
+    {
+        return idioma;
+    }
 
-	public void setIdioma(String idioma) {
-		this.idioma = idioma;
-	}
+    public void setIdioma(String idioma)
+    {
+        this.idioma = idioma;
+    }
 
-	public XMLGregorianCalendar getFechaPresentacion() {
-		return fechaPresentacion;
-	}
+    public XMLGregorianCalendar getFechaPresentacion()
+    {
+        return fechaPresentacion;
+    }
 
-	public void setFechaPresentacion(Date fechaPresentacion) {
-		
-		if (fechaPresentacion != null)
-		{
-			GregorianCalendar calendar = new GregorianCalendar();
-			calendar.setTime(fechaPresentacion);
-			try
-			{
-				this.fechaPresentacion = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
-	        }
-			catch (DatatypeConfigurationException e)
-			{
-			}
-	    }
-	}
+    public void setFechaPresentacion(Date fechaPresentacion)
+    {
 
-	public String getHoras() {
-		return horas;
-	}
+        if (fechaPresentacion != null)
+        {
+            GregorianCalendar calendar = new GregorianCalendar();
+            calendar.setTime(fechaPresentacion);
+            try
+            {
+                this.fechaPresentacion = DatatypeFactory.newInstance()
+                        .newXMLGregorianCalendar(calendar);
+            }
+            catch (DatatypeConfigurationException e)
+            {
+            }
+        }
+    }
 
-	public void setHoras(String horas) {
-		this.horas = horas;
-	}
-    
-    
+    public String getHoras()
+    {
+        return horas;
+    }
+
+    public void setHoras(String horas)
+    {
+        this.horas = horas;
+    }
+
 }
