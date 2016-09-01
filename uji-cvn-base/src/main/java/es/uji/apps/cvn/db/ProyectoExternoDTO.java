@@ -17,7 +17,7 @@ import javax.persistence.TemporalType;
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "CVN_VIEW_PROY_EXT")
+@Table(name = "CVN_VIEW_PROY_EXT_PCI")
 public class ProyectoExternoDTO implements Serializable
 {
     private String ambito;

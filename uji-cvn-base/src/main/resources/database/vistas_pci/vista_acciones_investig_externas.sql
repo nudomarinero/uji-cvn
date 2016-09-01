@@ -1,6 +1,5 @@
 CREATE OR REPLACE FORCE EDITIONABLE VIEW "UJI_CVN"."CVN_VIEW_PROY_EXT_PCI" ("ID", "CODIGO_EXTERNO", "TITULO", "FECHA_INICIO", "FECHA_FIN", "DURACION", "NINVESTIGADORES", "NINVESTIGADORESEXT", "TITULO_KEYWORDS", "MODALIDAD", "TIPO", "SUBTIPO", "MICROTIPO", "AMBITO", "ENTIDAD_EJECUTORA", "NPERSONASANYO", "NOMBRE_PROGRAMA_FINANCIACION", "CODIGO_PROYECTO_FINANCIADORA", "DOTACION_TOTAL", "DOTACION_SUBPROYECTO", "PORCENTAJE_SUBVENCION", "PORCENTAJE_CREDITO", "PORCENTAJE_MIXTO", "RESULTADOS_RELEVANTES", "RESULTADOS_KEYWORDS", "NOMBRE_ENT_FINANCIADORA") AS
-
-select p.id,
+  select p.id,
   (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 119) codigo_externo,
   (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 118) titulo,
   (select to_date(valor) from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 120) fecha_inicio,
@@ -10,7 +9,9 @@ select p.id,
   0 ninvestigadoresext,
   NULL titulo_keywords,
   NULL modalidad,
-  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 124) tipo_anexo,
+  (select tipo from pci_ext_tipos_anexos where id = (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 124)) tipo,
+  (select subtipo from pci_ext_tipos_anexos where id = (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 124)) subtipo,
+  (select microtipo from pci_ext_tipos_anexos where id = (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 124)) microtipo,
   (select a.nombre from pci_ext_tipos_anexos a join pci_producciones_detalle d on d.valor = a.id where d.produccion_id = p.id and atributo_tipo_id = 124) ambito,
   nvl((select o.nombre from pci_ext_organismos o join pci_producciones_detalle d on d.valor = o.id where d.produccion_id = p.id and atributo_tipo_id = 243), (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 206)) entidad_ejecutora,
   NULL npersonasanyo,

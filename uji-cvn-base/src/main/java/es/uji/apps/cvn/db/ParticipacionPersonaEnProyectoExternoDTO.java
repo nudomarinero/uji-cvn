@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @SuppressWarnings("serial")
 @Entity
 @IdClass(ParticipacionPersonaEnProyectoExternoDTOId.class)
-@Table(name = "CVN_VIEW_PER_PART_PROY_EXT")
+@Table(name = "CVN_VIEW_PER_PART_PROY_EXT_PCI")
 public class ParticipacionPersonaEnProyectoExternoDTO implements Serializable
 {
     private String aportaciones;
