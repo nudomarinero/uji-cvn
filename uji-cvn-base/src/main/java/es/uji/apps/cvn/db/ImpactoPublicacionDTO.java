@@ -14,7 +14,7 @@ import javax.persistence.Table;
  */
 @Entity
 @IdClass(ImpactoPublicacionDTOId.class)
-@Table(name = "CVN_VIEW_IMPACTO_PROD_PUBL")
+@Table(name = "CVN_VIEW_IMPACTO_PROD_PUBL_PCI")
 public class ImpactoPublicacionDTO implements Serializable
 {
     private static final long serialVersionUID = 1L;
@@ -25,7 +25,7 @@ public class ImpactoPublicacionDTO implements Serializable
     @Id
     private String categoria2;
 
-    private Long cuartil;
+    private String cuartil;
 
     @Id
     @Column(name = "FUENTE_IMPACTO")
@@ -68,12 +68,12 @@ public class ImpactoPublicacionDTO implements Serializable
         this.categoria2 = categoria2;
     }
 
-    public Long getCuartil()
+    public String getCuartil()
     {
         return this.cuartil;
     }
 
-    public void setCuartil(Long cuartil)
+    public void setCuartil(String cuartil)
     {
         this.cuartil = cuartil;
     }
