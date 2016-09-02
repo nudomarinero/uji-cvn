@@ -3,15 +3,12 @@ package es.uji.apps.cvn.db;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "CVN_VIEW_DIRECCION_TESIS")
-public class DirrecionTesisDTO implements Serializable
+@Table(name = "CVN_VIEW_DIRECCION_TESIS_PCI")
+public class DireccionTesisDTO implements Serializable
 {
    @Id
    private String id;
@@ -59,6 +56,7 @@ public class DirrecionTesisDTO implements Serializable
     @Column(name = "OTRODIRECTOR_APELLIDO2")
     private String codirectorApellido2;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "FECHA_LECTURA")
     private Date fechaLectura;
 
@@ -67,6 +65,7 @@ public class DirrecionTesisDTO implements Serializable
     @Column(name = "DOCTOR_EUROPEO")
     private String doctorEuropeo;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "F_DOCTOR_EUROPEO")
     private Date fechaDoctorEuropeo;
 
