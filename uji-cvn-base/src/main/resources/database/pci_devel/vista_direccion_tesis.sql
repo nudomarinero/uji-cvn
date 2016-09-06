@@ -11,12 +11,12 @@ select 'PC*'||p.id||'*'||a.orden id,
   null director_nombre,
   null director_apellido1, 
   null director_apellido2,
-  (select listagg(trim(nombre||' '||apellidos), ',') within group (order by nombre)
+  /*(select listagg(trim(nombre||' '||apellidos), ',') within group (order by nombre)
+                                                               from pci_producciones_autores a
+                                                              where a.produccion_id = p.id and a.persona_id is null) otrodirector_nombre,*/
+  (select wm_concat(trim(nombre||' '||apellidos))
                                                                from pci_producciones_autores a
                                                               where a.produccion_id = p.id and a.persona_id is null) otrodirector_nombre,
-  /*(select wm_concat(trim(nombre||' '||apellidos))
-                                                               from pci_producciones_autores a
-                                                              where a.produccion_id = p.id and a.persona_id is null) otrodirector_nombre,  En desarrollo   */
   null otrodirector_apellido1, 
   null otrodirector_apellido2,
   (select pai.codigo_mec from pci_producciones_detalle d join pci_revistas r on r.id = to_number(d.valor) join per_paises pai on pai.id = r.pais_id where d.produccion_id = p.id and atributo_tipo_id = 229) pais,
