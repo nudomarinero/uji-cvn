@@ -3,67 +3,71 @@ package es.uji.apps.cvn.model;
 import java.util.Collections;
 import java.util.List;
 
-import es.uji.apps.cvn.model.comparators.ParticipacionPublicacionCientificoTecnicaComparator;
 import es.uji.apps.cvn.model.comparators.ParticipacionPublicacionDocenteComparator;
 import es.uji.apps.cvn.translators.CalidadParticipacionPublicacion;
 
-public class ParticipacionPublicacionDocente {
-	
-	   private PublicacionDocente publicacionDocente;
+public class ParticipacionPublicacionDocente
+{
+    final public static Long CARACTER_DOCENTE_LIBRO = 277L;
 
-	    private Double posicionAutor;
+    final public static Long CARACTER_DOCENTE_ARTICULO = 268L;
 
-	    private String calidad;
+    final public static Long CARACTER_DOCENTE_PONENCIA = 286L;
 
-	    public PublicacionDocente getPublicacionDocente()
-	    {
-	        return publicacionDocente;
-	    }
+    private PublicacionDocente publicacionDocente;
 
-	    public void setPublicacionDocente(
-	    		PublicacionDocente publicacionDocente)
-	    {
-	        this.publicacionDocente = publicacionDocente;
-	    }
+    private Double posicionAutor;
 
-	    public Double getPosicionAutor()
-	    {
-	        return posicionAutor;
-	    }
+    private String calidad;
 
-	    public void setPosicionAutor(Float posicionAutor, String calidadParticipacion)
-	    {
-	        if (posicionAutor != null && calidadParticipacion != null
-	                && !calidadParticipacion.equals(CalidadParticipacionPublicacion.EDITOR.getCodigo()))
-	        {
-	            this.posicionAutor = posicionAutor.doubleValue();
-	        }
-	    }
+    public PublicacionDocente getPublicacionDocente()
+    {
+        return publicacionDocente;
+    }
 
-	    public void setPosicionAutor(Long orden, int total, String calidadParticipacion)
-	    {
-	        if (calidadParticipacion != null
-	                && !calidadParticipacion.equals(CalidadParticipacionPublicacion.EDITOR.getCodigo()))
-	        {
-	            this.posicionAutor = new Double(orden);
-	        }
-	    }
+    public void setPublicacionDocente(PublicacionDocente publicacionDocente)
+    {
+        this.publicacionDocente = publicacionDocente;
+    }
 
-	    public String getCalidad()
-	    {
-	        return calidad;
-	    }
+    public Double getPosicionAutor()
+    {
+        return posicionAutor;
+    }
 
-	    public void setCalidad(String calidad)
-	    {
-	        this.calidad = CalidadParticipacionPublicacion.getTipo(calidad);
-	    }
+    public void setPosicionAutor(Float posicionAutor, String calidadParticipacion)
+    {
+        if (posicionAutor != null && calidadParticipacion != null
+                && !calidadParticipacion.equals(CalidadParticipacionPublicacion.EDITOR.getCodigo()))
+        {
+            this.posicionAutor = posicionAutor.doubleValue();
+        }
+    }
 
-	  
-	    public static void ordenaListaParticipacionPublicacionesPorFechaInicio(
-	            List<ParticipacionPublicacionDocente> participacionPublicaciones)
-	    {
-	        Collections.sort(participacionPublicaciones, new ParticipacionPublicacionDocenteComparator());
-	    }
+    public void setPosicionAutor(Long orden, int total, String calidadParticipacion)
+    {
+        if (calidadParticipacion != null
+                && !calidadParticipacion.equals(CalidadParticipacionPublicacion.EDITOR.getCodigo()))
+        {
+            this.posicionAutor = new Double(orden);
+        }
+    }
+
+    public String getCalidad()
+    {
+        return calidad;
+    }
+
+    public void setCalidad(String calidad)
+    {
+        this.calidad = CalidadParticipacionPublicacion.getTipo(calidad);
+    }
+
+    public static void ordenaListaParticipacionPublicacionesPorFechaInicio(
+            List<ParticipacionPublicacionDocente> participacionPublicaciones)
+    {
+        Collections.sort(participacionPublicaciones,
+                new ParticipacionPublicacionDocenteComparator());
+    }
 
 }

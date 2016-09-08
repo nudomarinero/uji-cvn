@@ -2,7 +2,7 @@ package es.uji.apps.cvn.translators;
 
 public enum TipoProduccion
 {
-    ARTICULO(32L, "020"), LIBRO(33L, "032"), CAPITULOLIBRO(34L, "004"), OTHERS(null, "OTHERS");
+    ARTICULO(1L, "020"), LIBRO(2L, "032"), CAPITULOLIBRO(3L, "004"), OTHERS(null, "OTHERS");
 
     private final Long tipoId;
     private final String tipo;

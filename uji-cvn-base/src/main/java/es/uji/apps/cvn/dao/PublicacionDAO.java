@@ -21,7 +21,7 @@ import es.uji.commons.rest.exceptions.RegistroNoEncontradoException;
 @Repository
 public class PublicacionDAO extends BaseDAODatabaseImpl
 {
-    final private static Long CARACTER_DOCENTE = 20L;
+    // final private static Long CARACTER_DOCENTE = 20L;
     private static final Logger log = Logger.getLogger(PublicacionDAO.class);
 
     public List<ParticipacionPublicacionCientificoTecnica> getParticipacionesEnPublicacionesCientificoTecnicasByPersonaId(
@@ -36,7 +36,10 @@ public class PublicacionDAO extends BaseDAODatabaseImpl
         List<ParticipacionPersonaEnPublicacionDTO> participacionPublicacionesDTO = query
                 .from(qParticipacionPublicacion)
                 .where(qParticipacionPublicacion.persona.eq(personaId)
-                        .and(qParticipacionPublicacion.caracterPublicacion.ne(CARACTER_DOCENTE)))
+                        .and(qParticipacionPublicacion.caracterPublicacion.notIn(
+                                ParticipacionPublicacionDocente.CARACTER_DOCENTE_LIBRO,
+                                ParticipacionPublicacionDocente.CARACTER_DOCENTE_ARTICULO,
+                                ParticipacionPublicacionDocente.CARACTER_DOCENTE_PONENCIA)))
                 .list(qParticipacionPublicacion);
 
         List<ParticipacionPublicacionCientificoTecnica> participacionPublicaciones = new ArrayList<ParticipacionPublicacionCientificoTecnica>();
@@ -66,7 +69,10 @@ public class PublicacionDAO extends BaseDAODatabaseImpl
         List<ParticipacionPersonaEnPublicacionDTO> participacionPublicacionesDTO = query
                 .from(qParticipacionPublicacion)
                 .where(qParticipacionPublicacion.persona.eq(personaId)
-                        .and(qParticipacionPublicacion.caracterPublicacion.eq(CARACTER_DOCENTE)))
+                        .and(qParticipacionPublicacion.caracterPublicacion.in(
+                                ParticipacionPublicacionDocente.CARACTER_DOCENTE_LIBRO,
+                                ParticipacionPublicacionDocente.CARACTER_DOCENTE_ARTICULO,
+                                ParticipacionPublicacionDocente.CARACTER_DOCENTE_PONENCIA)))
                 .list(qParticipacionPublicacion);
 
         List<ParticipacionPublicacionDocente> participacionPublicaciones = new ArrayList<ParticipacionPublicacionDocente>();
@@ -98,7 +104,11 @@ public class PublicacionDAO extends BaseDAODatabaseImpl
             throw new RegistroNoEncontradoException();
         }
 
-        if (publicacion.getCaracter().equals(CARACTER_DOCENTE))
+        if (publicacion.getCaracter().equals(ParticipacionPublicacionDocente.CARACTER_DOCENTE_LIBRO)
+                || publicacion.getCaracter()
+                        .equals(ParticipacionPublicacionDocente.CARACTER_DOCENTE_ARTICULO)
+                || publicacion.getCaracter()
+                        .equals(ParticipacionPublicacionDocente.CARACTER_DOCENTE_PONENCIA))
         {
             throw new RegistroNoEncontradoException();
         }
@@ -133,7 +143,11 @@ public class PublicacionDAO extends BaseDAODatabaseImpl
             throw new RegistroNoEncontradoException();
         }
 
-        if (!publicacion.getCaracter().equals(CARACTER_DOCENTE))
+        if (!publicacion.getCaracter().equals(ParticipacionPublicacionDocente.CARACTER_DOCENTE_LIBRO)
+                && !publicacion.getCaracter()
+                        .equals(ParticipacionPublicacionDocente.CARACTER_DOCENTE_ARTICULO)
+                && !publicacion.getCaracter()
+                        .equals(ParticipacionPublicacionDocente.CARACTER_DOCENTE_PONENCIA))
         {
             throw new RegistroNoEncontradoException();
         }
