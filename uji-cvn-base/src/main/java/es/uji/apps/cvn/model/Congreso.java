@@ -286,7 +286,7 @@ public class Congreso
         if (isbn != null)
         {
             Pattern patternIssn = Pattern
-                    .compile("^\\s*(ISSN|issn)?\\s*[0-9]{4}[- ][0-9]{3}[0-9xX]");
+                    .compile("^[0-9]{4}[-][0-9]{3}[0-9xX]");
             Matcher matcherIssn = patternIssn.matcher(isbn);
 
             if (matcherIssn.matches())
@@ -295,7 +295,7 @@ public class Congreso
             }
 
             Pattern patternIsbn = Pattern
-                    .compile("^\\s*((ISBN|isbn)?\\s*([0-9]{3}[- ])?[-0-9 ]{11}[- ][0-9xX])");
+                    .compile("^([0-9]{9}|[0-9]{12})[0-9xX]");
             Matcher matcherIsbn = patternIsbn.matcher(isbn);
 
             if (matcherIsbn.matches())
@@ -324,21 +324,16 @@ public class Congreso
         if (isbn != null)
         {
             Pattern patternIssn = Pattern
-                    .compile("^\\s*((ISSN|issn)?\\s*[0-9]{4}[- ][0-9]{3}[0-9xX])");
+                    .compile("^[0-9]{4}[-][0-9]{3}[0-9xX]");
             Matcher matcherIssn = patternIssn.matcher(isbn);
 
-            if (matcherIssn.matches())
-            {
-                return matcherIssn.group(1);
-            }
-
             Pattern patternIsbn = Pattern
-                    .compile("^\\s*((ISBN|isbn)?\\s*([0-9]{3}[- ])?[-0-9 ]{11}[- ][0-9xX])");
+                    .compile("^([0-9]{9}|[0-9]{12})[0-9xX]");
             Matcher matcherIsbn = patternIsbn.matcher(isbn);
 
-            if (matcherIsbn.matches())
+            if (matcherIssn.matches() || matcherIsbn.matches())
             {
-                return matcherIsbn.group(1);
+                return isbn;
             }
         }
 
