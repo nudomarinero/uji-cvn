@@ -2,7 +2,7 @@ package es.uji.apps.cvn.translators;
 
 public enum TipoSoporte
 {
-    REVISTA(32L, "057"), LIBRO(33L, "032"), CAPITULOLIBRO(34L, "032");
+    REVISTA(1L, "057"), LIBRO(2L, "032"), CAPITULOLIBRO(3L, "032");
 
     private final Long tipoId;
     private final String tipo;

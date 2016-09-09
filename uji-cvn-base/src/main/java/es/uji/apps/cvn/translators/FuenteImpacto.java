@@ -2,7 +2,7 @@ package es.uji.apps.cvn.translators;
 
 public enum FuenteImpacto
 {
-    WOS("WOS (JCR)", "000"), SCOPUS("SCOPUS (SJR)", "010"), INRECS("INRECS", "020"), OTHERS(null,
+    WOS("WoS", "000"), SCOPUS("SCOPUS", "010"), INRECS("INRECS", "020"), OTHERS(null,
             "OTHERS");
 
     private final String tipo;

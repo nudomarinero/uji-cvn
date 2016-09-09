@@ -1021,4 +1021,8 @@ from uji_investigacion.pci_producciones p
     (d.atributo_tipo_id = 92 or (atributo_tipo_id = 190 and regexp_like(valor, '^\d+$')))
   join uji_investigacion.pci_revistas r on r.id = to_number(d.valor)
   join uji_investigacion.pci_revistas_anualidades a on a.revista_id = r.id
-  join uji_investigacion.pci_revistas_cuartiles c on c.anualidad_id = a.id;
+  join uji_investigacion.pci_revistas_cuartiles c on c.anualidad_id = a.id
+
+ where (a.anio_id = (select to_number(to_char(to_date(valor), 'YYYY')) from uji_investigacion.pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 175)
+  or a.anio_id = (select to_number(to_char(to_date(valor), 'YYYY')) from uji_investigacion.pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 176)
+  or a.anio_id = (select to_number(to_char(to_date(valor), 'YYYY')) from uji_investigacion.pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 191));
