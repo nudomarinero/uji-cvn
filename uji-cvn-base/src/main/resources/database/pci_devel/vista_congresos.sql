@@ -135,7 +135,7 @@ UNION ALL
 select p.id,
   null titulo,
   '008' as tipo_evento,
-  null caracter,
+  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 2023366) caracter,
   '' tipo_acceso, --Tipo participación???
   (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 140) ambito,
   (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 137) nombre_congreso,

@@ -5,7 +5,7 @@ select a.persona_id persona,
   p.id produccion,
   '730' calidad_participacion,
   '' calidad_participacion_str,
-  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 90) caracter,
+  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 107) caracter,
   a.orden orden,
   decode(a.role_destacado,1,1,0) corresponding_author
 
@@ -22,7 +22,7 @@ select a.persona_id persona,
   p.id produccion,
   '960' calidad_participacion,
   '' calidad_participacion_str,
-  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 90) caracter,
+  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 107) caracter,
   a.orden orden,
   decode(a.role_destacado,1,1,0) corresponding_author
 
@@ -39,7 +39,7 @@ select a.persona_id persona,
   p.id produccion,
   '970' calidad_participacion,
   '' calidad_participacion_str,
-  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 90) caracter,
+  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 107) caracter,
   a.orden orden,
   decode(a.role_destacado,1,1,0) corresponding_author
 
@@ -56,7 +56,7 @@ select a.persona_id persona,
   p.id produccion,
   '980' calidad_participacion,
   '' calidad_participacion_str,
-  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 90) caracter,
+  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 2023366) caracter,
   a.orden orden,
   decode(a.role_destacado,1,1,0) corresponding_author
 
@@ -73,7 +73,7 @@ select a.persona_id persona,
   p.id produccion,
   '990' calidad_participacion,
   '' calidad_participacion_str,
-  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 90) caracter,
+  (select valor from pci_producciones_detalle where produccion_id = p.id and atributo_tipo_id = 2023366) caracter,
   a.orden orden,
   decode(a.role_destacado,1,1,0) corresponding_author
 
