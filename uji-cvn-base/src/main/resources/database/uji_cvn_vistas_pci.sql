@@ -159,10 +159,11 @@ select id,
 from pci_producciones_18;
 
 
--- Primer select de congresos
+-- Congresos
+-- Publicado en actas, Libros
 select id,
   titulo,
-  '008' as tipo_evento,
+  '008' tipo_evento,
   caracter_id caracter,
   '' tipo_acceso,
   ambito_id ambito,
@@ -195,4 +196,123 @@ select id,
   to_date(null) fecha_presentacion,
   null horas
 from pci_producciones_04
-  where isbn is not null and publicado_actas = 'S';
+  where isbn is not null and publicado_actas = 'S'
+
+union all
+
+-- Publicado en actas, Revistas
+select id,
+  titulo,
+  '008' tipo_evento,
+  caracter_id caracter,
+  '' tipo_acceso,
+  ambito_id ambito,
+  congreso,
+  entidad_organizadora,
+  pais_cod pais_congreso,
+  null region_congreso,
+  lugar ciudad_congreso,
+  fecha_inicio fecha_congreso,
+  to_number(to_char(to_date(fecha_inicio), 'yyyy')) ano_congreso,
+  publicado_actas is_acta,
+  null is_pub_evaluada,
+  issn tipo_publicacion,
+  titulo_revista titulo_publicacion,
+  '' nombre_publicacion,
+  null volumen_pub,
+  pagina_inicio,
+  pagina_fin,
+  '' editorial_pub,
+  pais_cod_revista pais_pais_pub,
+  null region_pub,
+  fecha_pub,
+  doi web_pub,
+  issn isbn_pub,
+  '' dep_legal_pub,
+  to_date(null) fecha_fin,
+  '' objetivos,
+  '' destinatarios,
+  '' idioma,
+  to_date(null) fecha_presentacion,
+  null horas
+from pci_producciones_04
+  where issn is not null and publicado_actas = 'S'
+
+union all
+
+-- No publicados en actas
+select id,
+  titulo,
+  '008' tipo_evento,
+  caracter_id caracter,
+  '' tipo_acceso,
+  ambito_id ambito,
+  congreso,
+  entidad_organizadora,
+  pais_cod pais_congreso,
+  null region_congreso,
+  lugar ciudad_congreso,
+  fecha_inicio fecha_congreso,
+  to_number(to_char(to_date(fecha_inicio), 'yyyy')) ano_congreso,
+  null is_acta,
+  null is_pub_evaluada,
+  null tipo_publicacion,
+  null titulo_publicacion,
+  '' nombre_publicacion,
+  null volumen_pub,
+  null pagina_inicio,
+  null pagina_fin,
+  null editorial_pub,
+  null pais_pub,
+  '' region_pub,
+  null fecha_pub,
+  null web_pub,
+  null isbn_pub,
+  '' dep_legal_pub,
+  to_date(null) fecha_fin,
+  '' objetivos,
+  '' destinatarios,
+  '' idioma,
+  to_date(null) fecha_presentacion,
+  null horas
+from pci_producciones_04
+  where publicado_actas = 'N'
+
+union all
+
+-- Comités de congresos
+select id,
+  null titulo,
+  '008' as tipo_evento,
+  null caracter,
+  '' tipo_acceso,
+  ambito_id ambito,
+  nombre_congreso congreso,
+  entidad_organizadora,
+  pais_cod pais_congreso,
+  null region_congreso,
+  ciudad ciudad_congreso,
+  fecha_inicio fecha_congreso,
+  to_number(to_char(to_date(fecha_inicio), 'yyyy')) ano_congreso,
+  null is_acta,
+  null is_pub_evaluada,
+  null tipo_publicacion,
+  null titulo_publicacion,
+  '' nombre_publicacion,
+  null volumen_pub,
+  null pagina_inicio,
+  null pagina_fin,
+  null editorial_pub,
+  null pais_pub,
+  '' region_pub,
+  null fecha_pub,
+  null web_pub,
+  null isbn_pub,
+  '' dep_legal_pub,
+  to_date(null) fecha_fin,
+  '' objetivos,
+  '' destinatarios,
+  '' idioma,
+  to_date(null) fecha_presentacion,
+  null horas
+from pci_producciones_11;
