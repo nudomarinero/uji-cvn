@@ -914,19 +914,19 @@ function rellenarFormularioPlantillas(plantilla)
             $('.form-opciones input:radio[name=radio-situacionProfesionalAnterior][value=all]').prop('checked', true);
         }
     }
-    if (plantilla.doctorado != null)
+    if (plantilla.doctorados != null)
     {
         $('#doctorado').prop('checked', true);
 
-        if (plantilla.doctorado.maxAnyos != 0)
+        if (plantilla.doctorados.maxAnyos != 0)
         {
             $('.form-opciones input:radio[name=radio-doctorado][value=years]').prop('checked', true);
-            $('.form-opciones input:text[name=input-doctorado-years]').val(plantilla.doctorado.maxAnyos);
+            $('.form-opciones input:text[name=input-doctorado-years]').val(plantilla.doctorados.maxAnyos);
         }
-        else if (plantilla.doctorado.maxItems != 0)
+        else if (plantilla.doctorados.maxItems != 0)
         {
             $('.form-opciones input:radio[name=radio-doctorado][value=items]').prop('checked', true);
-            $('.form-opciones input:text[name=input-doctorado-items]').val(plantilla.doctorado.maxItems);
+            $('.form-opciones input:text[name=input-doctorado-items]').val(plantilla.doctorados.maxItems);
         }
         else
         {
