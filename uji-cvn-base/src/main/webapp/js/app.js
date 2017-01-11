@@ -684,6 +684,26 @@ function crearPlantillaFromFormulario()
         plantilla.doctorados = doctorado;
     }
 
+    if ($('#docencia').prop('checked'))
+    {
+        var docencia = new Object();
+        var opcion = $('.form-opciones input:radio[name=radio-docencia][value!=all]:checked');
+        if ($(opcion).length != 0)
+        {
+            if ($(opcion).val() == 'years')
+            {
+                docencia.maxAnyos = $('.form-opciones input:text[name=input-docencia-years]').val().trim();
+            }
+            else
+            {
+                docencia.maxItems = $('.form-opciones input:text[name=input-docencia-items]').val().trim();
+            }
+
+        }
+
+        plantilla.docencia = docencia;
+    }
+
 
 
 
@@ -911,6 +931,26 @@ function rellenarFormularioPlantillas(plantilla)
         else
         {
             $('.form-opciones input:radio[name=radio-doctorado][value=all]').prop('checked', true);
+        }
+    }
+
+    if (plantilla.docencia != null)
+    {
+        $('#docencia').prop('checked', true);
+
+        if (plantilla.docencia.maxAnyos != 0)
+        {
+            $('.form-opciones input:radio[name=radio-docencia][value=years]').prop('checked', true);
+            $('.form-opciones input:text[name=input-docencia-years]').val(plantilla.docencia.maxAnyos);
+        }
+        else if (plantilla.docencia.maxItems != 0)
+        {
+            $('.form-opciones input:radio[name=radio-docencia][value=items]').prop('checked', true);
+            $('.form-opciones input:text[name=input-docencia-items]').val(plantilla.docencia.maxItems);
+        }
+        else
+        {
+            $('.form-opciones input:radio[name=radio-docencia][value=all]').prop('checked', true);
         }
     }
 }
