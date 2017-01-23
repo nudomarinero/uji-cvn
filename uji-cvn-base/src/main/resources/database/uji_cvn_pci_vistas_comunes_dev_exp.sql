@@ -28,6 +28,7 @@ select id,
   url_documento,
   handle
 from pci_producciones_01
+  where estado = 'J'
 
 union
 
@@ -61,6 +62,7 @@ select id,
   handle
 from pci_producciones_02
   where participacion_id in (271, 272) -- Autor o Editor
+    and estado = 'J'
 
 union
 
@@ -93,6 +95,7 @@ select id,
   url_documento,
   handle
 from pci_producciones_03
+  where estado = 'J'
 
 union
 
@@ -125,6 +128,7 @@ select id,
   null url_documento,
   null handle_repositorio
 from pci_producciones_17
+  where estado = 'J'
 
 union
 
@@ -156,7 +160,8 @@ select id,
   null doi,
   null url_documento,
   null handle_repositorio
-from pci_producciones_18;
+from pci_producciones_18
+  where estado = 'J';
 
 
 -- Congresos
@@ -198,6 +203,7 @@ select id,
   null horas
 from pci_producciones_04
   where isbn is not null and publicado_actas = 'S'
+    and estado = 'J'
 
 union all
 
@@ -238,6 +244,7 @@ select id,
   null horas
 from pci_producciones_04
   where issn is not null and publicado_actas = 'S'
+    and estado = 'J'
 
 union all
 
@@ -278,6 +285,7 @@ select id,
   null horas
 from pci_producciones_04
   where publicado_actas = 'N'
+    and estado = 'J'
 
 union all
 
@@ -316,7 +324,8 @@ select id,
   '' idioma,
   to_date(null) fecha_presentacion,
   null horas
-from pci_producciones_11;
+from pci_producciones_11
+  where estado = 'J';
 
 -- Proyectos de investigación externos
 CREATE OR REPLACE FORCE VIEW "UJI_CVN"."CVN_VIEW_PROY_EXT_PCI" ("ID", "CODIGO_EXTERNO", "TITULO", "FECHA_INICIO", "FECHA_FIN", "DURACION", "NINVESTIGADORES", "NINVESTIGADORESEXT", "TITULO_KEYWORDS", "MODALIDAD", "TIPO", "SUBTIPO", "MICROTIPO", "AMBITO", "ENTIDAD_EJECUTORA", "NPERSONASANYO", "NOMBRE_PROGRAMA_FINANCIACION", "CODIGO_PROYECTO_FINANCIADORA", "DOTACION_TOTAL", "DOTACION_SUBPROYECTO", "PORCENTAJE_SUBVENCION", "PORCENTAJE_CREDITO", "PORCENTAJE_MIXTO", "RESULTADOS_RELEVANTES", "RESULTADOS_KEYWORDS", "NOMBRE_ENT_FINANCIADORA") AS
@@ -347,7 +356,8 @@ select id,
   NULL   resultados_keywords,
   institucion_financiadora nombre_ent_financiadora
 from pci_producciones_06
-  where regexp_like(tipo_anexo_id, '^(1C[^T])|(2P.)|(2AP)$');
+  where regexp_like(tipo_anexo_id, '^(1C[^T])|(2P.)|(2AP)$')
+    and estado = 'J';
 
 
 -- Participación en producciones científicas
@@ -366,6 +376,7 @@ select a.persona_id persona,
 from pci_producciones_01 p
   join pci_producciones_autores a on a.produccion_id = p.id
 where a.persona_id is not null
+  and p.estado = 'J'
 
 union all
 
@@ -385,6 +396,7 @@ from pci_producciones_02 p
 where a.persona_id is not null
   and participacion_id = 271 -- Es autor
   and caracter_id not in (279, 280) -- No es obra de arte
+    and p.estado = 'J'
 
 union all
 
@@ -403,6 +415,7 @@ from pci_producciones_03 p
   join pci_producciones_autores a on a.produccion_id = p.id
 where a.persona_id is not null
   and caracter_id not in (279, 280) -- No es obra de arte
+    and p.estado = 'J'
 
 union all
 
@@ -422,6 +435,7 @@ from pci_producciones_02 p
 where a.persona_id is not null
   and participacion_id = 271 -- Es autor
   and caracter_id in (279, 280)
+  and p.estado = 'J'
 
 union all
 
@@ -440,6 +454,7 @@ from pci_producciones_03 p
     join pci_producciones_autores a on a.produccion_id = p.id
 where a.persona_id is not null
   and caracter_id in (279, 280)
+  and p.estado = 'J'
 
 union all
 
@@ -459,6 +474,7 @@ from pci_producciones_02 p
     join pci_producciones_autores a on a.produccion_id = p.id
 where a.persona_id is not null
   and participacion_id = 272 -- Es editor
+  and p.estado = 'J'
 
 
 union all
@@ -478,6 +494,7 @@ select a.persona_id persona,
 from pci_producciones_17 p
     join pci_producciones_autores a on a.produccion_id = p.id
 where a.persona_id is not null
+  and p.estado = 'J'
 
 union all
 
@@ -495,7 +512,8 @@ select a.persona_id persona,
 
 from pci_producciones_18 p
     join pci_producciones_autores a on a.produccion_id = p.id
-where a.persona_id is not null;
+where a.persona_id is not null
+  and p.estado = 'J';
 
 
 -- Participación externa en producciones científicas
@@ -514,6 +532,7 @@ select trim(a.nombre||' '||a.apellidos) persona,
 from pci_producciones_01 p
   join pci_producciones_autores a on a.produccion_id = p.id
 where a.persona_id is null
+  and p.estado = 'J'
 
 union all
 
@@ -533,6 +552,7 @@ from pci_producciones_02 p
 where a.persona_id is null
   and participacion_id = 271 -- Es autor
   and caracter_id not in (279, 280) -- No es obra de arte
+    and p.estado = 'J'
 
 union all
 
@@ -551,6 +571,7 @@ from pci_producciones_03 p
   join pci_producciones_autores a on a.produccion_id = p.id
 where a.persona_id is null
   and caracter_id not in (279, 280) -- No es obra de arte
+  and p.estado = 'J'
 
 union all
 
@@ -570,6 +591,7 @@ from pci_producciones_02 p
 where a.persona_id is null
   and participacion_id = 271 -- Es autor
   and caracter_id in (279, 280)
+  and p.estado = 'J'
 
 union all
 
@@ -588,6 +610,7 @@ from pci_producciones_03 p
     join pci_producciones_autores a on a.produccion_id = p.id
 where a.persona_id is null
   and caracter_id in (279, 280)
+  and p.estado = 'J'
 
 union all
 
@@ -606,6 +629,7 @@ from pci_producciones_02 p
     join pci_producciones_autores a on a.produccion_id = p.id
 where a.persona_id is null
   and participacion_id = 272 -- Es editor
+  and p.estado = 'J'
 
 union all
 
@@ -624,6 +648,7 @@ select trim(a.nombre||' '||a.apellidos) persona,
 from pci_producciones_17 p
     join pci_producciones_autores a on a.produccion_id = p.id
 where a.persona_id is null
+  and p.estado = 'J'
 
 union all
 
@@ -640,7 +665,8 @@ select trim(a.nombre||' '||a.apellidos) persona,
   decode(a.role_destacado,1,1,0) corresponding_author
 from pci_producciones_18 p
     join pci_producciones_autores a on a.produccion_id = p.id
-where a.persona_id is null;
+where a.persona_id is null
+  and p.estado = 'J';
 
 
 CREATE OR REPLACE FORCE VIEW "UJI_CVN"."CVN_VIEW_PER_PART_CONG_PCI" ("PERSONA", "PRODUCCION", "TIPO_PARTICIPACION", "TIPO_PARTICIPACION_STR", "CARACTER", "ORDEN", "CORRESPONDING_AUTHOR") AS
@@ -657,6 +683,7 @@ from pci_producciones_04 p
     join pci_producciones_autores a on a.produccion_id = p.id
 where a.persona_id is not null
   and p.participacion_id = 283
+  and p.estado = 'J'
 
 union all
 
@@ -673,6 +700,7 @@ from pci_producciones_04 p
     join pci_producciones_estados e on e.produccion_id = p.id
 where a.persona_id is not null
   and p.participacion_id not in (281, 283)
+  and p.estado = 'J'
 
 union all
 
@@ -688,6 +716,7 @@ from pci_producciones_04 p
     join pci_producciones_autores a on a.produccion_id = p.id
 where a.persona_id is not null
   and p.participacion_id = 281
+  and p.estado = 'J'
 
 union all
 
@@ -703,6 +732,7 @@ from pci_producciones_11 p
     join pci_producciones_autores a on a.produccion_id = p.id
 where a.persona_id is not null
   and p.tipo_comite_id = 289
+  and p.estado = 'J'
 
 union all
 
@@ -717,7 +747,8 @@ select a.persona_id persona,
 from pci_producciones_11 p
     join pci_producciones_autores a on a.produccion_id = p.id
 where a.persona_id is not null
-  and tipo_comite_id = 290;
+  and tipo_comite_id = 290
+  and p.estado = 'J';
 
 CREATE OR REPLACE FORCE VIEW "UJI_CVN"."CVN_VIEW_PER_PART_CONG_EX_PCI" ("PERSONA", "PRODUCCION", "TIPO_PARTICIPACION", "TIPO_PARTICIPACION_STR", "CARACTER", "ORDEN", "CORRESPONDING_AUTHOR") AS
 -- Ponencia invitada
@@ -732,6 +763,7 @@ from pci_producciones_04 p
     join pci_producciones_autores a on a.produccion_id = p.id
 where a.persona_id is null
   and p.participacion_id = 283
+  and p.estado = 'J'
 
 union all
 
@@ -748,6 +780,7 @@ from pci_producciones_04 p
     join pci_producciones_estados e on e.produccion_id = p.id
 where a.persona_id is null
   and p.participacion_id not in (281, 283)
+  and p.estado = 'J'
 
 union all
 
@@ -763,6 +796,7 @@ from pci_producciones_04 p
     join pci_producciones_autores a on a.produccion_id = p.id
 where a.persona_id is null
   and p.participacion_id = 281
+  and p.estado = 'J'
 
 union all
 
@@ -778,6 +812,7 @@ from pci_producciones_11 p
     join pci_producciones_autores a on a.produccion_id = p.id
 where a.persona_id is null
   and p.tipo_comite_id = 289
+  and p.estado = 'J'
 
 union all
 
@@ -792,7 +827,8 @@ select trim(a.nombre||' '||a.apellidos) persona,
 from pci_producciones_11 p
     join pci_producciones_autores a on a.produccion_id = p.id
 where a.persona_id is null
-  and tipo_comite_id = 290;
+  and tipo_comite_id = 290
+  and p.estado = 'J';
 
 
 CREATE OR REPLACE FORCE VIEW "UJI_CVN"."CVN_VIEW_PER_PART_PROY_EXT_PCI" ("PERSONA", "PROYECTO", "CALIDAD_PARTICIPACION", "RESPONSABLE", "TIPO_PARTICIPACION", "APORTACIONES", "DEDICACION", "CORRESPONDING_AUTHOR") AS
@@ -808,7 +844,8 @@ select a.persona_id persona,
 from pci_producciones_06 p
     join pci_producciones_autores a on a.produccion_id = p.id
 where a.persona_id is not null
-  and regexp_like(p.tipo_anexo_id, '^(1C[^T])|(2P.)|(2AP)$');
+  and regexp_like(p.tipo_anexo_id, '^(1C[^T])|(2P.)|(2AP)$')
+  and p.estado = 'J';
 
 
 CREATE OR REPLACE FORCE VIEW "UJI_CVN"."CVN_VIEW_IMPACTO_PROD_PUBL_PCI" ("PRODUCCION", "FUENTE_IMPACTO", "INDICE_IMPACTO", "CUARTIL", "IS_25P_TOP", "CATEGORIA1", "CATEGORIA2", "POSICION", "TOTAL") AS
@@ -833,8 +870,9 @@ from pci_producciones_01 p
   join pci_revistas r on r.issn = p.issn
   join pci_revistas_anualidades a on a.revista_id = r.id
   join pci_revistas_cuartiles c on c.anualidad_id = a.id
-where a.anio_id = to_number(to_char(to_date(p.fecha_pub), 'YYYY'))
-  or a.anio_id = to_number(to_char(to_date(p.fecha_pub_online), 'YYYY'))
+where (a.anio_id = to_number(to_char(to_date(p.fecha_pub), 'YYYY'))
+  or a.anio_id = to_number(to_char(to_date(p.fecha_pub_online), 'YYYY')))
+    and p.estado = 'J'
 
 union all
 
@@ -859,7 +897,8 @@ from pci_producciones_04 p
   join pci_revistas r on r.issn = p.issn
   join pci_revistas_anualidades a on a.revista_id = r.id
   join pci_revistas_cuartiles c on c.anualidad_id = a.id
-where a.anio_id = to_number(to_char(to_date(p.fecha_pub), 'YYYY'));
+where a.anio_id = to_number(to_char(to_date(p.fecha_pub), 'YYYY'))
+  and p.estado = 'J';
 
 
 

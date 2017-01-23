@@ -179,6 +179,7 @@ where a.produccion_id = p.id
                         from uji_investigacion.pci_producciones_autores a2
                        where a2.produccion_id = a.produccion_id and a2.persona_id is not null)
   and p.id = codirector.produccion_id(+)
+  and p.estado = 'J'
 
 union
    select '0' id, -1 tesis_propia, '0' tipo_id, '0' tipo_txt, 0 persona, '0' titulo, '0' codirector_nombre, '0' codirector_apellido1, '0' codirector_apellido2, '0' director_nombre, '0' director_apellido1, '0' director_apellido2,
