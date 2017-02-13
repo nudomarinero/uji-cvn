@@ -4,17 +4,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import es.uji.apps.cvn.db.*;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import com.mysema.query.jpa.impl.JPAQuery;
 
-import es.uji.apps.cvn.db.CongresoDTO;
-import es.uji.apps.cvn.db.ParticipacionPersonaEnCongresoDTO;
-import es.uji.apps.cvn.db.ParticipacionPersonaExternaEnCongresoDTO;
-import es.uji.apps.cvn.db.PersonaDTO;
-import es.uji.apps.cvn.db.QParticipacionPersonaEnCongresoDTO;
-import es.uji.apps.cvn.db.QParticipacionPersonaExternaEnCongresoDTO;
 import es.uji.apps.cvn.model.AutorPublicacion;
 import es.uji.apps.cvn.model.Congreso;
 import es.uji.apps.cvn.model.Entidad;
@@ -130,8 +125,8 @@ public class CongresoDAO extends BaseDAODatabaseImpl
         {
             try
             {
-                PersonaDTO personaDTO = get(PersonaDTO.class, participacionDTO.getPersona()).get(0);
-                autores.add(creaAutorPublicacionCongresoDesde(personaDTO, participacionDTO));
+                PersonaMiniDTO personaMiniDTO = get(PersonaMiniDTO.class, participacionDTO.getPersona()).get(0);
+                autores.add(creaAutorPublicacionCongresoDesde(personaMiniDTO, participacionDTO));
             }
             catch (Exception e)
             {
@@ -247,13 +242,13 @@ public class CongresoDAO extends BaseDAODatabaseImpl
         return congreso;
     }
 
-    private AutorPublicacion creaAutorPublicacionCongresoDesde(PersonaDTO personaDTO,
+    private AutorPublicacion creaAutorPublicacionCongresoDesde(PersonaMiniDTO personaMiniDTO,
             ParticipacionPersonaEnCongresoDTO participacionPersonaEnCongresoDTO)
     {
         AutorPublicacion autorPublicacion = new AutorPublicacion();
-        autorPublicacion.setNombre(personaDTO.getNombre());
-        autorPublicacion.setApellido1(personaDTO.getApellido1());
-        autorPublicacion.setApellido2(personaDTO.getApellido2());
+        autorPublicacion.setNombre(personaMiniDTO.getNombre());
+        autorPublicacion.setApellido1(personaMiniDTO.getApellido1());
+        autorPublicacion.setApellido2(personaMiniDTO.getApellido2());
         autorPublicacion.setOrden(participacionPersonaEnCongresoDTO.getOrden());
 
         return autorPublicacion;

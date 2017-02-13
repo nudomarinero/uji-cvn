@@ -60,7 +60,8 @@ public class GrupoInvestigacionDTO implements Serializable
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "RESPONSABLE", referencedColumnName = "ID")
-    private PersonaDTO responsable;
+    //private PersonaDTO responsable;
+    private PersonaMiniDTO responsable;
 
     public GrupoInvestigacionDTO()
     {
@@ -206,12 +207,12 @@ public class GrupoInvestigacionDTO implements Serializable
         this.region = region;
     }
 
-    public PersonaDTO getResponsable()
+    public PersonaMiniDTO getResponsable()
     {
         return this.responsable;
     }
 
-    public void setResponsable(PersonaDTO responsable)
+    public void setResponsable(PersonaMiniDTO responsable)
     {
         this.responsable = responsable;
     }

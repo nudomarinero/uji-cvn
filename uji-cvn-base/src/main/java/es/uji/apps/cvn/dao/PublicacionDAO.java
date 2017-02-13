@@ -186,8 +186,9 @@ public class PublicacionDAO extends BaseDAODatabaseImpl
         {
             try
             {
-                PersonaDTO personaDTO = get(PersonaDTO.class, participacionDTO.getPersona()).get(0);
-                autores.add(creaAutorPublicacionDesde(personaDTO, participacionDTO));
+                //PersonaDTO personaDTO = get(PersonaDTO.class, participacionDTO.getPersona()).get(0);
+                PersonaMiniDTO personaMiniDTO = get(PersonaMiniDTO.class, participacionDTO.getPersona()).get(0);
+                autores.add(creaAutorPublicacionDesde(personaMiniDTO, participacionDTO));
             }
             catch (Exception e)
             {
@@ -306,13 +307,13 @@ public class PublicacionDAO extends BaseDAODatabaseImpl
         return publicacionCientificoTecnica;
     }
 
-    private AutorPublicacion creaAutorPublicacionDesde(PersonaDTO personaDTO,
+    private AutorPublicacion creaAutorPublicacionDesde(PersonaMiniDTO personaMiniDTO,
             ParticipacionPersonaEnPublicacionDTO participacionPersonaEnPublicacionDTO)
     {
         AutorPublicacion autorPublicacion = new AutorPublicacion();
-        autorPublicacion.setNombre(personaDTO.getNombre());
-        autorPublicacion.setApellido1(personaDTO.getApellido1());
-        autorPublicacion.setApellido2(personaDTO.getApellido2());
+        autorPublicacion.setNombre(personaMiniDTO.getNombre());
+        autorPublicacion.setApellido1(personaMiniDTO.getApellido1());
+        autorPublicacion.setApellido2(personaMiniDTO.getApellido2());
         autorPublicacion.setOrden(participacionPersonaEnPublicacionDTO.getOrden());
 
         return autorPublicacion;

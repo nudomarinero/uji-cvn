@@ -3,20 +3,12 @@ package es.uji.apps.cvn.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.uji.apps.cvn.db.*;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import com.mysema.query.jpa.impl.JPAQuery;
 
-import es.uji.apps.cvn.db.EntidadDTO;
-import es.uji.apps.cvn.db.ParticipacionPersonaEnProyectoDTO;
-import es.uji.apps.cvn.db.ParticipacionPersonaEnProyectoExternoDTO;
-import es.uji.apps.cvn.db.PersonaDTO;
-import es.uji.apps.cvn.db.ProyectoExternoDTO;
-import es.uji.apps.cvn.db.ProyectoInvestigacionDTO;
-import es.uji.apps.cvn.db.QParticipacionPersonaEnProyectoDTO;
-import es.uji.apps.cvn.db.QParticipacionPersonaEnProyectoExternoDTO;
-import es.uji.apps.cvn.db.QPersonaDTO;
 import es.uji.apps.cvn.model.Entidad;
 import es.uji.apps.cvn.model.ParticipacionProyecto;
 import es.uji.apps.cvn.model.Persona;
@@ -109,16 +101,16 @@ public class ProyectoDAO extends BaseDAODatabaseImpl
 
         JPAQuery query = new JPAQuery(entityManager);
         QParticipacionPersonaEnProyectoDTO qParticipacionProyecto = QParticipacionPersonaEnProyectoDTO.participacionPersonaEnProyectoDTO;
-        QPersonaDTO qPersona = QPersonaDTO.personaDTO;
+        QPersonaMiniDTO qPersonaMini = QPersonaMiniDTO.personaMiniDTO;
 
-        List<PersonaDTO> responsablesDTO = query
-                .from(qParticipacionProyecto, qPersona)
+        List<PersonaMiniDTO> responsablesDTO = query
+                .from(qParticipacionProyecto, qPersonaMini)
                 .where(qParticipacionProyecto.proyecto.eq(proyectoId).and(
-                        qParticipacionProyecto.persona.eq(qPersona.id).and(
-                                qParticipacionProyecto.responsable.eq("S")))).list(qPersona);
+                        qParticipacionProyecto.persona.eq(qPersonaMini.id).and(
+                                qParticipacionProyecto.responsable.eq("S")))).list(qPersonaMini);
 
         List<Persona> responsables = new ArrayList<Persona>();
-        for (PersonaDTO responsableDTO : responsablesDTO)
+        for (PersonaMiniDTO responsableDTO : responsablesDTO)
         {
             responsables.add(creaResponsableDesde(responsableDTO));
         }
@@ -135,16 +127,16 @@ public class ProyectoDAO extends BaseDAODatabaseImpl
 
         JPAQuery query = new JPAQuery(entityManager);
         QParticipacionPersonaEnProyectoExternoDTO qParticipacionProyecto = QParticipacionPersonaEnProyectoExternoDTO.participacionPersonaEnProyectoExternoDTO;
-        QPersonaDTO qPersona = QPersonaDTO.personaDTO;
+        QPersonaMiniDTO qPersonaMini = QPersonaMiniDTO.personaMiniDTO;
 
-        List<PersonaDTO> responsablesDTO = query
-                .from(qParticipacionProyecto, qPersona)
+        List<PersonaMiniDTO> responsablesDTO = query
+                .from(qParticipacionProyecto, qPersonaMini)
                 .where(qParticipacionProyecto.proyecto.eq(proyectoId).and(
-                        qParticipacionProyecto.persona.eq(qPersona.id).and(
-                                qParticipacionProyecto.responsable.eq("S")))).list(qPersona);
+                        qParticipacionProyecto.persona.eq(qPersonaMini.id).and(
+                                qParticipacionProyecto.responsable.eq("S")))).list(qPersonaMini);
 
         List<Persona> responsables = new ArrayList<Persona>();
-        for (PersonaDTO responsableDTO : responsablesDTO)
+        for (PersonaMiniDTO responsableDTO : responsablesDTO)
         {
             responsables.add(creaResponsableDesde(responsableDTO));
         }
@@ -389,12 +381,12 @@ public class ProyectoDAO extends BaseDAODatabaseImpl
         return entidad;
     }
 
-    private Persona creaResponsableDesde(PersonaDTO personaDTO)
+    private Persona creaResponsableDesde(PersonaMiniDTO personaMiniDTO)
     {
         Persona responsable = new Persona();
-        responsable.setNombre(personaDTO.getNombre());
-        responsable.setApellido1(personaDTO.getApellido1());
-        responsable.setApellido2(personaDTO.getApellido2());
+        responsable.setNombre(personaMiniDTO.getNombre());
+        responsable.setApellido1(personaMiniDTO.getApellido1());
+        responsable.setApellido2(personaMiniDTO.getApellido2());
 
         return responsable;
     }

@@ -1186,3 +1186,30 @@ CREATE OR REPLACE FORCE VIEW "UJI_CVN"."CVN_VIEW_PROY_INV" ("ID", "CODIGO_EXTERN
   AND a.t_anexo_microtipo!= 'T'))
   GROUP BY s.n
 WITH READ ONLY;
+
+
+
+
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "UJI_CVN"."CVN_EXT_PERSONAS_MIN" ("ID", "NOMBRE", "APELLIDO1", "APELLIDO2", "IDENTIFICACION", "TIPO_IDENTIFICACION") AS
+  select p.id as id, p.nombre as nombre, p.apellido1 as apellido1, p.apellido2 as apellido2, upper(p.identificacion) as identificacion, decode(p.tip_id,
+                                                                                                                                                1,
+                                                                                                                                                1,
+                                                                                                                                                2,
+                                                                                                                                                1,
+                                                                                                                                                3,
+                                                                                                                                                1,
+                                                                                                                                                4,
+                                                                                                                                                4,
+                                                                                                                                                5,
+                                                                                                                                                5,
+                                                                                                                                                6,
+                                                                                                                                                null,
+                                                                                                                                                7,
+                                                                                                                                                4,
+                                                                                                                                                8,
+                                                                                                                                                5,
+                                                                                                                                                9,
+                                                                                                                                                5)
+                                                                                                                                            as tipo_identificacion --consultar esta asociaciÃ³n
+
+     from per_personas p;
