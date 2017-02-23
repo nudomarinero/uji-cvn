@@ -133,7 +133,6 @@ public class CVNService
             catch (Exception e)
             {
                 plantilla = Plantilla.getPlantillaPorDefecto(lang);
-                log.error("Error al generar la plantilla for defecto", e);
             }
 
             Persona persona = getDatosCVNPersona(personaId, plantilla);
