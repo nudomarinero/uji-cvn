@@ -3,14 +3,11 @@ package es.uji.apps.cvn.db;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "CVN_VIEW_DIRECCION_TESIS")
+@Table(name = "CVN_VIEW_DIRECCION_TESIS_PCI")
 public class DoctoradoDTO implements Serializable
 {
    @Id
@@ -22,6 +19,7 @@ public class DoctoradoDTO implements Serializable
     @Column(name = "ENTIDAD_DEA")
     private String suficiencia;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "F_OBTENCION_DEA")
     private Date suficienciaFecha;
 
@@ -42,9 +40,11 @@ public class DoctoradoDTO implements Serializable
     @Column(name = "TIPO_ENTIDAD")
     private String tipoEntidad;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "FECHA_LECTURA")
     private Date titulacionFecha;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "F_DOCTOR_EUROPEO")
     private Date fechaDoctorEuropeo;
 
@@ -76,12 +76,14 @@ public class DoctoradoDTO implements Serializable
     @Column(name = "MENCION_CALIDAD")
     private String mencionCalidad;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "F_MENCION_CALIDAD")
     private Date fechaMencionCalidad;
 
     @Column(name = "PREMIO_EXTRAORDINARIO")
     private String premio;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "F_PREMIO_EXTRAORDINARIO")
     private Date premioFecha;
 

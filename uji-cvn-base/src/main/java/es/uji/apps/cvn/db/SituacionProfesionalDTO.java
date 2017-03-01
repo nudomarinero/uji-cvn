@@ -3,10 +3,7 @@ package es.uji.apps.cvn.db;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @SuppressWarnings("serial")
 @Entity
@@ -66,6 +63,7 @@ public class SituacionProfesionalDTO implements Serializable
 
     private String categoria;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "FECHA_INICIO")
     private Date fechaInicio;
 

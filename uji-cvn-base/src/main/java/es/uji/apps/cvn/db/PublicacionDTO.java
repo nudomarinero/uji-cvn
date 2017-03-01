@@ -27,6 +27,7 @@ public class PublicacionDTO implements Serializable
     @Column(name = "EDITORIAL_PUB")
     private String editorialPublicacion;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "FECHA_PUB")
     private Date fechaPublicacion;
 
@@ -80,6 +81,7 @@ public class PublicacionDTO implements Serializable
 
     private String destinatarios;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "FECHA_CREACION")
     private Date fechaCreacion;
 
