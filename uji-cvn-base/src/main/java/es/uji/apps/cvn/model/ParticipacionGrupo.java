@@ -1,5 +1,6 @@
 package es.uji.apps.cvn.model;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -137,6 +138,33 @@ public class ParticipacionGrupo
                 this.duracion = "P" + duracion.intValue() + "D";
             }
         }
+    }
+
+    public boolean isActivo()
+    {
+        boolean activo = true;
+
+        if (!grupoInvestigacion.getActivo())
+        {
+            activo = false;
+        }
+        else if (fechaFin != null)
+        {
+            SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMATTER);
+            try
+            {
+                Date fecha = formatter.parse(fechaFin);
+                if (fecha.before(new Date()))
+                {
+                    activo = false;
+                }
+            }
+            catch (ParseException e)
+            {
+            }
+        }
+
+        return activo;
     }
 
 }

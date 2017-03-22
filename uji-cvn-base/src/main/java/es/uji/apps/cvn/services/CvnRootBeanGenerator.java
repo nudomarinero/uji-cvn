@@ -261,7 +261,12 @@ public class CvnRootBeanGenerator
 
         InvestigadorGrupo investigadorGrupo = cvnItemBean.getInvestigadorGrupo();
         investigadorGrupo.addFechaInicio(participacionGrupo.getFechaInicio());
-        investigadorGrupo.addDuracion(participacionGrupo.getDuracion());
+
+        if (!participacionGrupo.isActivo())
+        {
+            investigadorGrupo.addDuracion(participacionGrupo.getDuracion());
+        }
+
         investigadorGrupo.addClasesColaboracion(participacionGrupo.getTipoColaboracion());
         investigadorGrupo.addResultadosOtros(participacionGrupo.getResultadosDesc());
         investigadorGrupo.addResultadosRelevantes(participacionGrupo.getResultadosRelevantes());
