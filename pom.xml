@@ -14,6 +14,13 @@
     <module>uji-cvn-generacion-pdf</module>
   </modules>
 
+  <repositories>
+    <repository>
+      <id>uji</id>
+      <url>http://devel.uji.es/nexus/content/groups/public/</url>
+    </repository>
+  </repositories>
+
   <scm>
     <connection>scm:svn:http://jira.uji.es/repos/uji/CVN/uji-cvn/trunk</connection>
     <url>http://jira.uji.es/repos/uji/CVN/uji-cvn/trunk</url>
@@ -22,11 +29,11 @@
   <distributionManagement>
     <repository>
       <id>nexus</id>
-      <url>http://devel01.uji.es:8080/nexus/content/repositories/releases</url>
+      <url>http://devel.uji.es/nexus/content/repositories/releases</url>
     </repository>
     <snapshotRepository>
       <id>nexus</id>
-      <url>http://devel01.uji.es:8080/nexus/content/repositories/snapshots</url>
+      <url>http://devel.uji.es/nexus/content/repositories/snapshots</url>
     </snapshotRepository>
   </distributionManagement>
 
