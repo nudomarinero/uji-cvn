@@ -138,7 +138,7 @@ public class CvnRootBeanGenerator
         for (DocenciaImpartida docenciaImpartida : es.uji.apps.cvn.model.plantilla.categorias.Docencia
                 .aplicaFiltros(persona.getDocenciasImpartida(), plantilla))
         {
-            cvn.addCvnItemBean(generateDocenciaImpartida(docenciaImpartida));
+            cvn.addCvnItemBean(generateDocenciaImpartida(docenciaImpartida, plantilla.getIdioma()));
         }
 
         return this.cvn;
@@ -930,21 +930,22 @@ public class CvnRootBeanGenerator
         return spa;
     }
 
-    private CvnItemBean generateDocenciaImpartida(DocenciaImpartida docenciaImpartidaImpartida)
+    private CvnItemBean generateDocenciaImpartida(DocenciaImpartida docenciaImpartidaImpartida,
+            String idioma)
     {
 
         CvnDocencia docencia = new CvnDocencia();
         es.uji.apps.cvn.model.cvn.docente.DocenciaImpartida di = docencia.getDocenciaImpartida();
         di.addTipo(docenciaImpartidaImpartida.getTipo());
         di.addTitulacion(docenciaImpartidaImpartida.getTitulacion(),
-                docenciaImpartidaImpartida.getTitulacionTexto());
+                docenciaImpartidaImpartida.getTitulacionTextoIdioma(idioma));
         di.addPais(docenciaImpartidaImpartida.getPais());
         di.addRegion(docenciaImpartidaImpartida.getRegion());
         di.addCiudad(docenciaImpartidaImpartida.getCiudad());
         di.addEntidad(docenciaImpartidaImpartida.getEntidad());
         di.addTipoEntidad(docenciaImpartidaImpartida.getTipoEntidad());
-        di.addDepartamento(docenciaImpartidaImpartida.getDepartamento());
-        di.addNombreAsignatura(docenciaImpartidaImpartida.getNombreAsignatura());
+        di.addDepartamento(docenciaImpartidaImpartida.getDepartamentoIdioma(idioma));
+        di.addNombreAsignatura(docenciaImpartidaImpartida.getNombreAsignaturaIdioma(idioma));
         di.addCreditos(docenciaImpartidaImpartida.getCreditos());
         di.addTipoHorasCreditos(docenciaImpartidaImpartida.getTipoHorasCreditos());
         di.addIdioma(docenciaImpartidaImpartida.getIdioma());

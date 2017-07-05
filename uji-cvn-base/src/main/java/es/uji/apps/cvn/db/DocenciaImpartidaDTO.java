@@ -3,16 +3,12 @@ package es.uji.apps.cvn.db;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "CVN_VW_PER_DOCENCIA_IMPARTIDA")
+// @Table(name = "CVN_VW_PER_DOCENCIA_IMPARTIDA")
+@Table(name = "CVN_VW_PER_DOCENCIA_IMPART_M")
 public class DocenciaImpartidaDTO implements Serializable
 {
     @Id
@@ -27,6 +23,12 @@ public class DocenciaImpartidaDTO implements Serializable
     @Id
     @Column(name = "TITULACION_TEXTO")
     private String titulacionTexto;
+
+    @Column(name = "TITULACION_TEXTO_ES")
+    private String titulacionTextoEs;
+
+    @Column(name = "TITULACION_TEXTO_UK")
+    private String titulacionTextoUk;
 
     @Column(name = "PAIS")
     private String pais;
@@ -46,9 +48,18 @@ public class DocenciaImpartidaDTO implements Serializable
     @Column(name = "DEPARTAMENTO")
     private String departamento;
 
+    @Column(name = "DEPARTAMENTO_ES")
+    private String departamentoEs;
+
     @Id
     @Column(name = "NOMBRE_ASIGNATURA")
     private String nombreAsignatura;
+
+    @Column(name = "NOMBRE_ASIGNATURA_ES")
+    private String nombreAsignaturaEs;
+
+    @Column(name = "NOMBRE_ASIGNATURA_UK")
+    private String nombreAsignaturaUk;
 
     @Column(name = "TIPO_HORAS_CREDITOS")
     private String tipoHorasCreditos;
@@ -58,7 +69,7 @@ public class DocenciaImpartidaDTO implements Serializable
 
     @Id
     @Column(name = "IDIOMA")
-    private String idioma ;
+    private String idioma;
 
     @Column(name = "N_VECES")
     private Double numeroVeces;
@@ -225,5 +236,55 @@ public class DocenciaImpartidaDTO implements Serializable
     public void setUltimaVez(Date ultimaVez)
     {
         this.ultimaVez = ultimaVez;
+    }
+
+    public String getTitulacionTextoEs()
+    {
+        return titulacionTextoEs;
+    }
+
+    public void setTitulacionTextoEs(String titulacionTextoEs)
+    {
+        this.titulacionTextoEs = titulacionTextoEs;
+    }
+
+    public String getTitulacionTextoUk()
+    {
+        return titulacionTextoUk;
+    }
+
+    public void setTitulacionTextoUk(String titulacionTextoUk)
+    {
+        this.titulacionTextoUk = titulacionTextoUk;
+    }
+
+    public String getDepartamentoEs()
+    {
+        return departamentoEs;
+    }
+
+    public void setDepartamentoEs(String departamentoEs)
+    {
+        this.departamentoEs = departamentoEs;
+    }
+
+    public String getNombreAsignaturaEs()
+    {
+        return nombreAsignaturaEs;
+    }
+
+    public void setNombreAsignaturaEs(String nombreAsignaturaEs)
+    {
+        this.nombreAsignaturaEs = nombreAsignaturaEs;
+    }
+
+    public String getNombreAsignaturaUk()
+    {
+        return nombreAsignaturaUk;
+    }
+
+    public void setNombreAsignaturaUk(String nombreAsignaturaUk)
+    {
+        this.nombreAsignaturaUk = nombreAsignaturaUk;
     }
 }

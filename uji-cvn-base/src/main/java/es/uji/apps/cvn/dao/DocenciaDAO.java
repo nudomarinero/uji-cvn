@@ -52,13 +52,18 @@ public class DocenciaDAO extends BaseDAODatabaseImpl
         docenciaImpartida.setTipo(docenciaImpartidaDTO.getTipo());
         docenciaImpartida.setTitulacion(docenciaImpartidaDTO.getTitulacion());
         docenciaImpartida.setTitulacionTexto(docenciaImpartidaDTO.getTitulacionTexto());
+        docenciaImpartida.setTitulacionTextoEs(docenciaImpartidaDTO.getTitulacionTextoEs());
+        docenciaImpartida.setTitulacionTextoUk(docenciaImpartidaDTO.getTitulacionTextoUk());
         docenciaImpartida.setPais(docenciaImpartidaDTO.getPais());
         docenciaImpartida.setRegion(docenciaImpartidaDTO.getRegion());
         docenciaImpartida.setCiudad(docenciaImpartidaDTO.getCiudad());
         docenciaImpartida.setEntidad(docenciaImpartidaDTO.getEntidad());
         docenciaImpartida.setTipoEntidad(docenciaImpartidaDTO.getTipoEntidad());
         docenciaImpartida.setDepartamento(docenciaImpartidaDTO.getDepartamento());
+        docenciaImpartida.setDepartamentoEs(docenciaImpartidaDTO.getDepartamentoEs());
         docenciaImpartida.setNombreAsignatura(docenciaImpartidaDTO.getNombreAsignatura());
+        docenciaImpartida.setNombreAsignaturaEs(docenciaImpartidaDTO.getNombreAsignaturaEs());
+        docenciaImpartida.setNombreAsignaturaUk(docenciaImpartidaDTO.getNombreAsignaturaUk());
         docenciaImpartida.setTipoHorasCreditos(docenciaImpartidaDTO.getTipoHorasCreditos());
         docenciaImpartida.setCreditos(docenciaImpartidaDTO.getCreditos());
         docenciaImpartida.setIdioma(docenciaImpartidaDTO.getIdioma());

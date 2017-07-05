@@ -17,14 +17,18 @@ public class DocenciaImpartida
     private String entidad;
     private String tipoEntidad;
     private String departamento;
+    private String departamentoEs;
     private String nombreAsignatura;
+    private String nombreAsignaturaEs;
+    private String nombreAsignaturaUk;
     private String tipoHorasCreditos;
     private Double creditos;
-    private String idioma ;
+    private String idioma;
     private Double numeroVeces;
     private XMLGregorianCalendar ultimaVez;
     private String titulacionTexto;
-
+    private String titulacionTextoEs;
+    private String titulacionTextoUk;
 
     public DocenciaImpartida()
     {
@@ -189,5 +193,103 @@ public class DocenciaImpartida
     public void setTitulacionTexto(String titulacionTexto)
     {
         this.titulacionTexto = titulacionTexto;
+    }
+
+    public String getDepartamentoEs()
+    {
+        return departamentoEs;
+    }
+
+    public void setDepartamentoEs(String departamentoEs)
+    {
+        this.departamentoEs = departamentoEs;
+    }
+
+    public String getNombreAsignaturaEs()
+    {
+        return nombreAsignaturaEs;
+    }
+
+    public void setNombreAsignaturaEs(String nombreAsignaturaEs)
+    {
+        this.nombreAsignaturaEs = nombreAsignaturaEs;
+    }
+
+    public String getNombreAsignaturaUk()
+    {
+        return nombreAsignaturaUk;
+    }
+
+    public void setNombreAsignaturaUk(String nombreAsignaturaUk)
+    {
+        this.nombreAsignaturaUk = nombreAsignaturaUk;
+    }
+
+    public void setUltimaVez(XMLGregorianCalendar ultimaVez)
+    {
+        this.ultimaVez = ultimaVez;
+    }
+
+    public String getTitulacionTextoEs()
+    {
+        return titulacionTextoEs;
+    }
+
+    public void setTitulacionTextoEs(String titulacionTextoEs)
+    {
+        this.titulacionTextoEs = titulacionTextoEs;
+    }
+
+    public String getTitulacionTextoUk()
+    {
+        return titulacionTextoUk;
+    }
+
+    public void setTitulacionTextoUk(String titulacionTextoUk)
+    {
+        this.titulacionTextoUk = titulacionTextoUk;
+    }
+
+    public String getTitulacionTextoIdioma(String idioma)
+    {
+        switch (idioma)
+        {
+        case "cat":
+            return titulacionTexto;
+        case "spa":
+            return titulacionTextoEs;
+        case "eng":
+            return titulacionTextoUk;
+        default:
+            return titulacionTexto;
+        }
+    }
+
+    public String getNombreAsignaturaIdioma(String idioma)
+    {
+        switch (idioma)
+        {
+        case "cat":
+            return nombreAsignatura;
+        case "spa":
+            return nombreAsignaturaEs;
+        case "eng":
+            return nombreAsignaturaUk;
+        default:
+            return nombreAsignatura;
+        }
+    }
+
+    public String getDepartamentoIdioma(String idioma)
+    {
+        switch (idioma)
+        {
+        case "cat":
+            return departamento;
+        case "spa":
+            return departamentoEs;
+        default:
+            return departamento;
+        }
     }
 }
