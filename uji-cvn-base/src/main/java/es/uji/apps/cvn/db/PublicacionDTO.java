@@ -87,6 +87,8 @@ public class PublicacionDTO implements Serializable
 
     private String justificacion;
 
+    private String handle;
+
     public Long getnResenyasEnRevistas()
     {
         return nResenyasEnRevistas;
@@ -351,4 +353,23 @@ public class PublicacionDTO implements Serializable
         this.caracter = caracter;
     }
 
+    public String getHandle()
+    {
+        return handle;
+    }
+
+    public void setHandle(String handle)
+    {
+        this.handle = handle;
+    }
+
+    public String getUrl()
+    {
+        if (doi != null)
+        {
+            return doi;
+        }
+
+        return handle;
+    }
 }

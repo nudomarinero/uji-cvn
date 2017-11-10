@@ -49,7 +49,7 @@ public class CongresoDTO implements Serializable
     private Long id;
 
     @Transient
-    //@Column(name = "IS_ACTA")
+    // @Column(name = "IS_ACTA")
     private Boolean isActa;
 
     @Column(name = "IS_PUB_EVALUADA")
@@ -115,6 +115,8 @@ public class CongresoDTO implements Serializable
     private Date fechaPresentacion;
 
     private String horas;
+
+    private String handle;
 
     public CongresoDTO()
     {
@@ -460,4 +462,23 @@ public class CongresoDTO implements Serializable
         this.horas = horas;
     }
 
+    public String getHandle()
+    {
+        return handle;
+    }
+
+    public void setHandle(String handle)
+    {
+        this.handle = handle;
+    }
+
+    public String getUrl()
+    {
+        if (webPub != null)
+        {
+            return webPub;
+        }
+
+        return handle;
+    }
 }

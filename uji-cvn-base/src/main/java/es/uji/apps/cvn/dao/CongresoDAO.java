@@ -221,7 +221,8 @@ public class CongresoDAO extends BaseDAODatabaseImpl
         publicacion.setEditorial(Congreso.getEditorialPublicacionIfCapituloLibro(
                 congresoDTO.getEditorialPub(), publicacion.getTipo()));
         publicacion.setTitulo(congresoDTO.getTituloPublicacion());
-        publicacion.setUrl(congresoDTO.getWebPub());
+        //publicacion.setUrl(congresoDTO.getWebPub());
+        publicacion.setUrl(congresoDTO.getUrl());
         publicacion.setVolumen(congresoDTO.getVolumenPub());
 
         List<AutorPublicacion> autores = getAutoresCongreso(congresoDTO.getId());

@@ -281,7 +281,8 @@ public class PublicacionDAO extends BaseDAODatabaseImpl
         publicacion.setRegion(publicacionDTO.getRegionPublicacion());
         publicacion.setCiudad(publicacionDTO.getCiudadPublicacion());
         publicacion.setFecha(publicacionDTO.getFechaPublicacion());
-        publicacion.setUrl(publicacionDTO.getDoi());
+        //publicacion.setUrl(publicacionDTO.getDoi());
+        publicacion.setUrl(publicacionDTO.getUrl());
         publicacion.setIsbns(Arrays.asList(publicacionDTO.getIsbnPublicacion()));
 
         publicacion.setDepositoLegal(publicacionDTO.getDepositoLegalPublicacion());
@@ -399,7 +400,8 @@ public class PublicacionDAO extends BaseDAODatabaseImpl
         // publicacion.setCiudad(publicacionDTO.getCiudadPublicacion()); //No existe para pub
         // docentes
         publicacion.setFecha(publicacionDTO.getFechaPublicacion());
-        publicacion.setUrl(publicacionDTO.getDoi());
+        //publicacion.setUrl(publicacionDTO.getDoi());
+        publicacion.setUrl(publicacionDTO.getUrl());
         publicacion.setIsbns(Arrays.asList(publicacionDTO.getIsbnPublicacion()));
         publicacion.setDepositoLegal(publicacionDTO.getDepositoLegalPublicacion());
 

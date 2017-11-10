@@ -200,7 +200,8 @@ select id,
   '' destinatarios,
   '' idioma,
   to_date(null) fecha_presentacion,
-  null horas
+  null horas,
+  handle
 from pci_producciones_04
   where isbn is not null and publicado_actas = 'S'
     and estado = 'J'
@@ -241,7 +242,8 @@ select id,
   '' destinatarios,
   '' idioma,
   to_date(null) fecha_presentacion,
-  null horas
+  null horas,
+  handle
 from pci_producciones_04
   where issn is not null and publicado_actas = 'S'
     and estado = 'J'
@@ -282,7 +284,8 @@ select id,
   '' destinatarios,
   '' idioma,
   to_date(null) fecha_presentacion,
-  null horas
+  null horas,
+  handle
 from pci_producciones_04
   where publicado_actas = 'N'
     and estado = 'J'
@@ -323,7 +326,8 @@ select id,
   '' destinatarios,
   '' idioma,
   to_date(null) fecha_presentacion,
-  null horas
+  null horas,
+  null handle
 from pci_producciones_11
   where estado = 'J';
 
