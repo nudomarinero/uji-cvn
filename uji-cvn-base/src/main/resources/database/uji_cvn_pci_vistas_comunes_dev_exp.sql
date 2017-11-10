@@ -165,7 +165,7 @@ from pci_producciones_18
 
 
 -- Congresos
-CREATE OR REPLACE FORCE VIEW "UJI_CVN"."CVN_VIEW_PROD_CONGRESOS_PCI" ("ID", "TITULO", "TIPO_EVENTO", "CARACTER", "TIPO_ACCESO", "AMBITO", "NOMBRE_CONGRESO", "ENTIDAD_ORGANIZADORA", "PAIS_CONGRESO", "REGION_CONGRESO", "CIUDAD_CONGRESO", "FECHA_CONGRESO", "ANO_CONGRESO", "IS_ACTA", "IS_PUB_EVALUADA", "TIPO_PUBLICACION", "TITULO_PUBLICACION", "NOMBRE_PUBLICACION", "VOLUMEN_PUB", "PAGINA_INICIO", "PAGINA_FIN", "EDITORIAL_PUB", "PAIS_PUB", "REGION_PUB", "FECHA_PUB", "WEB_PUB", "ISBN_PUB", "DEP_LEGAL_PUB", "FECHA_FIN", "OBJETIVOS", "DESTINATARIOS", "IDIOMA", "FECHA_PRESENTACION", "HORAS") AS
+CREATE OR REPLACE FORCE VIEW "UJI_CVN"."CVN_VIEW_PROD_CONGRESOS_PCI" ("ID", "TITULO", "TIPO_EVENTO", "CARACTER", "TIPO_ACCESO", "AMBITO", "NOMBRE_CONGRESO", "ENTIDAD_ORGANIZADORA", "PAIS_CONGRESO", "REGION_CONGRESO", "CIUDAD_CONGRESO", "FECHA_CONGRESO", "ANO_CONGRESO", "IS_ACTA", "IS_PUB_EVALUADA", "TIPO_PUBLICACION", "TITULO_PUBLICACION", "NOMBRE_PUBLICACION", "VOLUMEN_PUB", "PAGINA_INICIO", "PAGINA_FIN", "EDITORIAL_PUB", "PAIS_PUB", "REGION_PUB", "FECHA_PUB", "DOI", "ISBN_PUB", "DEP_LEGAL_PUB", "FECHA_FIN", "OBJETIVOS", "DESTINATARIOS", "IDIOMA", "FECHA_PRESENTACION", "HORAS", "URL_DOCUMENTO") AS
 -- Publicado en actas, Libros
 select id,
   titulo,
@@ -192,7 +192,7 @@ select id,
   pais_cod_libro pais_pub,
   null region_pub,
   fecha_pub,
-  doi web_pub,
+  doi,
   isbn isbn_pub,
   dep_legal_libro dep_legal_pub,
   to_date(null) fecha_fin,
@@ -201,7 +201,8 @@ select id,
   '' idioma,
   to_date(null) fecha_presentacion,
   null horas,
-  handle
+  handle,
+  url_documento
 from pci_producciones_04
   where isbn is not null and publicado_actas = 'S'
     and estado = 'J'
@@ -234,7 +235,7 @@ select id,
   pais_cod_revista pais_pais_pub,
   null region_pub,
   fecha_pub,
-  doi web_pub,
+  doi,
   issn isbn_pub,
   '' dep_legal_pub,
   to_date(null) fecha_fin,
@@ -243,7 +244,8 @@ select id,
   '' idioma,
   to_date(null) fecha_presentacion,
   null horas,
-  handle
+  handle,
+  url_documento
 from pci_producciones_04
   where issn is not null and publicado_actas = 'S'
     and estado = 'J'
@@ -276,7 +278,7 @@ select id,
   null pais_pub,
   '' region_pub,
   null fecha_pub,
-  null web_pub,
+  null doi,
   null isbn_pub,
   '' dep_legal_pub,
   to_date(null) fecha_fin,
@@ -285,7 +287,8 @@ select id,
   '' idioma,
   to_date(null) fecha_presentacion,
   null horas,
-  handle
+  null handle,
+  null url_documento
 from pci_producciones_04
   where publicado_actas = 'N'
     and estado = 'J'
@@ -318,7 +321,7 @@ select id,
   null pais_pub,
   '' region_pub,
   null fecha_pub,
-  null web_pub,
+  null doi,
   null isbn_pub,
   '' dep_legal_pub,
   to_date(null) fecha_fin,
@@ -327,7 +330,8 @@ select id,
   '' idioma,
   to_date(null) fecha_presentacion,
   null horas,
-  null handle
+  null handle,
+  null url_documento
 from pci_producciones_11
   where estado = 'J';
 

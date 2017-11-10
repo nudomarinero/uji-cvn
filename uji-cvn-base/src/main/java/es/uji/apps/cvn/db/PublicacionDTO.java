@@ -89,6 +89,9 @@ public class PublicacionDTO implements Serializable
 
     private String handle;
 
+    @Column(name = "URL_DOCUMENTO")
+    private String urlDocumento;
+
     public Long getnResenyasEnRevistas()
     {
         return nResenyasEnRevistas;
@@ -363,13 +366,27 @@ public class PublicacionDTO implements Serializable
         this.handle = handle;
     }
 
+    public String getUrlDocumento()
+    {
+        return urlDocumento;
+    }
+
+    public void setUrlDocumento(String urlDocumento)
+    {
+        this.urlDocumento = urlDocumento;
+    }
+
     public String getUrl()
     {
         if (doi != null)
         {
             return doi;
         }
+        else if (handle != null)
+        {
+            return handle;
+        }
 
-        return handle;
+        return urlDocumento;
     }
 }

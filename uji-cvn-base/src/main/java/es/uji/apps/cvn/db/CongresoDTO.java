@@ -99,8 +99,7 @@ public class CongresoDTO implements Serializable
     @Column(name = "VOLUMEN_PUB")
     private String volumenPub;
 
-    @Column(name = "WEB_PUB")
-    private String webPub;
+    private String doi;
 
     // ESpecíficos de congreso de caracter docente
 
@@ -117,6 +116,9 @@ public class CongresoDTO implements Serializable
     private String horas;
 
     private String handle;
+
+    @Column(name = "URL_DOCUMENTO")
+    private String urlDocumento;
 
     public CongresoDTO()
     {
@@ -402,14 +404,14 @@ public class CongresoDTO implements Serializable
         this.volumenPub = volumenPub;
     }
 
-    public String getWebPub()
+    public String getDoi()
     {
-        return this.webPub;
+        return this.doi;
     }
 
-    public void setWebPub(String webPub)
+    public void setDoi(String doi)
     {
-        this.webPub = webPub;
+        this.doi = doi;
     }
 
     public String getObjetivos()
@@ -472,13 +474,27 @@ public class CongresoDTO implements Serializable
         this.handle = handle;
     }
 
+    public String getUrlDocumento()
+    {
+        return urlDocumento;
+    }
+
+    public void setUrlDocumento(String urlDocumento)
+    {
+        this.urlDocumento = urlDocumento;
+    }
+
     public String getUrl()
     {
-        if (webPub != null)
+        if (doi != null)
         {
-            return webPub;
+            return doi;
+        }
+        else if (handle != null)
+        {
+            return handle;
         }
 
-        return handle;
+        return urlDocumento;
     }
 }
